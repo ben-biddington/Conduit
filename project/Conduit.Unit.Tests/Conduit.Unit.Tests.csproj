@@ -44,5 +44,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Conduit\Conduit.csproj">
+      <Project>{39006605-d504-407c-b9aa-45e26f101a32}</Project>
+      <Name>Conduit</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

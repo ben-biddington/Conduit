@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Conduit.UseCases.Semver;
+using NUnit.Framework;
 using Semver;
 
 namespace Conduit.Unit.Tests.SemanticVersioning
@@ -24,14 +25,6 @@ namespace Conduit.Unit.Tests.SemanticVersioning
             Bump.Major(versionOne);
 
             Assert.That(versionOne.Major, Is.EqualTo(1));
-        }
-    }
-
-    public static class Bump
-    {
-        internal static SemVersion Major(SemVersion version)
-        {
-            return new SemVersion(version.Major + 1);
         }
     }
 }
