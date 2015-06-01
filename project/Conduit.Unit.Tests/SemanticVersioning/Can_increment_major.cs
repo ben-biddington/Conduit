@@ -11,7 +11,7 @@ namespace Conduit.Unit.Tests.SemanticVersioning
         {
             var versionOne = new SemVersion(1);
 
-            var versionTwo = BumpMajor(versionOne);
+            var versionTwo = Bump.Major(versionOne);
 
             Assert.That(versionTwo.Major, Is.EqualTo(2));
         }
@@ -21,16 +21,17 @@ namespace Conduit.Unit.Tests.SemanticVersioning
         {
             var versionOne = new SemVersion(1);
 
-            BumpMajor(versionOne);
+            Bump.Major(versionOne);
 
             Assert.That(versionOne.Major, Is.EqualTo(1));
         }
+    }
 
-        private SemVersion BumpMajor(SemVersion versionOne)
+    public static class Bump
+    {
+        internal static SemVersion Major(SemVersion version)
         {
-            return new SemVersion(versionOne.Major + 1);
+            return new SemVersion(version.Major + 1);
         }
-
-        // TEST: it leaves the value unchanged
     }
 }
