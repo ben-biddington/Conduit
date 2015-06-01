@@ -4,7 +4,6 @@ using Semver;
 
 namespace Conduit.Unit.Tests.SemanticVersioning
 {
-    [TestFixture]
     public class Can_increment_major
     {
         [Test]
