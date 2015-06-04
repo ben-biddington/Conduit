@@ -37,6 +37,17 @@ namespace Conduit.Integration.Tests.Versioning
 		}
 
 		[Test]
+		public void it_ignores_anything_after_patch_for_example_wildcard()
+		{
+			FileMachine.Make("AssemblyInfo.cs", @"
+				[assembly: AssemblyVersion(""1.1.0.*"")]");
+
+			var version = AssemblyVersion.For("AssemblyInfo.cs");
+
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.1.0", true)));
+		}
+
+		[Test]
 		public void version_and_file_version_are_both_available_separately()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
