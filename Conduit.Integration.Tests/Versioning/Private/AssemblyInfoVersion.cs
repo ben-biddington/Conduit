@@ -51,11 +51,12 @@ namespace Conduit.Integration.Tests.Versioning.Private
 			var newVersion = Bump.Major(currentVersion);
 
 			var replacementText = File.ReadAllText(filename);
+			var replace = pattern.Replace(replacementText, string.Format(@"{0}(""{1}.*"")", prefix, newVersion));
 
 			using (var s = File.OpenWrite(filename))
 			using (var writer = new StreamWriter(s))
 			{
-				writer.Write(pattern.Replace(replacementText, newVersion.ToString()));
+				writer.Write(replace);
 			}
 		}
 	}

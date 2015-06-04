@@ -47,5 +47,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.0.0", true)));
 		}
+
+		// TEST: it preserves everything under patch exactly as it was
 	}
 }
