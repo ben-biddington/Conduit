@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using Semver;
 
@@ -25,16 +29,6 @@ namespace Conduit.Integration.Tests.Versioning
 		public void for_example()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
-				// Version information for an assembly consists of the following four values:
-				//
-				//      Major Version
-				//      Minor Version 
-				//      Build Number
-				//      Revision
-				//
-				// You can specify all the values or you can default the Build and Revision Numbers 
-				// by using the '*' as shown below:
-				// [assembly: AssemblyVersion(""1.0.*"")]
 				[assembly: AssemblyVersion(""1.337.0.0"")]
 				[assembly: AssemblyFileVersion(""1.337.0.0"")]");
 
@@ -44,12 +38,39 @@ namespace Conduit.Integration.Tests.Versioning
 		}
 
 		// TEST: it fails when the file does not exist
+		// TEST: it ignores anything after patch because <SemVersion> does not like it
 	}
 
 	internal static class AssemblyVersion
 	{
+		private const string VERSION_PATTERN = @"\(""(?<versionstring>([^.]+).([^.]+).([^.]+)).([^.]+)""\)";
+
 		public static SemVersion For(string filename)
 		{
+			var lines = File.ReadAllLines(filename);
+
+			var assembltFileVersionPattern = new Regex(string.Format("AssemblyFileVersion{0}", VERSION_PATTERN), RegexOptions.Compiled);
+
+			foreach (var line in lines.Where(it => false == string.IsNullOrEmpty(it)))
+			{
+				Match match = assembltFileVersionPattern.Match(line);
+
+				if (match.Success)
+				{
+					var version = match.Groups["versionstring"].Value;
+					
+					try
+					{
+						return SemVersion.Parse(version);
+					}
+					catch (Exception)
+					{
+						
+						throw new Exception("Failed to parse ethis text to version <" + version + ">");
+					}
+				}
+			}
+
 			return new SemVersion(0);
 		}
 	}
