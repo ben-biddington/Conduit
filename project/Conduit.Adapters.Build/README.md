@@ -6,7 +6,7 @@ For example, there is a trask called `List` that prints the list of all availabl
 Register it like:
 
 ```
-<UsingTask TaskName="List" AssemblyFile="C:\sauce\Conduit\project\Conduit.Adapters.Build\bin\Debug\Conduit.Adapters.Build.dll" />
+<UsingTask TaskName="List" AssemblyFile="$(OutputPath)\Conduit.Adapters.Build.dll" />
 <Target Name="L">
 	<List />
 </Target>
