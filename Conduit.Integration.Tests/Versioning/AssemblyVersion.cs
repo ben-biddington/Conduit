@@ -9,5 +9,10 @@ namespace Conduit.Integration.Tests.Versioning
 		{
 			return AssemblyInfoVersion.For(filename, "AssemblyVersion");
 		}
+
+		public static void BumpMajor(string filename)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

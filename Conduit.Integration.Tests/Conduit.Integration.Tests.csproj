@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Versioning\AssemblyFileVersion.cs" />
     <Compile Include="Versioning\AssemblyVersion.cs" />
+    <Compile Include="Versioning\Can_bump_an_assembly_version.cs" />
     <Compile Include="Versioning\Can_query_assembly_version.cs" />
     <Compile Include="Support\CleanRoom.cs" />
     <Compile Include="Support\FileMachine.cs" />
