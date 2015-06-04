@@ -48,6 +48,7 @@
     <Compile Include="Versioning\Can_query_assembly_version.cs" />
     <Compile Include="Support\CleanRoom.cs" />
     <Compile Include="Support\FileMachine.cs" />
+    <Compile Include="Versioning\Private\AssemblyInfoVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
