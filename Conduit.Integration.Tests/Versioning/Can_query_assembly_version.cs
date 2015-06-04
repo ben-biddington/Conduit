@@ -61,7 +61,14 @@ namespace Conduit.Integration.Tests.Versioning
 			Assert.That(fileVersion, Is.EqualTo(SemVersion.Parse("1.338.0", true)));
 		}
 
-		// TEST: it fails when the file does not exist
+		[Test]
+		public void it_fails_when_file_does_not_exist()
+		{
+			FileMachine.Make("MisnamedFile.cs", @"
+				[assembly: AssemblyVersion(""1.1.0.*"")]");
+
+			Assert.Throws<FileNotFoundException>(() => AssemblyVersion.For("AssemblyInfo.cs"));
+		}
 	}
 
 	internal static class AssemblyVersion
@@ -164,7 +171,8 @@ namespace Conduit.Integration.Tests.Versioning
 		public void Exit()
 		{
 			Directory.SetCurrentDirectory(_previousDir);
-			Directory.CreateDirectory(_pwd);
+			Console.WriteLine(_tempDir);
+			Directory.Delete(_tempDir, true);
 		}
 	}
 }
