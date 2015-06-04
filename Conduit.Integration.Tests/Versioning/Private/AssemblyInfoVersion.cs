@@ -12,11 +12,9 @@ namespace Conduit.Integration.Tests.Versioning.Private
 
 		public static SemVersion For(string filename, string prefix)
 		{
-			var lines = File.ReadAllLines(filename);
-
 			var assemblyFileVersionPattern = new Regex(string.Format("{0}{1}",prefix, VERSION_PATTERN), RegexOptions.Compiled);
 
-			foreach (var line in lines.Where(it => false == string.IsNullOrEmpty(it)))
+			foreach (var line in File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it)))
 			{
 				var match = assemblyFileVersionPattern.Match(line);
 
