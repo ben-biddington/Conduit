@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using Conduit.Integration.Tests.Support;
+using Conduit.UseCases.Semver.Semver;
 using NUnit.Framework;
-using Semver;
 
 namespace Conduit.Integration.Tests.Versioning
 {

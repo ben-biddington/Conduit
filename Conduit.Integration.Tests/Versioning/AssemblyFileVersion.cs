@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Semver;
+using Conduit.UseCases.Semver.Semver;
 
 namespace Conduit.Integration.Tests.Versioning
 {

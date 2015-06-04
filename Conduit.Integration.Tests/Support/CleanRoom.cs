@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Conduit.Integration.Tests.Versioning
+namespace Conduit.Integration.Tests.Support
 {
 	class CleanRoom
 	{

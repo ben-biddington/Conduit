@@ -1,6 +1,6 @@
 ﻿using Conduit.UseCases.Semver;
+using Conduit.UseCases.Semver.Semver;
 using NUnit.Framework;
-using Semver;
 
 namespace Conduit.Unit.Tests.SemanticVersioning
 {

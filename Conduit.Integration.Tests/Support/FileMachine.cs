@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Conduit.Integration.Tests.Versioning
+namespace Conduit.Integration.Tests.Support
 {
 	internal static class FileMachine
 	{

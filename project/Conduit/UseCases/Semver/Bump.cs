@@ -1,4 +1,4 @@
-﻿using Semver;
+﻿using Conduit.UseCases.Semver.Semver;
 
 namespace Conduit.UseCases.Semver
 {
