@@ -1,6 +1,8 @@
 ﻿using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Semver.Semver;
 using NUnit.Framework;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Conduit.Integration.Tests.Versioning
 {
@@ -48,6 +50,32 @@ namespace Conduit.Integration.Tests.Versioning
 			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.0.0", true)));
 		}
 
+		[Test]
+		public void it_preserves_everything_under_patch()
+		{
+			FileMachine.Make("AssemblyInfo.cs", @"
+				[assembly: AssemblyVersion(""0.0.0.*"")]");
+
+			AssemblyVersion.BumpMajor("AssemblyInfo.cs");
+
+			var version = AssemblyVersion.For("AssemblyInfo.cs");
+
+			Assert.That(TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion (""1.0.0.*""))"));
+		}
+
 		// TEST: it preserves everything under patch exactly as it was
+	}
+
+	internal static class TextFile {
+		internal static bool Contains(string filename, string expected) 
+		{
+			foreach (var line in System.IO.File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it)))
+			{
+				if (line.Contains(expected))
+					return true;
+			}
+
+			return false;
+		}
 	}
 }
