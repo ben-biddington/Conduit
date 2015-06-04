@@ -25,7 +25,6 @@ namespace Conduit.Integration.Tests.Support
 		public void Exit()
 		{
 			Directory.SetCurrentDirectory(_previousDir);
-			Console.WriteLine(_tempDir);
 			Directory.Delete(_tempDir, true);
 		}
 	}
