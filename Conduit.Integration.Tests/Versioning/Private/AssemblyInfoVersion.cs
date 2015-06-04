@@ -37,7 +37,7 @@ namespace Conduit.Integration.Tests.Versioning.Private
 			}
 			catch (Exception)
 			{
-				throw new Exception("Failed to parse ethis text to version <" + version + ">");
+				throw new Exception("Failed to parse this text to version <" + version + ">");
 			}
 		}
 	}
