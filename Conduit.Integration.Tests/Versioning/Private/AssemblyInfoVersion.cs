@@ -10,7 +10,7 @@ namespace Conduit.Integration.Tests.Versioning.Private
 	{
 		private const string VERSION_PATTERN = @"\(""(?<versionstring>([^.]+).([^.]+).([^.]+)).([^.]+)""\)";
 
-		public static SemVersion For(string filename, string prefix)
+		internal static SemVersion For(string filename, string prefix)
 		{
 			var assemblyFileVersionPattern = new Regex(string.Format("{0}{1}",prefix, VERSION_PATTERN), RegexOptions.Compiled);
 

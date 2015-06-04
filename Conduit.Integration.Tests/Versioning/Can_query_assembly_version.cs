@@ -67,5 +67,15 @@ namespace Conduit.Integration.Tests.Versioning
 
 			Assert.Throws<FileNotFoundException>(() => AssemblyVersion.For("AssemblyInfo.cs"));
 		}
+
+		[Test]
+		public void it_returns_blank_version_when_nothing_matches()
+		{
+			FileMachine.Make("AssemblyInfo.cs", @"// Just other stuff, no version attributes");
+
+			var version = AssemblyVersion.For("AssemblyInfo.cs");
+
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("0.0.0", true)));
+		}
 	}
 }
