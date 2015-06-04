@@ -1,9 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit", "project\Conduit\Conduit.csproj", "{39006605-D504-407C-B9AA-45E26F101A32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Unit.Tests", "project\Conduit.Unit.Tests\Conduit.Unit.Tests.csproj", "{47F51F0B-A247-4A15-BE9E-2089E4A14D4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{9C20B816-2B63-47E3-9966-5C3B72A81A41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Adapters.Build", "project\Conduit.Adapters.Build\Conduit.Adapters.Build.csproj", "{C9C2EBEF-91DB-4F27-BE02-9551227FB333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +25,16 @@ Global
 		{47F51F0B-A247-4A15-BE9E-2089E4A14D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47F51F0B-A247-4A15-BE9E-2089E4A14D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F51F0B-A247-4A15-BE9E-2089E4A14D4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39006605-D504-407C-B9AA-45E26F101A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39006605-D504-407C-B9AA-45E26F101A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39006605-D504-407C-B9AA-45E26F101A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39006605-D504-407C-B9AA-45E26F101A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9C2EBEF-91DB-4F27-BE02-9551227FB333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C2EBEF-91DB-4F27-BE02-9551227FB333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C2EBEF-91DB-4F27-BE02-9551227FB333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C2EBEF-91DB-4F27-BE02-9551227FB333}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C9C2EBEF-91DB-4F27-BE02-9551227FB333} = {9C20B816-2B63-47E3-9966-5C3B72A81A41}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = project\Conduit\Conduit.csproj
