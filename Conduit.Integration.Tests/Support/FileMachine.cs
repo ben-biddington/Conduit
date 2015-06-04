@@ -10,6 +10,8 @@ namespace Conduit.Integration.Tests.Support
 			using (var writer = new StreamWriter(s))
 			{
 				writer.Write(content);
+				writer.Flush();
+				writer.Close();
 			}
 		}
 	}

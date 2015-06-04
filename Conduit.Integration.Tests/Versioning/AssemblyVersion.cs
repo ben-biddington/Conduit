@@ -12,7 +12,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 		public static void BumpMajor(string filename)
 		{
-			throw new System.NotImplementedException();
+			AssemblyInfoVersion.BumpMajor(filename, "AssemblyVersion");
 		}
 	}
 }
