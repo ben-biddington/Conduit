@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.IO;
 using System;
+using Conduit.UseCases.Semver.Assemblies;
 
 namespace Conduit.Integration.Tests.Versioning
 {
@@ -59,8 +60,6 @@ namespace Conduit.Integration.Tests.Versioning
 				[assembly: AssemblyVersion(""0.0.0.*"")]");
 
 			AssemblyVersion.BumpMajor("AssemblyInfo.cs");
-
-			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
 			Assert.That(TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion(""1.0.0.*"")"), 
 			            @"Expected this text to contain <""AssemblyVersion(""1.0.0.*""))"">: " + File.ReadAllText("AssemblyInfo.cs"));

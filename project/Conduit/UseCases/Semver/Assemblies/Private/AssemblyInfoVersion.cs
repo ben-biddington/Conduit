@@ -5,14 +5,15 @@ using System.Text.RegularExpressions;
 using Conduit.UseCases.Semver;
 using Conduit.UseCases.Semver.Semver;
 using System.Collections.Generic;
+using Conduit.UseCases.Semver.Assemblies.Private;
 
-namespace Conduit.Integration.Tests.Versioning.Private
+namespace Conduit.UseCases.Semver.Assemblies.Private
 {
 	internal static class AssemblyInfoVersion
 	{
 		internal static void BumpMajor(string filename, string prefix)
 		{
-			var newVersion = Bump.Major(Conduit.Integration.Tests.Versioning.AssemblyInfoVersion.For.File(filename, prefix));
+			var newVersion = Bump.Major(Version.For.File(filename, prefix));
 
 			var lines = new List<string>();
 

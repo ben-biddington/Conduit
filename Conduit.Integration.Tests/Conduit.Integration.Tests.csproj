@@ -45,16 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Versioning\AssemblyFileVersion.cs" />
-    <Compile Include="Versioning\AssemblyVersion.cs" />
     <Compile Include="Versioning\Can_bump_an_assembly_version.cs" />
     <Compile Include="Versioning\Can_query_assembly_version.cs" />
     <Compile Include="Support\CleanRoom.cs" />
     <Compile Include="Support\FileMachine.cs" />
-    <Compile Include="Versioning\Private\AssemblyInfoVersion.cs" />
-    <Compile Include="Versioning\Private\Matching.cs" />
-    <Compile Include="Versioning\Private\AssemblyInfoLine.cs" />
-    <Compile Include="Versioning\AssemblyInfoVersion\For.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

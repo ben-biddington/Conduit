@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 using Conduit.UseCases.Semver;
 using Conduit.UseCases.Semver.Semver;
 using System.Collections.Generic;
-using Conduit.Integration.Tests.Versioning.Private;
+using Conduit.UseCases.Semver.Assemblies.Private;
 
-namespace Conduit.Integration.Tests.Versioning.AssemblyInfoVersion
+namespace Conduit.UseCases.Semver.Assemblies.Version
 {
 	public static class For 
 	{

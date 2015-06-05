@@ -6,9 +6,8 @@ using Conduit.UseCases.Semver;
 using Conduit.UseCases.Semver.Semver;
 using System.Collections.Generic;
 
-namespace Conduit.Integration.Tests.Versioning.Private
+namespace Conduit.UseCases.Semver.Assemblies.Private
 {
-
 	internal static class AssemblyInfoLine 
 	{
 		internal static bool IsComment(string line)
