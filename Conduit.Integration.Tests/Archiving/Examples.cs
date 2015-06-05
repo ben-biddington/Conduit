@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using Conduit.Integration.Tests.Support;
+using Conduit.UseCases.Archiving;
 
 namespace Conduit.Integration.Tests.Archiving
 {
@@ -30,19 +31,6 @@ namespace Conduit.Integration.Tests.Archiving
 
 			Assert.That(archive.Contains("README.md"));
 		}
-	}
-
-	internal class Archive
-	{
-		public bool Contains (string rEADMEmd)
-		{
-			return false;	
-		}
-
-		internal static Archive At (string examplezip)
-		{
-			return new Archive();
-		}
-	}
+	}	
 }
 
