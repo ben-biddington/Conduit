@@ -43,7 +43,7 @@ namespace Conduit.Integration.Tests.Versioning.Private
 		{
 			var pattern = new Regex(Matching.Pattern(prefix), RegexOptions.Compiled);
 					
-			foreach (var line in File.ReadAllLines(filename).Where(AssemblyInfoLine.IsInstruction))
+			foreach (var line in Lines(filename))
 			{
 				var match = pattern.Match(line);
 
@@ -80,7 +80,7 @@ namespace Conduit.Integration.Tests.Versioning.Private
 
 			var lines = new List<string>();
 
-			foreach (var line in File.ReadAllLines(filename).Where(AssemblyInfoLine.IsInstruction))
+			foreach (var line in Lines(filename))
 			{
 				var match = pattern.Match(line);
 
@@ -98,6 +98,13 @@ namespace Conduit.Integration.Tests.Versioning.Private
 			using (var writer = new StreamWriter(s))
 			{
 				writer.Write(string.Join (Environment.NewLine, lines.ToArray()));
+			}
+		}
+
+		private static IEnumerable<string> Lines(string filename) {
+			foreach (var line in File.ReadAllLines(filename).Where(AssemblyInfoLine.IsInstruction))
+			{
+				yield return line;
 			}
 		}
 	}
