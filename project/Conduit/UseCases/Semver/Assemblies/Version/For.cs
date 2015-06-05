@@ -7,7 +7,7 @@ using Conduit.UseCases.Semver.Semver;
 using System.Collections.Generic;
 using Conduit.UseCases.Semver.Assemblies.Private;
 
-namespace Conduit.UseCases.Semver.Assemblies.Version
+namespace Conduit.UseCases.Semver.Assemblies.Private.Version
 {
 	internal static class For 
 	{

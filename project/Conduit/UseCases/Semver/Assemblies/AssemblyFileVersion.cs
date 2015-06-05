@@ -7,7 +7,7 @@ namespace Conduit.UseCases.Semver.Assemblies
 	{
 		public static SemVersion For(string filename)
 		{
-			return Version.For.File(filename, "AssemblyFileVersion");
+			return Conduit.UseCases.Semver.Assemblies.Private.Version.For.File(filename, "AssemblyFileVersion");
 		}
 
 		public static void BumpMajor(string filename)
