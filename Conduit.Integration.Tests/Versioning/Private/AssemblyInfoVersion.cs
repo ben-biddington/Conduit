@@ -12,7 +12,7 @@ namespace Conduit.Integration.Tests.Versioning.Private
 	{
 		public static void BumpMajor(string filename, string prefix)
 		{
-			var newVersion = Bump.Major(For (filename, prefix));
+			var newVersion = Bump.Major(For(filename, prefix));
 
 			var lines = new List<string>();
 
@@ -22,14 +22,9 @@ namespace Conduit.Integration.Tests.Versioning.Private
 			{
 				var match = pattern.Match(line);
 
-				if (match.Success)
-				{
-					var newVersionLine = string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion, match.Groups["suffix"].Value);
-
-					lines.Add(newVersionLine);
-				} else {
-					lines.Add(line);
-				}
+				lines.Add(match.Success 
+					? string.Format ("{0}{1}(\"{2}{3}", match.Groups ["preamble"].Value, match.Groups ["prefix"].Value, newVersion, match.Groups ["suffix"].Value) 
+	        : line);
 			}
 
 			Spit(filename, string.Join (Environment.NewLine, lines));
