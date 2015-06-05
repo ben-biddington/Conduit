@@ -54,6 +54,7 @@
     <Compile Include="Versioning\Private\AssemblyInfoVersion.cs" />
     <Compile Include="Versioning\Private\Matching.cs" />
     <Compile Include="Versioning\Private\AssemblyInfoLine.cs" />
+    <Compile Include="Versioning\AssemblyInfoVersion\For.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -7,7 +7,7 @@ namespace Conduit.Integration.Tests.Versioning
 	{
 		public static SemVersion For(string filename)
 		{
-			return AssemblyInfoVersion.For(filename, "AssemblyFileVersion");
+			return Conduit.Integration.Tests.Versioning.AssemblyInfoVersion.For.File(filename, "AssemblyFileVersion");
 		}
 	}
 }

@@ -7,12 +7,12 @@ namespace Conduit.Integration.Tests.Versioning
 	{
 		public static SemVersion For(string filename)
 		{
-			return AssemblyInfoVersion.For(filename, "AssemblyVersion");
+			return Conduit.Integration.Tests.Versioning.AssemblyInfoVersion.For.File(filename, "AssemblyVersion");
 		}
 
 		public static void BumpMajor(string filename)
 		{
-			AssemblyInfoVersion.BumpMajor(filename, "AssemblyVersion");
+			Conduit.Integration.Tests.Versioning.Private.AssemblyInfoVersion.BumpMajor(filename, "AssemblyVersion");
 		}
 	}
 }

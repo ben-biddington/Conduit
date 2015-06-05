@@ -10,9 +10,9 @@ namespace Conduit.Integration.Tests.Versioning.Private
 {
 	internal static class AssemblyInfoVersion
 	{
-		public static void BumpMajor(string filename, string prefix)
+		internal static void BumpMajor(string filename, string prefix)
 		{
-			var newVersion = Bump.Major(For(filename, prefix));
+			var newVersion = Bump.Major(Conduit.Integration.Tests.Versioning.AssemblyInfoVersion.For.File(filename, prefix));
 
 			var lines = new List<string>();
 
@@ -36,37 +36,6 @@ namespace Conduit.Integration.Tests.Versioning.Private
 			using (var writer = new StreamWriter(s))
 			{
 				writer.Write(content);
-			}
-		}
-
-		internal static SemVersion For(string filename, string prefix)
-		{
-			var pattern = new Regex(Matching.Pattern(prefix), RegexOptions.Compiled);
-					
-			foreach (var line in Lines(filename))
-			{
-				var match = pattern.Match(line);
-
-				if (match.Success)
-				{
-					return SemVersionFrom(match);
-				}
-			}
-
-			return new SemVersion(0);
-		}
-
-		private static SemVersion SemVersionFrom(Match match)
-		{
-			var version = match.Groups["versionstring"].Value;
-
-			try
-			{
-				return SemVersion.Parse(version);
-			}
-			catch (Exception)
-			{
-				throw new Exception("Failed to parse this text to version <" + version + ">");
 			}
 		}
 
