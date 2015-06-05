@@ -32,10 +32,15 @@ namespace Conduit.Integration.Tests.Versioning.Private
 				}
 			}
 
+			Spit(filename, string.Join (Environment.NewLine, lines));
+		}
+
+		private static void Spit(string filename, string content)
+		{
 			using (var s = File.Open(filename, FileMode.Truncate))
-				using (var writer = new StreamWriter(s))
+			using (var writer = new StreamWriter(s))
 			{
-				writer.Write(string.Join (Environment.NewLine, lines.ToArray()));
+				writer.Write(content);
 			}
 		}
 
