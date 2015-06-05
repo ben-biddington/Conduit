@@ -4,3 +4,4 @@ packages
 **/**/test-results
 *.suo
 *.user
+*.userprefs
