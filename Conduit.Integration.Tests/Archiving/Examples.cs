@@ -23,13 +23,15 @@ namespace Conduit.Integration.Tests.Archiving
 		}
 
 		[Test]
-		public void the_basics() 
+		public void cannot_work_on_mono() 
 		{
 			FileMachine.Make("README.md", @"Expect this to be added to the archive");
 
-			var archive = Archive.At("Example.zip");
+			var archive = Archive.At ("Example.zip");
 
-			Assert.That(archive.Contains("README.md"));
+			var err = Assert.Throws<NotImplementedException>(() => archive.Contains("README.md"));
+
+			Assert.That(err.Message, Is.StringMatching("The requested feature is not implemented"), "This will fail on mono as it has yet to be implemented");
 		}
 	}	
 }
