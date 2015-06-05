@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{9C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Adapters.Build", "project\Conduit.Adapters.Build\Conduit.Adapters.Build.csproj", "{C9C2EBEF-91DB-4F27-BE02-9551227FB333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Integration.Tests", "Conduit.Integration.Tests\Conduit.Integration.Tests.csproj", "{648C9420-5779-4E58-9320-CB876641FD82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Integration.Tests", "project\Conduit.Integration.Tests\Conduit.Integration.Tests.csproj", "{648C9420-5779-4E58-9320-CB876641FD82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
