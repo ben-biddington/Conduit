@@ -11,6 +11,8 @@
     <AssemblyName>Conduit.Integration.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +52,8 @@
     <Compile Include="Support\CleanRoom.cs" />
     <Compile Include="Support\FileMachine.cs" />
     <Compile Include="Versioning\Private\AssemblyInfoVersion.cs" />
+    <Compile Include="Versioning\Private\Matching.cs" />
+    <Compile Include="Versioning\Private\AssemblyInfoLine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

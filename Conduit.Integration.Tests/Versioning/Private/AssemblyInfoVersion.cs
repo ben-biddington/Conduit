@@ -8,35 +8,6 @@ using System.Collections.Generic;
 
 namespace Conduit.Integration.Tests.Versioning.Private
 {
-	internal static class Matching
-	{
-		private const string VERSION_PATTERN = @"\(""(?<versionstring>([^.]+).([^.]+).([^.]+))(?<suffix>.+)";
-
-		internal static string Pattern(string prefix) {
-			return string.Format(
-				@"(?<preamble>.+)(?<prefix>{0})\(""(?<versionstring>([^.]+).([^.]+).([^.]+))(?<suffix>.+)",
-				prefix);
-		}
-	}
-
-	internal static class AssemblyInfoLine 
-	{
-		internal static bool IsComment(string line)
-		{
-			return (line ?? string.Empty).TrimStart().StartsWith ("//");
-		}
-
-		internal static bool IsBlank(string line)
-		{
-			return string.IsNullOrEmpty((line ?? string.Empty).Trim());
-		}
-
-		internal static bool IsInstruction(string line)
-		{
-			return false == IsBlank(line) && false == IsComment(line);
-		}
-	}
-
 	internal static class AssemblyInfoVersion
 	{
 		public static void BumpMajor(string filename, string prefix)
