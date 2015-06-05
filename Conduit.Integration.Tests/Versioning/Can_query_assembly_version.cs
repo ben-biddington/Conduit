@@ -3,6 +3,7 @@ using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Semver.Semver;
 using NUnit.Framework;
 using Conduit.UseCases.Semver.Assemblies;
+using System;
 
 namespace Conduit.Integration.Tests.Versioning
 {
@@ -110,6 +111,17 @@ namespace Conduit.Integration.Tests.Versioning
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
 			Assert.That(version, Is.EqualTo(SemVersion.Parse("0.0.0")));
+		}
+
+		[Test]
+		public void it_does_not_support_non_numeric_versions_like_wildcards_for_example() 
+		{
+			FileMachine.Make("AssemblyInfo.cs", @"
+				[assembly: AssemblyVersion(""1.0.*"")]");
+
+			var err = Assert.Throws<Exception>(() => AssemblyVersion.For("AssemblyInfo.cs"));
+
+			Assert.That (err.Message, Is.StringContaining ("Failed to parse"));
 		}
 
 		// TEST: it cannot handle wildcards like: [assembly: AssemblyVersion("1.0.*")]
