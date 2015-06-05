@@ -72,13 +72,11 @@ namespace Conduit.Integration.Tests.Versioning.Private
 
 		public static void BumpMajor(string filename, string prefix)
 		{
-			var pattern = new Regex(Matching.Pattern(prefix));
-
-			var currentVersion = For(filename, prefix);
-
-			var newVersion = Bump.Major(currentVersion);
+			var newVersion = Bump.Major(For (filename, prefix));
 
 			var lines = new List<string>();
+
+			var pattern = new Regex(Matching.Pattern(prefix));
 
 			foreach (var line in Lines(filename))
 			{
