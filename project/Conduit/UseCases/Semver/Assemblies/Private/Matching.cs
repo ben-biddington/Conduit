@@ -17,6 +17,5 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 				@"(?<preamble>.+)(?<prefix>{0})\(""(?<versionstring>([^.]+).([^.]+).([^.]+))(?<suffix>.+)",
 				prefix);
 		}
-	}
-	
+	}	
 }

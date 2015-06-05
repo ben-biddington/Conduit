@@ -25,5 +25,4 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 			return false == IsBlank(line) && false == IsComment(line);
 		}
 	}
-	
 }

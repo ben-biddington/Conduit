@@ -9,9 +9,9 @@ using Conduit.UseCases.Semver.Assemblies.Private;
 
 namespace Conduit.UseCases.Semver.Assemblies.Version
 {
-	public static class For 
+	internal static class For 
 	{
-		public static SemVersion File(string filename, string prefix)
+		internal static SemVersion File(string filename, string prefix)
 		{
 			var pattern = new Regex(Matching.Pattern(prefix), RegexOptions.Compiled);
 
