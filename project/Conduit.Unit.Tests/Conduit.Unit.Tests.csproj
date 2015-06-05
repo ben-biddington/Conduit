@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Conduit.Unit.Tests</RootNamespace>
     <AssemblyName>Conduit.Unit.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Conduit\Conduit.csproj">
-      <Project>{39006605-d504-407c-b9aa-45e26f101a32}</Project>
+      <Project>{39006605-D504-407C-B9AA-45E26F101A32}</Project>
       <Name>Conduit</Name>
     </ProjectReference>
   </ItemGroup>
