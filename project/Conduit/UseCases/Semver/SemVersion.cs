@@ -115,7 +115,7 @@ namespace Conduit.UseCases.Semver
 			/// <param name="strict">If set to <c>true</c> minor and patch version are required, else they default to 0.</param>
 			/// <returns>The SemVersion object.</returns>
 			/// <exception cref="System.InvalidOperationException">When a invalid version string is passed.</exception>
-			public static SemVersion Parse(string version, bool strict = false)
+			public static SemVersion Parse(string version)
 			{
 				var match = parseEx.Match(version);
 				if (!match.Success)
@@ -127,14 +127,14 @@ namespace Conduit.UseCases.Semver
 				int minor = 0;
 				if (minorMatch.Success)
 					minor = Int32.Parse(minorMatch.Value, CultureInfo.InvariantCulture);
-				else if (strict)
+				else 
 					throw new InvalidOperationException("Invalid version (no minor version given in strict mode)");
 
 				var patchMatch = match.Groups["patch"];
 				int patch = 0;
 				if (patchMatch.Success)
 					patch = Int32.Parse(patchMatch.Value, CultureInfo.InvariantCulture);
-				else if (strict)
+				else 
 					throw new InvalidOperationException("Invalid version (no patch version given in strict mode)");
 
 				var prerelease = match.Groups["pre"].Value;
@@ -152,11 +152,11 @@ namespace Conduit.UseCases.Semver
 			/// version string was not valid.</param>
 			/// <param name="strict">If set to <c>true</c> minor and patch version are required, else they default to 0.</param>
 			/// <returns><c>False</c> when a invalid version string is passed, otherwise <c>true</c>.</returns>
-			public static bool TryParse(string version, out SemVersion semver, bool strict = false)
+			public static bool TryParse(string version, out SemVersion semver)
 			{
 				try
 				{
-					semver = Parse(version, strict);
+					semver = Parse(version);
 					return true;
 				}
 				catch (Exception)

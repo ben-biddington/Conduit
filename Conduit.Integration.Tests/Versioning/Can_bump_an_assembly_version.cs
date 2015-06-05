@@ -50,7 +50,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.0.0", true)));
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.0.0")));
 		}
 
 		[Test]

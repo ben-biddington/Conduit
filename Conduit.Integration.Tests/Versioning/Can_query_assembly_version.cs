@@ -65,7 +65,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.337.0", true)));
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.337.0")));
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.1.0", true)));
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.1.0")));
 		}
 
 		[Test]
@@ -89,8 +89,8 @@ namespace Conduit.Integration.Tests.Versioning
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 			var fileVersion = AssemblyFileVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.337.0", true)));
-			Assert.That(fileVersion, Is.EqualTo(SemVersion.Parse("1.338.0", true)));
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.337.0")));
+			Assert.That(fileVersion, Is.EqualTo(SemVersion.Parse("1.338.0")));
 		}
 
 		[Test]
@@ -109,7 +109,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("0.0.0", true)));
+			Assert.That(version, Is.EqualTo(SemVersion.Parse("0.0.0")));
 		}
 
 		// TEST: it cannot handle wildcards like: [assembly: AssemblyVersion("1.0.*")]
