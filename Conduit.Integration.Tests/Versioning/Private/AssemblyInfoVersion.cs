@@ -19,13 +19,31 @@ namespace Conduit.Integration.Tests.Versioning.Private
 		}
 	}
 
+	internal static class AssemblyInfoLine 
+	{
+		internal static bool IsComment(string line)
+		{
+			return (line ?? string.Empty).TrimStart().StartsWith ("//");
+		}
+
+		internal static bool IsBlank(string line)
+		{
+			return string.IsNullOrEmpty((line ?? string.Empty).Trim());
+		}
+
+		internal static bool IsInstruction(string line)
+		{
+			return false == IsBlank(line) && false == IsComment(line);
+		}
+	}
+
 	internal static class AssemblyInfoVersion
 	{
 		internal static SemVersion For(string filename, string prefix)
 		{
 			var pattern = new Regex(Matching.Pattern(prefix), RegexOptions.Compiled);
 					
-			foreach (var line in File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it) && false == it.TrimStart().StartsWith("//")))
+			foreach (var line in File.ReadAllLines(filename).Where(AssemblyInfoLine.IsInstruction))
 			{
 				var match = pattern.Match(line);
 
@@ -62,7 +80,7 @@ namespace Conduit.Integration.Tests.Versioning.Private
 
 			var lines = new List<string>();
 
-			foreach (var line in File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it) && false == it.TrimStart().StartsWith("//")))
+			foreach (var line in File.ReadAllLines(filename).Where(AssemblyInfoLine.IsInstruction))
 			{
 				var match = pattern.Match(line);
 
