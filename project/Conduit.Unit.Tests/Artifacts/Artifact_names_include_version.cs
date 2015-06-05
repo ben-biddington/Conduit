@@ -4,6 +4,8 @@ using Conduit.UseCases.Semver.Semver;
 
 namespace Conduit.Unit.Tests
 {
+	// TEST: artifact names look like `Assembly.Name-1.337.0-master`
+
 	public class Artifact_names_include_version
 	{
 		[Test]
