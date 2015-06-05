@@ -41,7 +41,7 @@
     <Compile Include="UseCases\Semver\Assemblies\Private\AssemblyInfoLine.cs" />
     <Compile Include="UseCases\Semver\Assemblies\Private\AssemblyInfoVersion.cs" />
     <Compile Include="UseCases\Semver\Assemblies\Private\Matching.cs" />
-    <Compile Include="UseCases\Semver\Assemblies\Version\For.cs" />
+    <Compile Include="UseCases\Semver\Assemblies\Private\Version\For.cs" />
     <Compile Include="UseCases\Semver\Assemblies\AssemblyFileVersion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
