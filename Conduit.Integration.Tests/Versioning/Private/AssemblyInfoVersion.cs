@@ -39,6 +39,35 @@ namespace Conduit.Integration.Tests.Versioning.Private
 
 	internal static class AssemblyInfoVersion
 	{
+		public static void BumpMajor(string filename, string prefix)
+		{
+			var newVersion = Bump.Major(For (filename, prefix));
+
+			var lines = new List<string>();
+
+			var pattern = new Regex(Matching.Pattern(prefix));
+
+			foreach (var line in Lines(filename))
+			{
+				var match = pattern.Match(line);
+
+				if (match.Success)
+				{
+					var newVersionLine = string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion, match.Groups["suffix"].Value);
+
+					lines.Add(newVersionLine);
+				} else {
+					lines.Add(line);
+				}
+			}
+
+			using (var s = File.Open(filename, FileMode.Truncate))
+				using (var writer = new StreamWriter(s))
+			{
+				writer.Write(string.Join (Environment.NewLine, lines.ToArray()));
+			}
+		}
+
 		internal static SemVersion For(string filename, string prefix)
 		{
 			var pattern = new Regex(Matching.Pattern(prefix), RegexOptions.Compiled);
@@ -67,35 +96,6 @@ namespace Conduit.Integration.Tests.Versioning.Private
 			catch (Exception)
 			{
 				throw new Exception("Failed to parse this text to version <" + version + ">");
-			}
-		}
-
-		public static void BumpMajor(string filename, string prefix)
-		{
-			var newVersion = Bump.Major(For (filename, prefix));
-
-			var lines = new List<string>();
-
-			var pattern = new Regex(Matching.Pattern(prefix));
-
-			foreach (var line in Lines(filename))
-			{
-				var match = pattern.Match(line);
-
-				if (match.Success)
-				{
-					var newVersionLine = string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion, match.Groups["suffix"].Value);
-
-					lines.Add(newVersionLine);
-				} else {
-					lines.Add(line);
-				}
-			}
-
-			using (var s = File.Open(filename, FileMode.Truncate))
-			using (var writer = new StreamWriter(s))
-			{
-				writer.Write(string.Join (Environment.NewLine, lines.ToArray()));
 			}
 		}
 
