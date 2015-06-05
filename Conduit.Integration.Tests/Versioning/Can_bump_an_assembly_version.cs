@@ -65,19 +65,4 @@ namespace Conduit.Integration.Tests.Versioning
 			            @"Expected this text to contain <""AssemblyVersion(""1.0.0.*""))"">: " + File.ReadAllText("AssemblyInfo.cs"));
 		}
 	}
-
-	internal static class TextFile {
-		internal static bool Contains(string filename, string expected) 
-		{
-			foreach (var line in System.IO.File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it)))
-			{
-				Console.WriteLine (line);
-
-				if (line.Contains(expected))
-					return true;
-			}
-
-			return false;
-		}
-	}
 }
