@@ -59,7 +59,6 @@ namespace Conduit.Integration.Tests.Versioning
 				//
 				// You can specify all the values or you can default the Build and Revision Numbers 
 				// by using the '*' as shown below:
-				// [assembly: AssemblyVersion(""1.0.*"")]
 				[assembly: AssemblyVersion(""1.337.0.0"")]
 				[assembly: AssemblyFileVersion(""1.337.0.0"")]");
 
@@ -111,5 +110,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			Assert.That(version, Is.EqualTo(SemVersion.Parse("0.0.0", true)));
 		}
+
+		// TEST: it cannot handle wildcards like: [assembly: AssemblyVersion("1.0.*")]
 	}
 }

@@ -3,6 +3,8 @@ using Conduit.UseCases.Semver.Semver;
 using NUnit.Framework;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.IO;
+using System;
 
 namespace Conduit.Integration.Tests.Versioning
 {
@@ -60,10 +62,9 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion (""1.0.0.*""))"));
+			Assert.That(TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion(""1.0.0.*"")"), 
+			            @"Expected this text to contain <""AssemblyVersion(""1.0.0.*""))"">: " + File.ReadAllText("AssemblyInfo.cs"));
 		}
-
-		// TEST: it preserves everything under patch exactly as it was
 	}
 
 	internal static class TextFile {
@@ -71,6 +72,8 @@ namespace Conduit.Integration.Tests.Versioning
 		{
 			foreach (var line in System.IO.File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it)))
 			{
+				Console.WriteLine (line);
+
 				if (line.Contains(expected))
 					return true;
 			}
