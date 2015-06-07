@@ -35,8 +35,8 @@ namespace Conduit.Integration.Tests.Archiving
 				Assert.IsTrue(archive.Contains("README.md"));
 			});
 
-			Assert.That (err.Message, Is.StringContaining("The requested feature is not implemented"), 
-			             "Expected that error becaause that's what you get when something has not been ported to Mono.");
+			Assert.That(err.Message, Is.StringContaining("The requested feature is not implemented"),
+				"Expected that error becaause that's what you get when something has not been ported to Mono.");
 		}
 	}
 }
