@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Archiving\Platforms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Versioning\Can_bump_an_assembly_version.cs" />
     <Compile Include="Versioning\Can_query_assembly_version.cs" />

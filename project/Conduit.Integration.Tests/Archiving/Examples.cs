@@ -5,6 +5,8 @@ using Conduit.UseCases.Archiving;
 
 namespace Conduit.Integration.Tests.Archiving
 {
+	[TestFixture]
+	[Platform(Exclude = Platforms.Mono)]
 	public class Examples
 	{
 		private CleanRoom _cleanRoom;
@@ -23,16 +25,14 @@ namespace Conduit.Integration.Tests.Archiving
 		}
 
 		[Test]
-		public void cannot_work_on_mono() 
+		public void works_on_windows()
 		{
 			FileMachine.Make("README.md", @"Expect this to be added to the archive");
 
-			var archive = Archive.At ("Example.zip");
+			var archive = Archive.At("Example.zip");
 
-			var err = Assert.Throws<NotImplementedException>(() => archive.Contains("README.md"));
-
-			Assert.That(err.Message, Is.StringMatching("The requested feature is not implemented"), "This will fail on mono as it has yet to be implemented");
+			Assert.IsTrue(archive.Contains("README.md"));
 		}
-	}	
+	}
 }
 

@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using System.IO.Compression;
 using System.IO;
 
@@ -7,7 +5,7 @@ namespace Conduit.UseCases.Archiving
 {
 	public class Archive
 	{
-		private string _filename;
+		private readonly string _filename;
 
 		public Archive(string filename)
 		{
@@ -25,7 +23,7 @@ namespace Conduit.UseCases.Archiving
 
 		public static Archive At (string filename)
 		{
-			return new Archive (filename);
+			return new Archive(filename);
 		}
 	}
 }
