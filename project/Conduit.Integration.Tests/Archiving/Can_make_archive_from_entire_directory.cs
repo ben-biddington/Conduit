@@ -40,7 +40,7 @@ namespace Conduit.Integration.Tests.Archiving
 			archive.MustContain("B\\C\\C.txt");
 		}
 
-		// TEST: files must be added in directories, too -- not just to the root
+		// TEST: paths inside MUST match the operation system (?)
 	}
 
 	[TestFixture]
