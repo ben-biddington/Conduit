@@ -1,31 +1,14 @@
 ﻿using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Semver.Semver;
 using NUnit.Framework;
-using System.Text.RegularExpressions;
-using System.Linq;
 using System.IO;
-using System;
 using Conduit.UseCases.Semver.Assemblies;
 
 namespace Conduit.Integration.Tests.Versioning
 {
-	public class Can_bump_an_assembly_version
+
+	public class Can_bump_an_assembly_version : RunsInCleanRoom
 	{
-		private CleanRoom _cleanRoom;
-
-		[SetUp]
-		public void BeforeEach()
-		{
-			_cleanRoom = new CleanRoom(".tmp");
-			_cleanRoom.Enter();
-		}
-
-		[TearDown]
-		public void AfterEach()
-		{
-			_cleanRoom.Exit();
-		}
-
 		[Test]
 		public void for_example()
 		{

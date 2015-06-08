@@ -8,23 +8,8 @@ namespace Conduit.Integration.Tests.Archiving
 {
 	[TestFixture]
 	[Platform(Exclude = Platforms.Mono)]
-	public class Can_add_globs_of_files
+	public class Can_add_globs_of_files : RunsInCleanRoom
 	{
-		private CleanRoom _cleanRoom;
-
-		[SetUp]
-		public void BeforeEach()
-		{
-			_cleanRoom = new CleanRoom(".tmp");
-			_cleanRoom.Enter();
-		}
-
-		[TearDown]
-		public void AfterEach()
-		{
-			_cleanRoom.Exit();
-		}
-
 		[Test]
 		public void for_example()
 		{

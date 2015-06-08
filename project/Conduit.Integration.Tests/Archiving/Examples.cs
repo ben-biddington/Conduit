@@ -8,23 +8,8 @@ namespace Conduit.Integration.Tests.Archiving
 {
 	[TestFixture]
 	[Platform(Exclude = Platforms.Mono)]
-	public class Examples
+	public class Examples : RunsInCleanRoom
 	{
-		private CleanRoom _cleanRoom;
-
-		[SetUp]
-		public void BeforeEach()
-		{
-			_cleanRoom = new CleanRoom(".tmp");
-			_cleanRoom.Enter();
-		}
-
-		[TearDown]
-		public void AfterEach()
-		{
-			_cleanRoom.Exit();
-		}
-
 		[Test]
 		public void can_add_a_file()
 		{

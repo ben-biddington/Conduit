@@ -7,23 +7,8 @@ using System;
 
 namespace Conduit.Integration.Tests.Versioning
 {
-	public class Can_query_assembly_version
+	public class Can_query_assembly_version : RunsInCleanRoom
 	{
-		private CleanRoom _cleanRoom;
-
-		[SetUp]
-		public void BeforeEach()
-		{
-			_cleanRoom = new CleanRoom(".tmp");
-			_cleanRoom.Enter();
-		}
-
-		[TearDown]
-		public void AfterEach()
-		{
-			_cleanRoom.Exit();
-		}
-
 		[Test]
 		public void for_example()
 		{

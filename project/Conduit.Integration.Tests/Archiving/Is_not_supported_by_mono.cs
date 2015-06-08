@@ -8,23 +8,8 @@ namespace Conduit.Integration.Tests.Archiving
 {
 	[TestFixture]
 	[Platform(Include = Platforms.Mono)]
-	public class Is_not_supported_by_mono
+	public class Is_not_supported_by_mono : RunsInCleanRoom
 	{
-		private CleanRoom _cleanRoom;
-
-		[SetUp]
-		public void BeforeEach()
-		{
-			_cleanRoom = new CleanRoom(".tmp");
-			_cleanRoom.Enter();
-		}
-
-		[TearDown]
-		public void AfterEach()
-		{
-			_cleanRoom.Exit();
-		}
-
 		[Test]
 		public void for_example()
 		{
