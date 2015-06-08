@@ -37,6 +37,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\Files.cs" />
     <Compile Include="Lang\ObjectExtensions.cs" />
     <Compile Include="UseCases\Archiving\MissingFileError.cs" />
     <Compile Include="UseCases\Semver\Bump.cs" />

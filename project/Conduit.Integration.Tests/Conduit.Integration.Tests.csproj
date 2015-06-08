@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Support\ArchiveAssertions.cs" />
     <Compile Include="Archiving\Is_not_supported_by_mono.cs" />
     <Compile Include="Archiving\Can_add_globs_of_files.cs" />
     <Compile Include="Archiving\Platforms.cs" />
