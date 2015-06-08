@@ -65,9 +65,15 @@ namespace Conduit.Integration.Tests.Archiving
 			Assert.That(err.Message, Is.StringContaining("does not contain a file called <xxx_this_files_is_not_present_xxx>"));
 		}
 
-		// TEST: refuses to zip .zip files
-		// TEST: refuses to zip hidden files
-		// TEST: refuses to add an item if it exists -- ir should ir replace it?
+		[Test]
+		public void can_archive_zip_files()
+		{
+			var documents = Archive.At("documents.zip", FileMachine.Make("1.html", "An example proving that you may zip a zip file"));
+
+			Assert.DoesNotThrow(() => Archive.At("Example.zip", documents.Filename));
+		}
+
+		// TEST: why is there an xml file in every archive?
+		// TEST: refuses to add an item if it exists -- replace it?
 	}
 }
-

@@ -9,4 +9,12 @@ namespace Conduit.UseCases.Archiving
 			
 		}	 
 	}
+
+	public class BungFileError : Exception
+	{
+		public BungFileError(string message, params object[] args) : base(string.Format(message, args))
+		{
+			
+		}
+	}
 }

@@ -15,9 +15,14 @@ namespace Conduit.UseCases.Archiving
 			_filename = new FileInfo(Path.GetFullPath(filename));
 		}
 
+		public FileInfo Filename
+		{
+			get { return _filename; }
+		}
+
 		public bool Contains(string filename)
 		{
-			using (var s = File.OpenRead(_filename.FullName)) {
+			using (var s = File.OpenRead(Filename.FullName)) {
 				var zip = new ZipArchive(s);
 				return zip.GetEntry(filename) != null;
 			}
@@ -39,7 +44,7 @@ namespace Conduit.UseCases.Archiving
 			if (false == fi.Exists)
 				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
 
-			using (Package p = Package.Open(_filename.FullName))
+			using (Package p = Package.Open(Filename.FullName))
 			{
 				var part = p.CreatePart(PackUriHelper.CreatePartUri(new Uri(fi.Name, UriKind.Relative)), "text/plain");
 
@@ -52,7 +57,7 @@ namespace Conduit.UseCases.Archiving
 
 		public void Open(FileInfo filename, Action<Stream> block)
 		{
-			using (var zipFileStream = File.OpenRead(_filename.Name))
+			using (var zipFileStream = File.OpenRead(Filename.Name))
 			using (var @in = ArchiveItem(zipFileStream, filename).Open())
 			{
 				block(@in);
@@ -64,7 +69,7 @@ namespace Conduit.UseCases.Archiving
 			return ArchiveFrom(stream).GetEntry(filename.Name).Tap(it =>
 			{
 				if (null == it)
-					throw new MissingFileError("The archive <{0}> does not contain a file called <{1}>", _filename.FullName, filename.Name);});
+					throw new MissingFileError("The archive <{0}> does not contain a file called <{1}>", Filename.FullName, filename.Name);});
 		}
 
 		private static ZipArchive ArchiveFrom(FileStream zipFileStream)
