@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using Conduit.Integration.Tests.Archiving.Support;
 using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Archiving;
@@ -24,6 +25,19 @@ namespace Conduit.Integration.Tests.Archiving
 			archive.MustContain("B.txt");
 			archive.MustContain("C.txt");
 			archive.MustContain("D.html");
+		}
+	}
+
+	[TestFixture]
+	[Platform(Exclude = Platforms.Mono)]
+	public class Can_make_an_empty_one: RunsInCleanRoom
+	{
+		[Test]
+		public void for_example()
+		{
+			var archive = Archive.At("Example.zip");
+
+			Assert.AreEqual(0, archive.Contents().Count());
 		}
 	}
 }

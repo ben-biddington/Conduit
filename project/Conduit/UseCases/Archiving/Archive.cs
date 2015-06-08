@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.IO;
@@ -16,6 +15,7 @@ namespace Conduit.UseCases.Archiving
 		public Archive(string filename)
 		{
 			_filename = new FileInfo(Path.GetFullPath(filename));
+			With(_ => { });
 		}
 
 		public FileInfo Filename
@@ -68,14 +68,22 @@ namespace Conduit.UseCases.Archiving
 			if (false == fi.Exists)
 				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
 
-			using (Package p = Package.Open(Filename.FullName))
+			With(package =>
 			{
-				var part = p.CreatePart(PackUriHelper.CreatePartUri(new Uri(fi.Name, UriKind.Relative)), "text/plain");
+				var part = package.CreatePart(PackUriHelper.CreatePartUri(new Uri(fi.Name, UriKind.Relative)), "text/plain");
 
 				using (var fileStream = File.OpenRead(fi.FullName))
 				{
 					fileStream.CopyTo(part.GetStream());
 				}
+			});
+		}
+
+		private void With(Action<Package> block)
+		{
+			using (Package p = Package.Open(Filename.FullName))
+			{
+				block(p);
 			}
 		}
 
