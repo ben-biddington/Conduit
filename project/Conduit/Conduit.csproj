@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lang\ObjectExtensions.cs" />
+    <Compile Include="UseCases\Archiving\MissingFileError.cs" />
     <Compile Include="UseCases\Semver\Bump.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UseCases\Semver\SemVersion.cs" />

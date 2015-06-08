@@ -55,7 +55,16 @@ namespace Conduit.Integration.Tests.Archiving
 			});
 		}
 
-		// TEST: opening bung file fails
+		[Test]
+		public void cannot_open_a_file_that_does_not_exist_in_the_archive()
+		{
+			var archive = Archive.At("Example.zip", FileMachine.Make("README.md", @"Nine nine plus four pennies"));
+
+			var err = Assert.Throws<MissingFileError>(() => archive.Open(new FileInfo("xxx_this_files_is_not_present_xxx"), _ => {}));
+
+			Assert.That(err.Message, Is.StringContaining("does not contain a file called <xxx_this_files_is_not_present_xxx>"));
+		}
+
 		// TEST: refuses to zip .zip files
 		// TEST: refuses to zip hidden files
 		// TEST: refuses to add an item if it exists -- ir should ir replace it?

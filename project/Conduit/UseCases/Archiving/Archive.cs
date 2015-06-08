@@ -1,23 +1,23 @@
 using System;
-using System.ComponentModel;
 using System.IO.Compression;
 using System.IO;
 using System.IO.Packaging;
+using Conduit.Lang;
 
 namespace Conduit.UseCases.Archiving
 {
 	public class Archive
 	{
-		private readonly string _filename;
+		private readonly FileInfo _filename;
 
 		public Archive(string filename)
 		{
-			_filename = Path.GetFullPath(filename);
+			_filename = new FileInfo(Path.GetFullPath(filename));
 		}
 
 		public bool Contains(string filename)
 		{
-			using (var s = File.OpenRead(_filename)) {
+			using (var s = File.OpenRead(_filename.FullName)) {
 				var zip = new ZipArchive(s);
 				return zip.GetEntry(filename) != null;
 			}
@@ -25,7 +25,7 @@ namespace Conduit.UseCases.Archiving
 
 		public static Archive At (string filename, params FileInfo[] files)
 		{
-			return Lang.ObjectExtensions.Tap(new Archive(filename), it =>
+			return new Archive(filename).Tap(it =>
 			{
 				foreach (var file in files)
 				{
@@ -39,7 +39,7 @@ namespace Conduit.UseCases.Archiving
 			if (false == fi.Exists)
 				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
 
-			using (Package p = Package.Open(_filename))
+			using (Package p = Package.Open(_filename.FullName))
 			{
 				var part = p.CreatePart(PackUriHelper.CreatePartUri(new Uri(fi.Name, UriKind.Relative)), "text/plain");
 
@@ -52,13 +52,24 @@ namespace Conduit.UseCases.Archiving
 
 		public void Open(FileInfo filename, Action<Stream> block)
 		{
-			using (var zipFileStream = File.OpenRead(_filename))
+			using (var zipFileStream = File.OpenRead(_filename.Name))
+			using (var @in = ArchiveItem(zipFileStream, filename).Open())
 			{
-				using (var @in = new ZipArchive(zipFileStream).GetEntry(filename.Name).Open())
-				{
-					block(@in);
-				};
-			}
+				block(@in);
+			};
+		}
+
+		private ZipArchiveEntry ArchiveItem(FileStream stream, FileInfo filename)
+		{
+			return ArchiveFrom(stream).GetEntry(filename.Name).Tap(it =>
+			{
+				if (null == it)
+					throw new MissingFileError("The archive <{0}> does not contain a file called <{1}>", _filename.FullName, filename.Name);});
+		}
+
+		private static ZipArchive ArchiveFrom(FileStream zipFileStream)
+		{
+			return new ZipArchive(zipFileStream);
 		}
 	}
 }
