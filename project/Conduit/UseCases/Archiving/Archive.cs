@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO.Compression;
 using System.IO;
 using System.IO.Packaging;
+using System.Linq;
 using Conduit.Lang;
 
 namespace Conduit.UseCases.Archiving
@@ -20,6 +23,16 @@ namespace Conduit.UseCases.Archiving
 			get { return _filename; }
 		}
 
+		public IEnumerable<string> Contents()
+		{
+			using (var zipFileStream = File.OpenRead(Filename.Name))
+			{
+				var archive = new ZipArchive(zipFileStream);
+
+				return archive.Entries.Select(it => it.Name).ToArray();
+			};
+		}
+
 		public bool Contains(string filename)
 		{
 			using (var s = File.OpenRead(Filename.FullName)) {
@@ -33,6 +46,17 @@ namespace Conduit.UseCases.Archiving
 			return new Archive(filename).Tap(it =>
 			{
 				foreach (var file in files)
+				{
+					it.Add(file);
+				}
+			});
+		}
+
+		public static Archive At(string filename, DirectoryInfo dir)
+		{
+			return new Archive(filename).Tap(it =>
+			{
+				foreach (var file in dir.EnumerateFiles())
 				{
 					it.Add(file);
 				}

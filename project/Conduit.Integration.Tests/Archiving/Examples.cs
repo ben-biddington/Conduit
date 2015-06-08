@@ -58,7 +58,7 @@ namespace Conduit.Integration.Tests.Archiving
 			Assert.DoesNotThrow(() => Archive.At("Example.zip", documents.Filename));
 		}
 
-		// TEST: why is there an xml file in every archive?
+		// TEST: why is there an xml file called <[Content_Types].xml> in every archive?
 		// TEST: refuses to add an item if it exists -- replace it?
 	}
 }

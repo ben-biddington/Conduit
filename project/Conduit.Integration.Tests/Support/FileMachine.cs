@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Conduit.Integration.Tests.Support
 {
@@ -6,6 +7,10 @@ namespace Conduit.Integration.Tests.Support
 	{
 		public static FileInfo Make(string filename, string content)
 		{
+			var info = new FileInfo(filename);
+
+			EnsureDirectoryExists(info);
+
 			using (var s = File.OpenWrite(filename))
 			using (var writer = new StreamWriter(s))
 			{
@@ -15,6 +20,12 @@ namespace Conduit.Integration.Tests.Support
 			}
 
 			return new FileInfo(Path.GetFullPath(filename));
+		}
+
+		private static void EnsureDirectoryExists(FileInfo info)
+		{
+			if (false == Directory.Exists(info.DirectoryName))
+				Directory.CreateDirectory(Path.GetFullPath(info.DirectoryName));
 		}
 	}
 }
