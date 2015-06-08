@@ -1,5 +1,7 @@
+using System;
 using System.IO.Compression;
 using System.IO;
+using System.IO.Packaging;
 
 namespace Conduit.UseCases.Archiving
 {
@@ -9,15 +11,14 @@ namespace Conduit.UseCases.Archiving
 
 		public Archive(string filename)
 		{
-			_filename = filename;
-			using(var _ = File.Create(_filename));
+			_filename = Path.GetFullPath(filename);
 		}
 
-		public bool Contains (string filename)
+		public bool Contains(string filename)
 		{
 			using (var s = File.OpenRead(_filename)) {
 				var zip = new ZipArchive(s);
-				return zip.GetEntry (filename) != null;
+				return zip.GetEntry(filename) != null;
 			}
 		}
 
@@ -25,6 +26,21 @@ namespace Conduit.UseCases.Archiving
 		{
 			return new Archive(filename);
 		}
+
+		public void Add(FileInfo fi)
+		{
+			if (false == fi.Exists)
+				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
+
+			using (Package p = Package.Open(_filename))
+			{
+				var part = p.CreatePart(PackUriHelper.CreatePartUri(new Uri(fi.Name, UriKind.Relative)), "text/plain");
+
+				using (var fileStream = File.OpenRead(fi.FullName))
+				{
+					fileStream.CopyTo(part.GetStream());
+				}
+			}
+		}
 	}
 }
-
