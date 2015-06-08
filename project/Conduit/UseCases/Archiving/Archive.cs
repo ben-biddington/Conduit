@@ -25,12 +25,9 @@ namespace Conduit.UseCases.Archiving
 
 		public IEnumerable<string> Contents()
 		{
-			using (var zipFileStream = File.OpenRead(Filename.Name))
-			{
-				var archive = new ZipArchive(zipFileStream);
-
-				return archive.Entries.Select(it => it.Name).ToArray();
-			};
+			return With(package => {
+				return package.GetParts().Select(it => it.Uri.ToString()).ToArray();
+			});
 		}
 
 		public bool Contains(string filename)
@@ -105,24 +102,17 @@ namespace Conduit.UseCases.Archiving
 
 		public void Open(FileInfo filename, Action<Stream> block)
 		{
-			using (var zipFileStream = File.OpenRead(Filename.Name))
-			using (var @in = ArchiveItem(zipFileStream, filename).Open())
-			{
-				block(@in);
-			};
-		}
+			With(package => {
+				var part = package.GetPart(PartUri(filename.Name));
 
-		private ZipArchiveEntry ArchiveItem(FileStream stream, FileInfo filename)
-		{
-			return ArchiveFrom(stream).GetEntry(filename.Name).Tap(it =>
-			{
-				if (null == it)
-					throw new MissingFileError("The archive <{0}> does not contain a file called <{1}>", Filename.FullName, filename.Name);});
-		}
+				if (null == part)
+					throw new MissingFileError("The archive <{0}> does not contain a file called <{1}>", Filename.FullName, filename.Name);
 
-		private static ZipArchive ArchiveFrom(FileStream zipFileStream)
-		{
-			return new ZipArchive(zipFileStream);
+				using (var s = part.GetStream())
+				{
+					block(s);
+				}
+			});
 		}
 	}
 }

@@ -7,7 +7,6 @@ using Conduit.UseCases.Archiving;
 namespace Conduit.Integration.Tests.Archiving
 {
 	[TestFixture]
-	[Platform(Exclude = Platforms.Mono)]
 	public class Examples : RunsInCleanRoom
 	{
 		[Test]
