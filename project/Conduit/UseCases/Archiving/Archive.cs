@@ -42,5 +42,16 @@ namespace Conduit.UseCases.Archiving
 				}
 			}
 		}
+
+		public void Open(FileInfo filename, Action<Stream> block)
+		{
+			using (var zipFileStream = File.OpenRead(_filename))
+			{
+				using (var @in = new ZipArchive(zipFileStream).GetEntry(filename.Name).Open())
+				{
+					block(@in);
+				};
+			}
+		}
 	}
 }

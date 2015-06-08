@@ -37,6 +37,28 @@ namespace Conduit.Integration.Tests.Archiving
 			Assert.IsTrue(archive.Contains("README.md"));
 		}
 
+		[Test]
+		public void can_add_a_file_and_read_it_back()
+		{
+			const string expected = @"Nine nine plus four pennies";
+
+			FileMachine.Make("README.md", expected);
+
+			var archive = Archive.At("Example.zip");
+
+			archive.Add(new FileInfo("README.md"));
+
+			archive.Open(new FileInfo("README.md"), s =>
+			{
+				using (var reader = new StreamReader(s))
+				{
+					var allText = reader.ReadToEnd();
+					Assert.AreEqual(expected, allText);
+				}
+			});
+		}
+
+		// TEST: opening bung file fails
 		// TEST: refuses to zip .zip files
 		// TEST: refuses to zip hidden files
 		// TEST: refuses to add an item if it exists -- ir should ir replace it?
