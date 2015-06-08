@@ -54,9 +54,9 @@ namespace Conduit.UseCases.Archiving
 		{
 			return new Archive(filename).Tap(it =>
 			{
-				foreach (var file in dir.EnumerateFiles())
+				foreach (var file in dir.EnumerateFiles("*.*", SearchOption.AllDirectories))
 				{
-					it.Add(file);
+					it.Add(file); // @todo: part uri needs to b relative to the source dir
 				}
 			});
 		}

@@ -26,6 +26,22 @@ namespace Conduit.Integration.Tests.Archiving
 			archive.MustContain("C.txt");
 			archive.MustContain("D.html");
 		}
+
+		[Test]
+		public void and_it_is_recursive()
+		{
+			FileMachine.Make("A\\A.txt", "A");
+			FileMachine.Make("A\\B\\B.txt", "A");
+			FileMachine.Make("A\\B\\C\\C.txt", "A");
+
+			var archive = Archive.At("Example.zip", new DirectoryInfo("A"));
+
+			archive.MustContain("A.txt");
+			archive.MustContain("B\\B.txt");
+			archive.MustContain("B\\C\\C.txt");
+		}
+
+		// TEST: files must be added in directories, too -- not just to the root
 	}
 
 	[TestFixture]
