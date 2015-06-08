@@ -53,10 +53,15 @@ namespace Conduit.UseCases.Archiving
 			{
 				foreach (var file in dir.EnumerateFiles("*.*", SearchOption.AllDirectories))
 				{
-					Console.WriteLine("DIR: {0}, File: {1}", dir.FullName, file.FullName);
-					it.Add(file); // @todo: part uri needs to b relative to the source dir
+					Console.WriteLine("DIR: {0}, File: {1}, REL: {2}", dir.FullName, file.FullName, RelativePath(dir, file));
+					it.Add(file, RelativePath(dir, file)); // @todo: part uri needs to b relative to the source dir
 				}
 			});
+		}
+
+		private static string RelativePath(DirectoryInfo dir, FileInfo file) 
+		{
+			return file.FullName.Replace(dir.FullName, string.Empty).TrimStart(Path.DirectorySeparatorChar);
 		}
 
 		public void Add(FileInfo fi)
@@ -75,6 +80,22 @@ namespace Conduit.UseCases.Archiving
 			});
 		}
 
+		private void Add(FileInfo fi, string localPath)
+		{
+			if (false == fi.Exists)
+				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
+
+			With(package =>
+			{
+				var part = package.CreatePart(PartUri(localPath), "text/plain");
+
+				using (var fileStream = File.OpenRead(fi.FullName))
+				{
+					fileStream.CopyTo(part.GetStream());
+				}
+			});
+		}
+
 		private static Uri PartUri(FileInfo fi)
 		{
 			return PartUri(fi.Name);
@@ -82,7 +103,7 @@ namespace Conduit.UseCases.Archiving
 
 		private static Uri PartUri(string filename)
 		{
-			return PackUriHelper.CreatePartUri(new Uri(filename, UriKind.Relative));
+			return PackUriHelper.CreatePartUri(new Uri(filename.Replace("\\", "/"), UriKind.Relative));
 		}
 
 		private T With<T>(Func<Package, T> block)
