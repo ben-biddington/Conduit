@@ -53,8 +53,7 @@ namespace Conduit.UseCases.Archiving
 			{
 				foreach (var file in dir.EnumerateFiles("*.*", SearchOption.AllDirectories))
 				{
-					Console.WriteLine("DIR: {0}, File: {1}, REL: {2}", dir.FullName, file.FullName, RelativePath(dir, file));
-					it.Add(file, RelativePath(dir, file)); // @todo: part uri needs to b relative to the source dir
+					it.Add(file, RelativePath(dir, file)); 
 				}
 			});
 		}
