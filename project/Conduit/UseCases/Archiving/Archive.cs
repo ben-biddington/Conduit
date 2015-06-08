@@ -35,10 +35,8 @@ namespace Conduit.UseCases.Archiving
 
 		public bool Contains(string filename)
 		{
-			using (var s = File.OpenRead(Filename.FullName)) {
-				var zip = new ZipArchive(s);
-				return zip.GetEntry(filename) != null;
-			}
+			return With(package => 
+				package.PartExists(PartUri(filename)));
 		}
 
 		public static Archive At (string filename, params FileInfo[] files)
@@ -70,13 +68,31 @@ namespace Conduit.UseCases.Archiving
 
 			With(package =>
 			{
-				var part = package.CreatePart(PackUriHelper.CreatePartUri(new Uri(fi.Name, UriKind.Relative)), "text/plain");
+				var part = package.CreatePart(PartUri(fi), "text/plain");
 
 				using (var fileStream = File.OpenRead(fi.FullName))
 				{
 					fileStream.CopyTo(part.GetStream());
 				}
 			});
+		}
+
+		private static Uri PartUri(FileInfo fi)
+		{
+			return PartUri(fi.Name);
+		}
+
+		private static Uri PartUri(string filename)
+		{
+			return PackUriHelper.CreatePartUri(new Uri(filename, UriKind.Relative));
+		}
+
+		private T With<T>(Func<Package, T> block)
+		{
+			using (Package p = Package.Open(Filename.FullName))
+			{
+				return block(p);
+			}
 		}
 
 		private void With(Action<Package> block)
