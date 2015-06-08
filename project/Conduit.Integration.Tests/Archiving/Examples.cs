@@ -1,4 +1,5 @@
 using System.IO;
+using Conduit.Integration.Tests.Archiving.Support;
 using NUnit.Framework;
 using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Archiving;

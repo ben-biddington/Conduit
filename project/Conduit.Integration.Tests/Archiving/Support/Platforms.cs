@@ -1,4 +1,4 @@
-namespace Conduit.Integration.Tests.Archiving
+namespace Conduit.Integration.Tests.Archiving.Support
 {
 	class Platforms
 	{

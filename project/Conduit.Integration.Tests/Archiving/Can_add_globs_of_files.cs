@@ -1,3 +1,4 @@
+using Conduit.Integration.Tests.Archiving.Support;
 using Conduit.Integration.Tests.Support;
 using Conduit.IO;
 using Conduit.UseCases.Archiving;

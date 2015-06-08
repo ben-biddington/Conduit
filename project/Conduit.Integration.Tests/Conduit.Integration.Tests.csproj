@@ -47,7 +47,7 @@
     <Compile Include="Support\ArchiveAssertions.cs" />
     <Compile Include="Archiving\Is_not_supported_by_mono.cs" />
     <Compile Include="Archiving\Can_add_globs_of_files.cs" />
-    <Compile Include="Archiving\Platforms.cs" />
+    <Compile Include="Archiving\Support\Platforms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Versioning\Can_bump_an_assembly_version.cs" />
     <Compile Include="Versioning\Can_query_assembly_version.cs" />
