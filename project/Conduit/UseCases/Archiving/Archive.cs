@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.IO.Compression;
 using System.IO;
 using System.IO.Packaging;
@@ -22,9 +23,15 @@ namespace Conduit.UseCases.Archiving
 			}
 		}
 
-		public static Archive At (string filename)
+		public static Archive At (string filename, params FileInfo[] files)
 		{
-			return new Archive(filename);
+			return Lang.ObjectExtensions.Tap(new Archive(filename), it =>
+			{
+				foreach (var file in files)
+				{
+					it.Add(file);
+				}
+			});
 		}
 
 		public void Add(FileInfo fi)

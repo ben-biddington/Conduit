@@ -44,16 +44,13 @@ namespace Conduit.Integration.Tests.Archiving
 
 			FileMachine.Make("README.md", expected);
 
-			var archive = Archive.At("Example.zip");
-
-			archive.Add(new FileInfo("README.md"));
+			var archive = Archive.At("Example.zip", new FileInfo("README.md"));
 
 			archive.Open(new FileInfo("README.md"), s =>
 			{
 				using (var reader = new StreamReader(s))
 				{
-					var allText = reader.ReadToEnd();
-					Assert.AreEqual(expected, allText);
+					Assert.AreEqual(expected, reader.ReadToEnd());
 				}
 			});
 		}
