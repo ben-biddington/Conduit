@@ -7,7 +7,7 @@ namespace Conduit.Integration.Tests.Support
 	{
 		public static FileInfo Make(string filename, string content)
 		{
-			var info = new FileInfo(filename);
+			var info = new FileInfo(Path.GetFullPath(filename).Replace("\\", Path.DirectorySeparatorChar.ToString()));
 
 			EnsureDirectoryExists(info);
 
