@@ -124,10 +124,12 @@ namespace Conduit.UseCases.Archiving
 		public void Open(FileInfo filename, Action<Stream> block)
 		{
 			With(package => {
-				var part = package.GetPart(PartUri(filename.Name));
+				var partUri = PartUri(filename.Name);
 
-				if (null == part)
+				if (false == package.PartExists(partUri))
 					throw new MissingFileError("The archive <{0}> does not contain a file called <{1}>", Filename.FullName, filename.Name);
+
+				var part = package.GetPart(partUri);
 
 				using (var s = part.GetStream())
 				{
