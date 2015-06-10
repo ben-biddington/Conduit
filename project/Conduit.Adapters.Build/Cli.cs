@@ -6,7 +6,7 @@ namespace Conduit.Adapters.Build
 	{
 		internal static void Say(IBuildEngine engine, string format, params object[] args)
 		{
-			engine.LogMessageEvent(new BuildMessageEventArgs(string.Format(format,args), string.Empty, string.Empty, MessageImportance.Normal));
+			engine.LogMessageEvent(new BuildMessageEventArgs(string.Format((format ?? string.Empty),args), string.Empty, string.Empty, MessageImportance.Normal));
 		}
 	}
 }
