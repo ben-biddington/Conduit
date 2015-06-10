@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Artifacts.cs" />
     <Compile Include="Cli.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,10 +52,20 @@
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Conduit\Conduit.csproj">
+      <Project>{39006605-d504-407c-b9aa-45e26f101a32}</Project>
+      <Name>Conduit</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="List" AssemblyFile="$(OutputPath)\Conduit.Adapters.Build.dll" />
+  <UsingTask TaskName="Artifacts" AssemblyFile="$(OutputPath)\Conduit.Adapters.Build.dll" />
   <Target Name="L">
     <List />
+  </Target>
+  <Target Name="Artifacts">
+    <Artifacts OutputDirectory="$(OutputPath)out"/>
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
