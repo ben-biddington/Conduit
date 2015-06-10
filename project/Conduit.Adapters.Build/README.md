@@ -18,4 +18,11 @@ And call it like this:
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild project\Conduit.Adapters.Build\Conduit.Adapters.Build.csproj /t:L
 ```
 
+Or, on mono, like this:
+
+```
+xbuild project/Conduit.Adapters.Build/Conduit.Adapters.Build.csproj /t:L
+
+```
+
 So the `target` name has to match what you supply to msbuild's `/t` option.

@@ -59,10 +59,14 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <UsingTask TaskName="List" AssemblyFile="$(OutputPath)\Conduit.Adapters.Build.dll" />
-  <UsingTask TaskName="Artifacts" AssemblyFile="$(OutputPath)\Conduit.Adapters.Build.dll" />
+  <UsingTask TaskName="List" AssemblyFile="$(OutputPath)Conduit.Adapters.Build.dll" />
+  <UsingTask TaskName="Artifacts" AssemblyFile="$(OutputPath)Conduit.Adapters.Build.dll" />
+  <UsingTask TaskName="Info" AssemblyFile="$(OutputPath)Conduit.Adapters.Build.dll" />
   <Target Name="L">
     <List />
+  </Target>
+  <Target Name="Info">
+    <Info />
   </Target>
   <Target Name="Artifacts">
     <Artifacts OutputDirectory="$(OutputPath)out" SourceDirectory="C:\sauce\Conduit\project\Conduit\IO"/>
