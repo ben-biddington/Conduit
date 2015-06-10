@@ -11,7 +11,6 @@ namespace Conduit.Adapters.Build
 	{
 		public override bool Execute()
 		{
-
 			Cli.Say(BuildEngine, "Project file <{0}>", BuildEngine.ProjectFileOfTaskNode);
 
 			foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
