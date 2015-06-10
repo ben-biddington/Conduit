@@ -22,20 +22,4 @@ namespace Conduit.Adapters.Build
 			return true;
 		}
 	}
-
-	public class Info : Task
-	{
-		public override bool Execute()
-		{
-
-			Cli.Say(BuildEngine, "Project file <{0}>", BuildEngine.ProjectFileOfTaskNode);
-
-			foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
-			{
-				Cli.Say(BuildEngine, "{0}: {1}", variable.Key, variable.Value);
-			}
-
-			return true;
-		}
-	}
 }
