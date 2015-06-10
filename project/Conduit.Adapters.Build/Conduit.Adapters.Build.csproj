@@ -65,7 +65,7 @@
     <List />
   </Target>
   <Target Name="Artifacts">
-    <Artifacts OutputDirectory="$(OutputPath)out"/>
+    <Artifacts OutputDirectory="$(OutputPath)out" SourceDirectory="C:\sauce\Conduit\project\Conduit\IO"/>
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
