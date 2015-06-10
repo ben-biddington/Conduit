@@ -64,6 +64,7 @@ namespace Conduit.Integration.Tests.Archiving
 			Assert.DoesNotThrow(() => Archive.At("Example.zip", documents.Filename));
 		}
 
+		// TEST: Can add a directory ignoring a glob pattern
 		// TEST: why is there an xml file called <[Content_Types].xml> in every archive? Seems to be required, otherwise files are not located
 		// TEST: refuses to add an item if it exists -- replace it?
 	}

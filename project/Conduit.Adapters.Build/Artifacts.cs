@@ -20,7 +20,6 @@ namespace Conduit.Adapters.Build
 			if (Directory.Exists (OutputDirectory)) {
 				Directory.Delete (OutputDirectory, true);
 			}
-
 			
 			if (File.Exists(OutputDirectory)) {
 				File.Delete (OutputDirectory);
@@ -30,8 +29,9 @@ namespace Conduit.Adapters.Build
 
 			var to		= Path.Combine(Path.GetFullPath(OutputDirectory), string.Format("{0}.zip", ArtifactName ));
 			var from	= Path.GetFullPath(SourceDirectory);
+
 			Cli.Say(BuildEngine, ArtifactName);
-			Cli.Say(BuildEngine, "Creating archive at <{0}> with ({1}) files from <{2}>", to, Directory.GetFiles(from).Count(), from);
+			Cli.Say(BuildEngine, "Creating archive at <{0}> with ({1}) files from <{2}>", to, Directory.GetFiles(from, "*.*", SearchOption.AllDirectories).Count(), from);
 
 			UseCases.Archiving.Archive.At(to, new DirectoryInfo(SourceDirectory));
 
