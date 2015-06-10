@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Compression;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
@@ -25,9 +24,8 @@ namespace Conduit.UseCases.Archiving
 
 		public IEnumerable<string> Contents()
 		{
-			return With(package => {
-				return package.GetParts().Select(it => it.Uri.ToString()).ToArray();
-			});
+			return With(package => 
+				package.GetParts().Select(it => it.Uri.ToString()).ToArray());
 		}
 
 		public bool Contains(string filename)
