@@ -1,5 +1,5 @@
+using System;
 using System.IO;
-using Conduit.Integration.Tests.Archiving.Support;
 using NUnit.Framework;
 using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Archiving;
@@ -47,6 +47,14 @@ namespace Conduit.Integration.Tests.Archiving
 			var err = Assert.Throws<MissingFileError>(() => archive.Open(new FileInfo("xxx_this_files_is_not_present_xxx"), _ => {}));
 
 			Assert.That(err.Message, Is.StringContaining("does not contain a file called <xxx_this_files_is_not_present_xxx>"));
+		}
+
+		[Test]
+		public void cannot_add_a_file_that_does_not_exist_on_disk()
+		{
+			var err = Assert.Throws<IOException>(() => Archive.At("Example.zip", new FileInfo("xxx_does_not_exist_xxx")));
+
+			Assert.That(err.Message, Is.StringContaining("Cannot add a file that does not exist"));
 		}
 
 		[Test]

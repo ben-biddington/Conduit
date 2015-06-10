@@ -63,28 +63,22 @@ namespace Conduit.UseCases.Archiving
 
 		public void Add(FileInfo fi)
 		{
-			if (false == fi.Exists)
-				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
-
-			With(package =>
-			{
-				var part = package.CreatePart(PartUri(fi), "text/plain");
-
-				using (var fileStream = File.OpenRead(fi.FullName))
-				{
-					fileStream.CopyTo(part.GetStream());
-				}
-			});
+			Add(fi, PartUri(fi));
 		}
 
 		private void Add(FileInfo fi, string localPath)
 		{
+			Add(fi, PartUri(localPath));
+		}
+
+		private void Add(FileInfo fi, Uri partUri)
+		{
 			if (false == fi.Exists)
-				throw new FileLoadException("Cannot add a file that does not exist <" + fi.FullName + ">");
+				throw new IOException("Cannot add a file that does not exist <" + fi.FullName + ">");
 
 			With(package =>
 			{
-				var part = package.CreatePart(PartUri(localPath), "text/plain");
+				var part = package.CreatePart(partUri, "text/plain");
 
 				using (var fileStream = File.OpenRead(fi.FullName))
 				{
