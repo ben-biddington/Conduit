@@ -70,6 +70,7 @@
     <Info />
   </Target>
   <Target Name="Artifacts">
+    <!--Consider: allowing supplying just the OutputDirectory and having it create an archive of everything compiled by a project, i.e., its binary output -->
     <Artifacts OutputDirectory="$(OutputDirectory)" SourceDirectory="$(SourceDirectory)" ArtifactName="$(ArtifactName)"/> 
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

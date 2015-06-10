@@ -18,6 +18,22 @@ namespace Conduit.Adapters.Build
 				Cli.Say(BuildEngine, "{0}: {1}", variable.Key, variable.Value);
 			}
 
+			var project = new Project(BuildEngine.ProjectFileOfTaskNode);
+
+			Cli.Say(BuildEngine, "PROPERTIES:{0}{0}", Environment.NewLine);
+
+			foreach (ProjectProperty property in project.Properties)
+			{
+				Cli.Say(BuildEngine, "{0}: {1}", property.Name, property.EvaluatedValue);
+			}
+
+			Cli.Say(BuildEngine, "GLOBAL PROPERTIES: {0}{0}", Environment.NewLine);
+
+			foreach (System.Collections.Generic.KeyValuePair<string,string> property in project.GlobalProperties)
+			{
+				Cli.Say(BuildEngine, "(GLOBAl) {0}: {1}", property.Key, property.Value);
+			}
+
 			return true;
 		}
 	}
