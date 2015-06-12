@@ -37,3 +37,16 @@ The `archive` task for example accepts `SourceDirectory` -- the directory to cre
 ```
 
 Note: that it currently only accepts a rooted path. Relative paths are treated relative to the location of the project file.
+
+## Verbosity
+
+The output from msbuild is pretty unpleasant, it'd be nice to be able to select a formatter.
+
+## Test Running
+
+It seems `nunit-console` works under Mono -- [download it](http://www.nunit.org/index.php?p=download), unzip it, make it executable and run:
+
+ ```
+ ~/Downloads/NUnit-2.6.4/bin/nunit-console.exe project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll
+
+ ``` 

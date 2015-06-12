@@ -22,4 +22,17 @@ namespace Conduit.Adapters.Build
 			return true;
 		}
 	}
+
+	public class Nunit : Task
+	{
+		public override bool Execute()
+		{
+			var project = new Project(BuildEngine.ProjectFileOfTaskNode);
+
+			// @todo: actually we need a console runner foundation class.
+			// ~/Downloads/NUnit-2.6.4/bin/nunit-console.exe project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll
+
+			return true;
+		}
+	}
 }
