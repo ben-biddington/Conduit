@@ -50,3 +50,7 @@ It seems `nunit-console` works under Mono -- [download it](http://www.nunit.org/
  ~/Downloads/NUnit-2.6.4/bin/nunit-console.exe project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll
 
  ``` 
+ 
+ `nunit-console` [has a project reference to `nunit.engine`](https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/nunit-console.csproj#L122). I think `NUnit.Engine` is what you want. 
+ 
+ It [is used by `ConsoleRunner`](https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/nunit-console.csproj#L122).
