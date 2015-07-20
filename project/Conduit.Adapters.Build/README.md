@@ -51,6 +51,40 @@ It seems `nunit-console` works under Mono -- [download it](http://www.nunit.org/
 
  ``` 
  
- `nunit-console` [has a project reference to `nunit.engine`](https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/nunit-console.csproj#L122). I think `NUnit.Engine` is what you want. 
+Using [this advice](https://peteris.rocks/blog/running-nunit-with-msbuild-on-windows-and-mono/), when you install `Nunit.Runners`, you get the runner downloaded to something like:
  
- It [is used by `ConsoleRunner`](https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/nunit-console.csproj#L122).
+
+```
+packages/NUnit.Runners.2.6.4/tools/
+``` 
+
+Which means you *can* get test running by doing something like:
+
+```
+<Target Name="RunTests">
+  <PropertyGroup>
+    <ExeLauncher Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319</ExeLauncher>
+  </PropertyGroup>
+  <Exec Command="$(ExeLauncher) nunit-console.exe $(OutputPath)$(AssemblyName).dll"
+        WorkingDirectory="$(SolutionDir)\packages\NUnit.Runners.2.6.3\tools" />
+</Target>
+```
+
+And run with:
+
+```
+{x,ms}build project/Conduit.Integration.Tests/Conduit.Integration.Tests.csproj /t:RunTests
+```
+
+Where the actual command executed ends up being like:
+
+```
+mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll
+
+```
+
+Is this suitable or not? (A bit brittle with respect to path -- version is subject to change.
+
+`nunit-console` [has a project reference to `nunit.engine`](https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/nunit-console.csproj#L122). I think `NUnit.Engine` is what you want. 
+ 
+It [is used by `ConsoleRunner`](https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/nunit-console.csproj#L122).

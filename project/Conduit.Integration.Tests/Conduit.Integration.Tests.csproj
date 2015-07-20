@@ -56,14 +56,16 @@
     <Compile Include="Support\FileMachine.cs" />
     <Compile Include="Support\TextFile.cs" />
     <Compile Include="Archiving\Examples.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Conduit\Conduit.csproj">
-      <Project>{39006605-D504-407C-B9AA-45E26F101A32}</Project>
-      <Name>Conduit</Name>
-    </ProjectReference>
+    <Compile Include="TestRunning\Examples.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="RunTests" DependsOn="Build">
+  <PropertyGroup>
+    <Executable>$(SolutionDir)packages\NUnit.Runners.2.6.4\tools\</Executable>
+    <ExeLauncher Condition="('$(OS)' != 'Windows_NT')">mono</ExeLauncher>
+  </PropertyGroup>
+  <Exec Command="$(ExeLauncher) $(Executable)nunit-console.exe $(ProjectDir)$(OutputPath)$(AssemblyName).dll" />
+</Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -74,5 +76,8 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestRunning\" />
   </ItemGroup>
 </Project>
