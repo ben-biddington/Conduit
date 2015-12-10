@@ -11,8 +11,6 @@
     <AssemblyName>Conduit.Adapters.Build</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build" />
@@ -71,7 +71,7 @@
   </Target>
   <Target Name="Artifacts">
     <!--Consider: allowing supplying just the OutputDirectory and having it create an archive of everything compiled by a project, i.e., its binary output -->
-    <Artifacts OutputDirectory="$(OutputDirectory)" SourceDirectory="$(SourceDirectory)" ArtifactName="$(ArtifactName)"/> 
+    <Artifacts OutputDirectory="$(OutputDirectory)" SourceDirectory="$(SourceDirectory)" ArtifactName="$(ArtifactName)" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

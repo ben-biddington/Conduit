@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{47F51F0B-A247-4A15-BE9E-2089E4A14D4A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Conduit.Unit.Tests</RootNamespace>
@@ -20,6 +18,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,6 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
@@ -36,9 +36,11 @@
     <Reference Include="System" />
     <Reference Include="nunit-console-runner">
       <HintPath>..\..\..\..\Downloads\NUnit-2.6.4\bin\lib\nunit-console-runner.dll</HintPath>
+      <Package>nunit</Package>
     </Reference>
     <Reference Include="nunit.core">
       <HintPath>..\..\..\..\Downloads\NUnit-2.6.4\bin\lib\nunit.core.dll</HintPath>
+      <Package>nunit</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>

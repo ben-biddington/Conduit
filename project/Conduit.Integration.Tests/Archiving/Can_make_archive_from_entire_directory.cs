@@ -1,8 +1,8 @@
 using System.IO;
 using System.Linq;
+using Conduit.UseCases.Archiving;
 using Conduit.Integration.Tests.Archiving.Support;
 using Conduit.Integration.Tests.Support;
-using Conduit.UseCases.Archiving;
 using NUnit.Framework;
 
 namespace Conduit.Integration.Tests.Archiving
