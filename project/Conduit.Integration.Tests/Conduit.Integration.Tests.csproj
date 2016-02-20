@@ -51,6 +51,9 @@
     <Reference Include="xunit.assert">
       <HintPath>..\..\packages\xunit.assert.2.1.0\lib\portable-net45+win8+wp8+wpa81\xunit.assert.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.runner.utility.desktop">
+      <HintPath>..\..\packages\xunit.runner.utility.2.1.0\lib\net35\xunit.runner.utility.desktop.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
