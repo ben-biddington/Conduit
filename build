@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
+  <UsingTask TaskName="List" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
+  
+  <Target Name="usage">
+    <Message Text="It would be nice to list available tasks here, but for some reason it is not finding any" />
+    <CallTarget Targets="list.targets"/>
+  </Target>
 
-  <Target Name="unit.test">
+  <Target Name="list.targets">
+    <List />
+  </Target>
+  
+  <Target Name="unit.test" Label="Run unit tests">
     <Xunit TestAssembly="project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll" />
   </Target>
 
