@@ -2,7 +2,7 @@ version: 0.0.{build}
 
 build_script:
 
-  "C:\Program Files (x86)\Mono\bin\xbuild"
+  xbuild
 
 after_build: 
 
