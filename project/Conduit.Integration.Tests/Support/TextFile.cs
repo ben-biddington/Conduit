@@ -1,6 +1,5 @@
 using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Semver.Semver;
-using NUnit.Framework;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.IO;

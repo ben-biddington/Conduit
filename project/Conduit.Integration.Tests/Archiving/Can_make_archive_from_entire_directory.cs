@@ -3,14 +3,13 @@ using System.Linq;
 using Conduit.UseCases.Archiving;
 using Conduit.Integration.Tests.Archiving.Support;
 using Conduit.Integration.Tests.Support;
-using NUnit.Framework;
+using Xunit;
 
 namespace Conduit.Integration.Tests.Archiving
 {
-	[TestFixture]
 	public class Can_make_archive_from_entire_directory : RunsInCleanRoom
 	{
-		[Test]
+		[Fact]
 		public void for_example()
 		{
 			FileMachine.Make("A\\A.txt", "A");
@@ -26,7 +25,7 @@ namespace Conduit.Integration.Tests.Archiving
 			archive.MustContain("D.html");
 		}
 
-		[Test]
+		[Fact]
 		public void and_it_is_recursive()
 		{
 			FileMachine.Make("A\\A.txt", "A");
@@ -43,16 +42,15 @@ namespace Conduit.Integration.Tests.Archiving
 		// TEST: paths inside MUST match the operation system (?)
 	}
 
-	[TestFixture]
-	[Platform(Exclude = Platforms.Mono)]
+	//[Platform(Exclude = Platforms.Mono)]
 	public class Can_make_an_empty_one: RunsInCleanRoom
 	{
-		[Test]
+		[Fact]
 		public void for_example()
 		{
 			var archive = Archive.At("Example.zip");
 
-			Assert.AreEqual(0, archive.Contents().Count());
+			Assert.Equal(0, archive.Contents().Count());
 		}
 	}
 }

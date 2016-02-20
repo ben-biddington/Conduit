@@ -1,29 +1,29 @@
 ﻿using Conduit.UseCases.Semver;
 using Conduit.UseCases.Semver.Semver;
-using NUnit.Framework;
+using Xunit;
 
 namespace Conduit.Unit.Tests.SemanticVersioning
 {
     public class Can_increment_major
     {
-        [Test]
+        [Fact]
         public void like_this()
         {
             var versionOne = new SemVersion(1);
 
             var versionTwo = Bump.Major(versionOne);
 
-            Assert.That(versionTwo.Major, Is.EqualTo(2));
+            Assert.True(versionTwo.Major.Equals(2));
         }
 
-        [Test]
+        [Fact]
         public void and_it_leaves_the_original_value_unchanged()
         {
             var versionOne = new SemVersion(1);
 
             Bump.Major(versionOne);
 
-            Assert.That(versionOne.Major, Is.EqualTo(1));
+			Assert.True(versionOne.Major.Equals(1));
         }
     }
 }

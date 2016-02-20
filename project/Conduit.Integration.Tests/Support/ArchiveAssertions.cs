@@ -1,6 +1,6 @@
 using System;
 using Conduit.UseCases.Archiving;
-using NUnit.Framework;
+using Xunit;
 
 namespace Conduit.Integration.Tests.Support
 {
@@ -10,7 +10,7 @@ namespace Conduit.Integration.Tests.Support
 		{
 			foreach (var name in names)
 			{
-				Assert.IsTrue(self.Contains(name), "Expected the archive to contain <{0}>", name);
+				Assert.True(self.Contains(name), "Expected the archive to contain <" + name + " >");
 			}
 		}
 
@@ -18,10 +18,8 @@ namespace Conduit.Integration.Tests.Support
 		{
 			foreach (var name in names)
 			{
-				Assert.IsFalse(self.Contains(name), 
-					"Expected the archive to NOT contain <{0}>. It contains these files:\r\n\r\n{1}\r\n", 
-					name, 
-					string.Join(Environment.NewLine, self.Contents()));
+				Assert.False(self.Contains(name), 
+					"Expected the archive to NOT contain <" + name + ">. It contains these files:\r\n\r\n" + string.Join(Environment.NewLine, self.Contents()) + " \r\n");
 			}
 		}
 	}

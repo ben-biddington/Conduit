@@ -1,15 +1,15 @@
 ﻿using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Semver.Semver;
-using NUnit.Framework;
 using System.IO;
 using Conduit.UseCases.Semver.Assemblies;
+using Xunit;
 
 namespace Conduit.Integration.Tests.Versioning
 {
 
 	public class Can_bump_an_assembly_version : RunsInCleanRoom
 	{
-		[Test]
+		[Fact]
 		public void for_example()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
@@ -33,10 +33,10 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.0.0")));
+			Assert.Equal(SemVersion.Parse("1.0.0"), version);
 		}
 
-		[Test]
+		[Fact]
 		public void it_preserves_everything_under_patch()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
@@ -44,7 +44,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			AssemblyVersion.BumpMajor("AssemblyInfo.cs");
 
-			Assert.That(TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion(""1.0.0.*"")"), 
+			Assert.True(TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion(""1.0.0.*"")"), 
 			            @"Expected this text to contain <""AssemblyVersion(""1.0.0.*""))"">: " + File.ReadAllText("AssemblyInfo.cs"));
 		}
 	}

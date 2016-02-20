@@ -1,15 +1,15 @@
 ﻿using System.IO;
 using Conduit.Integration.Tests.Support;
 using Conduit.UseCases.Semver.Semver;
-using NUnit.Framework;
 using Conduit.UseCases.Semver.Assemblies;
 using System;
+using Xunit;
 
 namespace Conduit.Integration.Tests.Versioning
 {
 	public class Can_query_assembly_version : RunsInCleanRoom
 	{
-		[Test]
+		[Fact]
 		public void for_example()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
@@ -51,10 +51,10 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.337.0")));
+			Assert.True(version.Equals(SemVersion.Parse("1.337.0")));
 		}
 
-		[Test]
+		[Fact]
 		public void it_ignores_anything_after_patch_for_example_wildcard()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
@@ -62,10 +62,10 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.1.0")));
+			Assert.True(version.Equals(SemVersion.Parse("1.1.0")));
 		}
 
-		[Test]
+		[Fact]
 		public void version_and_file_version_are_both_available_separately()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
@@ -75,11 +75,11 @@ namespace Conduit.Integration.Tests.Versioning
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 			var fileVersion = AssemblyFileVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("1.337.0")));
-			Assert.That(fileVersion, Is.EqualTo(SemVersion.Parse("1.338.0")));
+			Assert.True(version.Equals(SemVersion.Parse("1.337.0")));
+			Assert.True(fileVersion.Equals(SemVersion.Parse("1.338.0")));
 		}
 
-		[Test]
+		[Fact]
 		public void it_fails_when_file_does_not_exist()
 		{
 			FileMachine.Make("MisnamedFile.cs", @"
@@ -88,17 +88,17 @@ namespace Conduit.Integration.Tests.Versioning
 			Assert.Throws<FileNotFoundException>(() => AssemblyVersion.For("AssemblyInfo.cs"));
 		}
 
-		[Test]
+		[Fact]
 		public void it_returns_blank_version_when_nothing_matches()
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"// Just other stuff, no version attributes");
 
 			var version = AssemblyVersion.For("AssemblyInfo.cs");
 
-			Assert.That(version, Is.EqualTo(SemVersion.Parse("0.0.0")));
+			Assert.True(version.Equals(SemVersion.Parse("0.0.0")));
 		}
 
-		[Test]
+		[Fact]
 		public void it_does_not_support_non_numeric_versions_like_wildcards_for_example() 
 		{
 			FileMachine.Make("AssemblyInfo.cs", @"
@@ -106,7 +106,7 @@ namespace Conduit.Integration.Tests.Versioning
 
 			var err = Assert.Throws<Exception>(() => AssemblyVersion.For("AssemblyInfo.cs"));
 
-			Assert.That (err.Message, Is.StringContaining ("Failed to parse"));
+			Assert.True(err.Message.Contains("Failed to parse"));
 		}
 
 		// TEST: it cannot handle wildcards like: [assembly: AssemblyVersion("1.0.*")]

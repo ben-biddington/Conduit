@@ -1,20 +1,17 @@
-using NUnit.Framework;
 
 namespace Conduit.Integration.Tests.Support
 {
-	public class RunsInCleanRoom
+	public class RunsInCleanRoom : System.IDisposable
 	{
 		private CleanRoom _cleanRoom;
 
-		[SetUp]
-		public void BeforeEach()
+		public RunsInCleanRoom()
 		{
 			_cleanRoom = new CleanRoom(".tmp");
 			_cleanRoom.Enter();
 		}
 
-		[TearDown]
-		public void AfterEach()
+		public void Dispose()
 		{
 			_cleanRoom.Exit();
 		}
