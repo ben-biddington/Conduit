@@ -6,10 +6,10 @@ Compile and run tests with:
 xbuild Conduit.sln && xbuild build /t:all.test
 ```
 
-Xunit console runner works like this:
+# Build status via API
 
 ```
-packages/xunit.runner.console.2.1.0/tools/xunit.console.exe project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll
+curl -v https://ci.appveyor.com/api/roles -H "Authorization: Bearer $TOKEN"
 ```
 
-Unable to find an IDE runner for Monodevelop yet.
+Where `TOKEN` [can be found on your profile](https://ci.appveyor.com/api-token).
