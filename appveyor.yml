@@ -1,7 +1,7 @@
 version: 0.0.{build}
 
 before_build:
-  nuget restore Conduit.sln
+  nuget restore Conduit.sln -DisableParallelProcessing
 
 build:
   parallel: true
