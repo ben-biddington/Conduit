@@ -1,1 +1,7 @@
 version: 0.0.{build}
+
+build:
+  parallel: true
+
+after_build:
+  msbuild build /t:test:all
