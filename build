@@ -24,4 +24,8 @@
   <Target Name="test.all">
     <CallTarget Targets="test.unit;test.integration"/>
   </Target>
+
+  <Target Name="build.status">
+    <Exec Value="curl https://ci.appveyor.com/api/projects/ben-biddington/Conduit -H 'Authorization: Bearer `cat .token`' | python -m json.tool" />
+  </Target>
 </Project>
