@@ -6,28 +6,27 @@ Register it like:
 
 ```
 <UsingTask TaskName="List" AssemblyFile="$(OutputPath)\Conduit.Adapters.Build.dll" />
-<Target Name="L">
+<Target Name="list.tasks">
 	<List />
 </Target>
 ```
 
-[IDEA] Make a build file with tasks in it -- it doesn't have to be a csproj file right?
 [IDEA] [CLI-fetch build status](https://www.appveyor.com/docs/api/projects-builds#get-projects)
 
 And call it like this:
 
 ```
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild project\Conduit.Adapters.Build\Conduit.Adapters.Build.csproj /t:L
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild project\Conduit.Adapters.Build\Conduit.Adapters.Build.csproj /t:list.tasks
 ```
 
 Or, on mono, like this:
 
 ```
-xbuild project/Conduit.Adapters.Build/Conduit.Adapters.Build.csproj /t:L
+xbuild project/Conduit.Adapters.Build/Conduit.Adapters.Build.csproj /t:list.tasks
 
 ```
 
-So the `target` name has to match what you supply to msbuild's `/t` option.
+So the target `Name` value has to match what you supply to msbuild's `/t` option.
 
 ## Supplying arguments
 
@@ -39,6 +38,14 @@ The `archive` task for example accepts `SourceDirectory` -- the directory to cre
 ```
 
 Note: that it currently only accepts a rooted path. Relative paths are treated relative to the location of the project file.
+
+Or you may supply them at declaration like so:
+
+```
+  <Target Name="T">
+    <Xunit TestAssembly="project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll" />
+  </Target>
+```
 
 ## Verbosity
 

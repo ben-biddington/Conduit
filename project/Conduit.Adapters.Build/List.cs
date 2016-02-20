@@ -22,4 +22,4 @@ namespace Conduit.Adapters.Build
 			return true;
 		}
 	}
-}
+	}

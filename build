@@ -14,11 +14,19 @@
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
 
-  <Target Name="L">
+  <Target Name="list.tasks">
     <List />
   </Target>
 
-  <Target Name="T">
-    <Xunit />
+  <Target Name="unit.test">
+    <Xunit TestAssembly="project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll" />
+  </Target>
+
+  <Target Name="integration.test">
+    <Xunit TestAssembly="project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll" />
+  </Target>
+
+  <Target Name="all.test">
+    <CallTarget Targets="unit.test;integration.test"/>
   </Target>
 </Project>

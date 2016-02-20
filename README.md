@@ -1,10 +1,10 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/fu6sv45edi8bd86j?svg=true)](https://ci.appveyor.com/project/ben-biddington/conduit)
 
-
 Compile and run tests with:
 
 ```
-xbuild && ./test.sh
+xbuild Conduit.sln && xbuild build /t:all.test
+
 ```
 
 Xunit console runner works like this:
