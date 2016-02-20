@@ -1,0 +1,9 @@
+on: 0.0.{build}
+
+build_script:
+
+  C:\Program Files (x86)\Mono\bin\xbuild
+
+after_build: 
+
+  exec test.sh
