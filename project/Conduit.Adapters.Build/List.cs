@@ -21,7 +21,7 @@ namespace Conduit.Adapters.Build
 
 				foreach (var target in project.Targets.OrderBy(it => it.Key))
 				{
-					Cli.Say(BuildEngine, "- {0}", target.Key, target.GetType());
+					Cli.Say(BuildEngine, "* {0}", target.Key);
 				}
 
 				return true;
