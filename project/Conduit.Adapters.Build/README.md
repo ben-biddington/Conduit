@@ -1,7 +1,6 @@
 ﻿# Running with MsBuild
 
-
-For example, there is a trask called `List` that prints the list of all available tasks. 
+For example, there is a task called `List` that prints the list of all available tasks. 
 
 Register it like:
 
@@ -11,6 +10,8 @@ Register it like:
 	<List />
 </Target>
 ```
+
+[IDEA] Make a build file with tasks in it -- it dones't have to be a csporj file right?
 
 And call it like this:
 
