@@ -33,6 +33,8 @@ namespace Conduit.Integration.Tests
 				Assert.True (project.Targets.ContainsKey("example"), "Expected to have read the file and to've found the task called 'example'");
 			}	
 		}
+
+		// TEST: It would be nice to be able to ignore imported tasks
 	}
 }
 

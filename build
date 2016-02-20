@@ -6,7 +6,6 @@
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
   
   <Target Name="usage">
-    <Message Text="It would be nice to list available tasks here, but for some reason it is not finding any" />
     <CallTarget Targets="list.targets"/>
   </Target>
 
@@ -14,15 +13,15 @@
     <List />
   </Target>
   
-  <Target Name="unit.test" Label="Run unit tests">
+  <Target Name="test.unit" Label="Run unit tests">
     <Xunit TestAssembly="project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll" />
   </Target>
 
-  <Target Name="integration.test">
+  <Target Name="test.integration">
     <Xunit TestAssembly="project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll" />
   </Target>
 
-  <Target Name="all.test">
-    <CallTarget Targets="unit.test;integration.test"/>
+  <Target Name="test.all">
+    <CallTarget Targets="test.unit;test.integration"/>
   </Target>
 </Project>
