@@ -54,6 +54,7 @@
     <Reference Include="xunit.runner.utility.desktop">
       <HintPath>..\..\packages\xunit.runner.utility.2.1.0\lib\net35\xunit.runner.utility.desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Support\FileMachine.cs" />
     <Compile Include="Support\TextFile.cs" />
     <Compile Include="Archiving\Examples.cs" />
+    <Compile Include="How_to_read_project_files.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\xunit.core.2.1.0\build\portable-net45+win8+wp8+wpa81\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.1.0\build\portable-net45+win8+wp8+wpa81\xunit.core.props')" />
@@ -93,6 +95,10 @@
     <ProjectReference Include="..\Conduit\Conduit.csproj">
       <Project>{39006605-D504-407C-B9AA-45E26F101A32}</Project>
       <Name>Conduit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Conduit.Adapters.Build\Conduit.Adapters.Build.csproj">
+      <Project>{C9C2EBEF-91DB-4F27-BE02-9551227FB333}</Project>
+      <Name>Conduit.Adapters.Build</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

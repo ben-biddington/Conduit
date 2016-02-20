@@ -3,6 +3,9 @@ using System;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Utilities;
 using System.Collections;
+using System.Xml;
+using System.IO;
+using System.Text;
 
 namespace Conduit.Adapters.Build
 {
@@ -10,16 +13,19 @@ namespace Conduit.Adapters.Build
 	{
 		public override bool Execute()
 		{
-			var project = new Project(BuildEngine.ProjectFileOfTaskNode);
-
-			Cli.Say(BuildEngine, "Project file <{0}> has the following <{1}> targets", BuildEngine.ProjectFileOfTaskNode, project.Targets.Count);
-
-			foreach (var target in project.Targets.OrderBy(it => it.Key))
+			using (var reader = XmlReader.Create(new StringReader(File.ReadAllText(BuildEngine.ProjectFileOfTaskNode))))
 			{
-				Cli.Say(BuildEngine, "- {0}", target.Key, target.GetType());
-			}
+				var project = new Project(reader);
 
-			return true;
+				Cli.Say(BuildEngine, "Project file <{0}> has the following <{1}> targets", BuildEngine.ProjectFileOfTaskNode, project.Targets.Count);
+
+				foreach (var target in project.Targets.OrderBy(it => it.Key))
+				{
+					Cli.Say(BuildEngine, "- {0}", target.Key, target.GetType());
+				}
+
+				return true;
+			}
 		}
 	}
-	}
+}
