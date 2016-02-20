@@ -11,7 +11,7 @@ Register it like:
 </Target>
 ```
 
-[IDEA] Make a build file with tasks in it -- it dones't have to be a csporj file right?
+[IDEA] Make a build file with tasks in it -- it doesn't have to be a csproj file right?
 [IDEA] [CLI-fetch build status](https://www.appveyor.com/docs/api/projects-builds#get-projects)
 
 And call it like this:

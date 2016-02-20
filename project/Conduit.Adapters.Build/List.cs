@@ -22,18 +22,4 @@ namespace Conduit.Adapters.Build
 			return true;
 		}
 	}
-
-	public class Nunit : Task
-	{
-		public override bool Execute()
-		{
-			var project = new Project(BuildEngine.ProjectFileOfTaskNode);
-
-			// @todo: actually we need a console runner foundation class. Or is there a way to run without shelling out?
-			// See: https://github.com/nunit/nunit/blob/master/src/NUnitConsole/nunit-console/ConsoleRunner.cs
-			// ~/Downloads/NUnit-2.6.4/bin/nunit-console.exe project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll
-
-			return true;
-		}
-	}
 }

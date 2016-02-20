@@ -49,6 +49,7 @@
     <Compile Include="List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Info.cs" />
+    <Compile Include="Xunit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
