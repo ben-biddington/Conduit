@@ -4,7 +4,6 @@ Compile and run tests with:
 
 ```
 xbuild Conduit.sln && xbuild build /t:all.test
-
 ```
 
 Xunit console runner works like this:
