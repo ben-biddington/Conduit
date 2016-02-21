@@ -6,13 +6,13 @@ namespace Conduit.Adapters.Build
 {
 	public static class Xunit
 	{
-		public static bool Run(Action<string> log, string testAssembly, string testClassName=null)
+		public static bool Run(Action<string> log, string testAssembly, string testClassName = null)
 		{
 			var result = 0;
 
 			var finished = new ManualResetEvent(false);
 
-			using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly))
+			using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
 			{
 				runner.OnDiscoveryComplete 	= info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
 				runner.OnExecutionComplete 	= info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };

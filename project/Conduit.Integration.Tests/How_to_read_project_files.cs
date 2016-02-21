@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Conduit.Integration.Tests
 {
-	public class How_to_read_project_files
+    public class How_to_read_project_files
 	{
 		[Fact]
 		public void for_example() {
