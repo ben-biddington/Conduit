@@ -2,8 +2,8 @@
 <Project DefaultTargets="Usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 
-  <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
-  <UsingTask TaskName="List" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
+  <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
+  <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   
   <Target Name="Usage">
     <CallTarget Targets="ListTargets"/>
