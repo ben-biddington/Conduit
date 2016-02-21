@@ -10,9 +10,6 @@ namespace Conduit.Adapters.Build
 	{
 		public static bool Run(Action<string> log, string testAssembly, string testClassName=null)
 		{
-			// Is there an Xunit sdk for running tests programmatically?
-			// See: https://github.com/xunit/samples.xunit/blob/master/TestRunner/Program.cs
-
 			var result = 0;
 
 			ManualResetEvent finished = new ManualResetEvent(false);
