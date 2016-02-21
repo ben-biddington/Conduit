@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Adapters.Build/bin/Debug/Conduit.Adapters.Build.dll" />
   
-  <Target Name="usage">
-    <CallTarget Targets="list.targets"/>
+  <Target Name="Usage">
+    <CallTarget Targets="ListTargets"/>
   </Target>
 
-  <Target Name="list.targets">
+  <Target Name="ListTargets">
     <List />
   </Target>
   
-  <Target Name="test.unit" Label="Run unit tests">
+  <Target Name="TestUnit" Label="Run unit tests">
     <Xunit TestAssembly="project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll" />
   </Target>
 
-  <Target Name="test.integration">
+  <Target Name="TestIntegration">
     <Xunit TestAssembly="project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll" />
   </Target>
 
-  <Target Name="test.all">
-    <CallTarget Targets="test.unit;test.integration"/>
+  <Target Name="TestAll">
+    <CallTarget Targets="TestUnit;TestIntegration"/>
   </Target>
 
-  <Target Name="build.status">
+  <Target Name="BuildStatus">
     <Exec Command="curl https://ci.appveyor.com/api/projects/ben-biddington/Conduit -H 'Authorization: Bearer `cat .token`' | python -m json.tool" />
   </Target>
 </Project>
