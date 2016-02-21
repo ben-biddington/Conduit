@@ -3,7 +3,12 @@
 Compile and run tests with:
 
 ```
-xbuild Conduit.sln && xbuild build /t:all.test
+xbuild Conduit.sln && xbuild build /t:TestAll
+```
+ Or (Windows):
+
+```
+"/c/Program Files (x86)/MSBuild/14.0/Bin/MSBuild.exe" Conduit.sln && "/c/Program Files (x86)/MSBuild/14.0/Bin/MSBuild.exe" build /target:TestAll
 ```
 
 # Build status via API
