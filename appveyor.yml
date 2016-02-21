@@ -10,4 +10,4 @@ build:
   parallel: true
 
 after_build:
-  msbuild build /t:test:all
+  msbuild build /t:TestAll
