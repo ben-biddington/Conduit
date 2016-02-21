@@ -9,7 +9,7 @@ using System.Xml;
 using System.IO;
 using System.Text;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Build.Targets
 {
 	public class List : Task
 	{

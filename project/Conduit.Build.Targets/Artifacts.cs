@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Evaluation;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Build.Targets
 {
 	public class Artifacts : Task
 	{

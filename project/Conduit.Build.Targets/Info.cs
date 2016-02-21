@@ -4,9 +4,8 @@ using Microsoft.Build.Evaluation;
 using Microsoft.Build.Utilities;
 using System.Collections;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Build.Targets
 {
-
 	public class Info : Task
 	{
 		public override bool Execute()

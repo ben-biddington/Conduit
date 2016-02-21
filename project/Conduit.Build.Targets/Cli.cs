@@ -1,6 +1,6 @@
 ﻿using Microsoft.Build.Framework;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Build.Targets
 {
 	internal static class Cli
 	{

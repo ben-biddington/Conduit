@@ -7,7 +7,7 @@ using System.Collections;
 using Xunit.Runners;
 using System.Threading;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Build.Targets
 {
 	public class Xunit : Task
 	{

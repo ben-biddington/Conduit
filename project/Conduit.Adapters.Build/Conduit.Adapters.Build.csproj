@@ -50,12 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Artifacts.cs" />
-    <Compile Include="Cli.cs" />
-    <Compile Include="List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Info.cs" />
-    <Compile Include="Xunit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

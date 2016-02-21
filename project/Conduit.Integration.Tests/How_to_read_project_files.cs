@@ -1,5 +1,4 @@
 ﻿using System;
-using Conduit.Adapters.Build;
 using Xunit;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Utilities;
