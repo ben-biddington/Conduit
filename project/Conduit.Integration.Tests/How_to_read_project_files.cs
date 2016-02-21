@@ -1,20 +1,12 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using Microsoft.Build.Evaluation;
-using Microsoft.Build.Utilities;
 using System.Xml;
 using System.IO;
-using System.Text;
 
 namespace Conduit.Integration.Tests
 {
 	public class How_to_read_project_files
 	{
-		public How_to_read_project_files ()
-		{
-			
-		}
-
 		[Fact]
 		public void for_example() {
 			string projectFileXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
