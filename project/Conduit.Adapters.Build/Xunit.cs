@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System;
-using System.Collections;
+﻿using System;
 using Xunit.Runners;
 using System.Threading;
 
@@ -12,9 +10,9 @@ namespace Conduit.Adapters.Build
 		{
 			var result = 0;
 
-			ManualResetEvent finished = new ManualResetEvent(false);
+			var finished = new ManualResetEvent(false);
 
-			using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
+			using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly))
 			{
 				runner.OnDiscoveryComplete 	= info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
 				runner.OnExecutionComplete 	= info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };

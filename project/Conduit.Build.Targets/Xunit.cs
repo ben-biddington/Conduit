@@ -1,11 +1,5 @@
-﻿using System.Linq;
-using System;
-using Microsoft.Build.Evaluation;
+﻿using System;
 using Microsoft.Build.Utilities;
-using Microsoft.Build.Framework;
-using System.Collections;
-using Xunit.Runners;
-using System.Threading;
 
 namespace Conduit.Build.Targets
 {
