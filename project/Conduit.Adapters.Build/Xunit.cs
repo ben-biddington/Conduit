@@ -31,7 +31,17 @@ namespace Conduit.Adapters.Build
 
 				log ("Tests finished with status <" + result + ">");
 
+				Wait.Until (() => runner.Status.Equals (AssemblyRunnerStatus.Idle));	
+
 				return result == 0;
+			}
+		}
+	}
+
+	internal static class Wait {
+		internal static void Until(Func<bool> block) {
+			while (false == block ()) {
+				Thread.Sleep (TimeSpan.FromMilliseconds (500));
 			}
 		}
 	}

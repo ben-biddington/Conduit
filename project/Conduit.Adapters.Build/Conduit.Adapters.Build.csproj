@@ -63,9 +63,10 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
   <!-- https://peteris.rocks/blog/merging-net-assemblies-with-msbuild/ -->
-  <Target Name="AfterBuild" Condition="false">
+  <Target Name="AfterBuild" Condition="true">
     <ItemGroup>
       <MergeAssemblies Include="$(OutputPath)\xunit.abstractions.dll" />
+      <MergeAssemblies Include="$(OutputPath)\Conduit.Adapters.Build.dll" />
     </ItemGroup>
     <PropertyGroup>
       <OutputAssembly>$(OutputPath)\Conduit.Adapters.Build.dll</OutputAssembly>
