@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -61,25 +61,18 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\ILRepackTask.1.0.8\build\net40\ILRepackTask.targets" Condition="Exists('..\..\packages\ILRepackTask.1.0.8\build\net40\ILRepackTask.targets')" />
-  <UsingTask TaskName="List" AssemblyFile="$(OutputPath)Conduit.Adapters.Build.dll" />
-  <UsingTask TaskName="Artifacts" AssemblyFile="$(OutputPath)Conduit.Adapters.Build.dll" />
-  <UsingTask TaskName="Info" AssemblyFile="$(OutputPath)Conduit.Adapters.Build.dll" />
-  <Target Name="L">
-    <List />
-  </Target>
-  <Target Name="Info">
-    <Info />
-  </Target>
-  <Target Name="Artifacts">
-    <!--Consider: allowing supplying just the OutputDirectory and having it create an archive of everything compiled by a project, i.e., its binary output -->
-    <Artifacts OutputDirectory="$(OutputDirectory)" SourceDirectory="$(SourceDirectory)" ArtifactName="$(ArtifactName)" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
+
+  <!-- https://peteris.rocks/blog/merging-net-assemblies-with-msbuild/ -->
   <Target Name="AfterBuild">
+    <ItemGroup>
+      <MergeAssemblies Include="$(OutputPath)\xunit.abstractions.dll" />
+    </ItemGroup>
+    <PropertyGroup>
+      <OutputAssembly>$(OutputPath)\Conduit.Adapters.Build.dll</OutputAssembly>
+      <Merger Condition="('$(OS)' == 'Windows_NT')">&quot;$(SolutionDir)\packages\ilmerge.2.14.1208\ILMerge.exe&quot;</Merger>
+      <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 &quot;$(SolutionDir)\packages\ILRepack.2.0.10\tools\ILRepack.exe&quot;</Merger>
+    </PropertyGroup>
+    <Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
+    <Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
   </Target>
-  -->
 </Project>
