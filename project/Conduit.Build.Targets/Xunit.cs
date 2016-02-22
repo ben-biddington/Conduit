@@ -16,7 +16,7 @@ namespace Conduit.Build.Targets
 
 			Action<string> say = msg => Cli.Say(BuildEngine, msg);
 
-			return Conduit.Adapters.Build.Xunit.Run (say, TestAssembly);
+			return Adapters.Build.Xunit.Run (say, TestAssembly);
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Conduit.Adapters.Build
 
 			var finished = new ManualResetEvent(false);
 
-			using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
+			using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly))
 			{
 				runner.OnDiscoveryComplete 	= info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
 				runner.OnExecutionComplete 	= info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
