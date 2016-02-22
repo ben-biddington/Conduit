@@ -66,6 +66,7 @@
   <Target Name="AfterBuild" Condition="true">
     <ItemGroup>
       <MergeAssemblies Include="$(OutputPath)\xunit.abstractions.dll" />
+      <MergeAssemblies Include="$(OutputPath)\xunit.runner.utility.desktop.dll" />
       <MergeAssemblies Include="$(OutputPath)\Conduit.Adapters.Build.dll" />
     </ItemGroup>
     <PropertyGroup>
