@@ -71,7 +71,7 @@
     </ItemGroup>
     <PropertyGroup>
       <OutputAssembly>$(OutputPath)\Conduit.Adapters.Build.WithXunit.dll</OutputAssembly>
-      <Merger Condition="('$(OS)' == 'Windows_NT')">&quot;$(SolutionDir)\packages\ilmerge.2.14.1208\ILMerge.exe&quot;</Merger>
+      <Merger Condition="('$(OS)' == 'Windows_NT')">&quot;$(SolutionDir)\packages\ilmerge.2.14.1208\tools\ILMerge.exe&quot;</Merger>
       <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 &quot;$(SolutionDir)\packages\ILRepack.2.0.10\tools\ILRepack.exe&quot; /union</Merger>
     </PropertyGroup>
     <Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
