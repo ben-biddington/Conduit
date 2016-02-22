@@ -63,14 +63,14 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
   <!-- https://peteris.rocks/blog/merging-net-assemblies-with-msbuild/ -->
-  <Target Name="AfterBuild">
+  <Target Name="AfterBuild" Condition="false">
     <ItemGroup>
       <MergeAssemblies Include="$(OutputPath)\xunit.abstractions.dll" />
     </ItemGroup>
     <PropertyGroup>
       <OutputAssembly>$(OutputPath)\Conduit.Adapters.Build.dll</OutputAssembly>
       <Merger Condition="('$(OS)' == 'Windows_NT')">&quot;$(SolutionDir)\packages\ilmerge.2.14.1208\ILMerge.exe&quot;</Merger>
-      <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 &quot;$(SolutionDir)\packages\ILRepack.2.0.10\tools\ILRepack.exe&quot;</Merger>
+      <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 &quot;$(SolutionDir)\packages\ILRepack.2.0.10\tools\ILRepack.exe&quot; /union</Merger>
     </PropertyGroup>
     <Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
     <Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
