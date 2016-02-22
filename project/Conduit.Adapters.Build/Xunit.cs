@@ -12,7 +12,7 @@ namespace Conduit.Adapters.Build
 
 			var finished = new ManualResetEvent(false);
 
-			using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly))
+			using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
 			{
 				runner.OnDiscoveryComplete 	= info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
 				runner.OnExecutionComplete 	= info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
@@ -40,8 +40,13 @@ namespace Conduit.Adapters.Build
 
 	internal static class Wait {
 		internal static void Until(Func<bool> block) {
+			var startedAt = DateTime.Now;
+
 			while (false == block ()) {
-				Thread.Sleep (TimeSpan.FromMilliseconds (500));
+				Thread.Sleep(TimeSpan.FromMilliseconds (500));
+
+				if (DateTime.Now.Subtract (startedAt) > TimeSpan.FromSeconds (5))
+					throw new Exception($"Timed out after <{DateTime.Now.Subtract(startedAt)}>");
 			}
 		}
 	}
