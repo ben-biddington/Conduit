@@ -5,6 +5,10 @@
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
 
+  <ItemGroup>
+    <TestAssemblies Include="**\*Unit.Tests.dll" />
+  </ItemGroup>
+    
   <Target Name="Usage">
     <CallTarget Targets="ListTargets"/>
   </Target>
