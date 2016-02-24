@@ -39,11 +39,16 @@ namespace Conduit.Integration.Tests
 
 	public class Dir
 	{
-		public static List<string> Glob(string glob)
+		public static List<string> Glob(string pattern)
 		{
-			var all = Directory.GetFiles (".", "*", SearchOption.AllDirectories);
+			return Glob (".", pattern);
+		}
 
-			return Minimatch.Minimatcher.Filter(all, glob, new Options { AllowWindowsPaths = true }).ToList();
+		public static List<string> Glob(string dir, string pattern)
+		{
+			var all = Directory.GetFiles (dir, "*", SearchOption.AllDirectories);
+
+			return Minimatch.Minimatcher.Filter(all, pattern, new Options { AllowWindowsPaths = true }).ToList();
 		}
 	}
 }
