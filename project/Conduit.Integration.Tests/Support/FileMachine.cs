@@ -5,6 +5,11 @@ namespace Conduit.Integration.Tests.Support
 {
 	internal static class FileMachine
 	{
+		public static void Touch(params string[] parts)
+		{
+			Make(Path.Combine(parts), string.Empty);
+		}
+
 		public static void Touch(string filename)
 		{
 			Make(filename, string.Empty);
