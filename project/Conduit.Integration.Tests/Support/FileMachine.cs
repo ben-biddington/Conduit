@@ -5,6 +5,11 @@ namespace Conduit.Integration.Tests.Support
 {
 	internal static class FileMachine
 	{
+		public static void Touch(string filename)
+		{
+			Make(filename, string.Empty);
+		}
+
 		public static FileInfo Make(string filename, string content)
 		{
 			var info = new FileInfo(Path.GetFullPath(filename).Replace("\\", Path.DirectorySeparatorChar.ToString()));
