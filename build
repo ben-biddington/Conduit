@@ -4,6 +4,15 @@
 
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
+
+  <Target Name="Files">
+    <PropertyGroup>
+      <BuildDir>
+        <Item Include = "**/*.dll"/>
+      </BuildDir>
+    </PropertyGroup>
+    <Message Text="$(BuildDir)" />
+  </Target>
   
   <Target Name="Usage">
     <CallTarget Targets="ListTargets"/>
