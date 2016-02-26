@@ -28,7 +28,7 @@ namespace Conduit.Integration.Tests
                 reporter, 
                 Path.Combine("res", "Example.Unit.Tests.Mixed.dll"), 
                 null, 
-                XunitOptions.NoAppDomain));
+                XunitOptions.NoAppDomain), "Expected one of these tests to've failed, but they all passed");
 
             var expected = "Failing on purpose";
 
