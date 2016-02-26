@@ -29,7 +29,7 @@
   </Target>
 
   <PropertyGroup>
-    <Reporter></Reporter>
+    <Reporter>verbose</Reporter>
   </PropertyGroup>
   
   <Target Name="TestUnit">
@@ -55,8 +55,8 @@
     <Glob Pattern=".\**\bin\**\Conduit.Integration.Tests.dll">
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
-    
-    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" ParallelizeAssemblies="false" ParallelizeTestCollections="false" />
+
+    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)"/>
   </Target>
 
   <Target Name="CustomTestUnit" Label="This one uses custome xunit runner">
