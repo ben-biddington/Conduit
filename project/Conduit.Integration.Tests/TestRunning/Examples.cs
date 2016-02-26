@@ -20,12 +20,22 @@ namespace Conduit.Integration.Tests
         [Fact]
         public void this_one_shows_one_failure_and_one_skipped()
         {
+            TestFailure actualFailed = null;
+
+            var reporter = TestReport.Silent.WithFailure(it => actualFailed = it);
+
             Assert.False(Conduit.Adapters.Build.Xunit.Run(
-                TestReport.Silent, 
+                reporter, 
                 Path.Combine("res", "Example.Unit.Tests.Mixed.dll"), 
                 null, 
                 XunitOptions.NoAppDomain));
+
+            var expected = "Failing on purpose";
+
+            Assert.True(actualFailed.Message.StartsWith(expected), $"Expected <{actualFailed.Message}> to start with <{expected}>");
         }
+
+        // TEST: Mae sure failures have the test name
     }
 }
 

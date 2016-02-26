@@ -13,7 +13,7 @@ namespace Conduit.Adapters.Build
         {
             it.Log          = log;
             it.Passed       = _ => Console.Write("."); // @todo: this needs to be formatted indented like the rest of the text
-            it.Failed       = _ => Console.Write("F");
+            it.Failed       = info => Console.WriteLine(info.Message);
             it.Skipped      = _ => Console.Write("*");
             it.RunStarted   = info => log($"Running <{info.TestCaseCount}> tests from assembly <{info.AssemblyName}>");
             it.RunFinished  = info =>
@@ -57,6 +57,11 @@ namespace Conduit.Adapters.Build
             Skipped     = skipped;
             RunFinished = runFinished;
             Log         = log;
+        }
+
+        public TestReport WithFailure(Action<TestFailure> block)
+        {
+            return With(it => it.Failed = block);
         }
 
         public TestReport With(Action<TestReport> block)
