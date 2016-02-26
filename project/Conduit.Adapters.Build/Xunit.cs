@@ -14,25 +14,44 @@ namespace Conduit.Adapters.Build
 
             using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
             {
-                runner.OnDiscoveryComplete  = info => report.RunStarted(new TestRun(testAssembly, info.TestCasesToRun));
-                runner.OnTestOutput         = info => report.Output(info.Output);
-                runner.OnTestPassed         = info => report.Passed(info.Output);
-                runner.OnTestFailed         = info => { result = 1; report.Log(info.ExceptionMessage); report.Log(info.ExceptionStackTrace); };
-                runner.OnTestSkipped        = info => report.Skipped(info.SkipReason);
-                runner.OnTestFinished       = info => report.Finished(info.Output);
-                runner.OnExecutionComplete  = info => { finished.Set(); report.RunFinished(new TestResult(info.TotalTests-info.TestsFailed, info.TestsFailed, info.TestsSkipped, TimeSpan.FromSeconds(Convert.ToDouble(info.ExecutionTime)))); };
+                Listen(report, testAssembly, runner, finished);
 
                 runner.Start(testClassName, parallel: false);
 
+                runner.OnTestFailed = _ => result = 1;
+
                 finished.WaitOne();
                 finished.Dispose();
-
-                report.Log("Tests finished with status <" + result + ">");
 
                 Wait.Until(() => runner.Status.Equals(AssemblyRunnerStatus.Idle));
 
                 return result == 0;
             }
+        }
+
+        private static void Listen(TestReport report, string testAssembly, AssemblyRunner runner, ManualResetEvent finished)
+        {
+            runner.OnDiscoveryComplete  = info => report.RunStarted(new TestRun(testAssembly, info.TestCasesToRun));
+            runner.OnTestOutput         = info => report.Output(info.Output);
+            runner.OnTestPassed         = info => report.Passed(info.Output);
+            runner.OnTestFailed         = info =>
+            {
+                // Why is this not triggered?
+                report.Failed(new TestFailure(info.ExceptionMessage, info.ExceptionStackTrace));
+            };
+            runner.OnTestSkipped        = info => report.Skipped(info.SkipReason);
+            runner.OnTestFinished       = info => report.Finished();
+            runner.OnExecutionComplete  = info =>
+            {
+                finished.Set();
+
+                report.RunFinished(
+                    new TestResult(
+                        info.TotalTests - (info.TestsFailed + info.TestsSkipped), 
+                        info.TestsFailed, 
+                        info.TestsSkipped,
+                        TimeSpan.FromSeconds(Convert.ToDouble(info.ExecutionTime))));
+            };
         }
     }
 

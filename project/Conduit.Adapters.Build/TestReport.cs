@@ -3,6 +3,7 @@ using Conduit.Lang;
 
 namespace Conduit.Adapters.Build
 {
+    // @todo: this may need to be an object because it needs to remember the things it is told, that way we can report failures at the end
     public class TestReport
     {
         private static readonly Action<string> noop = Noop<string>();
@@ -11,10 +12,15 @@ namespace Conduit.Adapters.Build
         public static TestReport Normal(Action<string> log) => Silent.With(it =>
         {
             it.Log          = log;
-            it.Passed       = log;
-            it.Finished     = log;
+            it.Passed       = _ => Console.Write("."); // @todo: this needs to be formatted indented like the rest of the text
+            it.Failed       = _ => Console.Write("F");
+            it.Skipped      = _ => Console.Write("*");
             it.RunStarted   = info => log($"Running <{info.TestCaseCount}> tests from assembly <{info.AssemblyName}>");
-            it.RunFinished  = info => log($"passed: {info.Passed}, failed: {info.Failed}, skipped: {info.Skipped}, duration: {info.Duration}");
+            it.RunFinished  = info =>
+            {
+                Console.WriteLine(Environment.NewLine);
+                log($"passed: {info.Passed}, failed: {info.Failed}, skipped: {info.Skipped}, duration: {info.Duration}");
+            };
         });
 
         private static Action<T> Noop<T>()
@@ -22,23 +28,23 @@ namespace Conduit.Adapters.Build
             return _ => { };
         }
 
-        public Action<string> Failed            { get; private set; }
-        public Action<string> Skipped           { get; private set; }
-        public Action<TestResult> RunFinished   { get; private set; }
-        public Action<string> Finished          { get; private set; }
-        public Action<string> Output            { get; private set; }
-        public Action<TestRun> RunStarted       { get; set; }
-        public Action<string> Passed            { get; private set; }
-        public Action<string> Log               { get; private set; }
+        public Action<TestFailure>  Failed      { get; private set; }
+        public Action<string>       Skipped     { get; private set; }
+        public Action<TestResult>   RunFinished { get; private set; }
+        public Action               Finished    { get; private set; }
+        public Action<string>       Output      { get; private set; }
+        public Action<TestRun>      RunStarted  { get; private set; }
+        public Action<string>       Passed      { get; private set; }
+        public Action<string>       Log         { get; private set; }
 
-        public TestReport() : this(noop, Noop<TestRun>(), noop, noop, noop, noop, Noop<TestResult>(), noop) { }
+        public TestReport() : this(noop, Noop<TestRun>(), () => { }, noop, Noop<TestFailure>(), noop, Noop<TestResult>(), noop) { }
 
         public TestReport(
             Action<string>      output, 
             Action<TestRun>     runStarted, 
-            Action<string>      finished, 
+            Action              finished, 
             Action<string>      passed, 
-            Action<string>      failed, 
+            Action<TestFailure> failed, 
             Action<string>      skipped, 
             Action<TestResult>  runFinished, 
             Action<string>      log)
