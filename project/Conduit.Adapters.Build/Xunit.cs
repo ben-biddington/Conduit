@@ -14,13 +14,13 @@ namespace Conduit.Adapters.Build
 
             using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
             {
-                runner.OnDiscoveryComplete = info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
-                runner.OnExecutionComplete = info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
-                runner.OnTestFailed = info => { result = 1; log(info.ExceptionMessage); log(info.ExceptionStackTrace); };
-                runner.OnTestOutput = info => log(info.Output);
-                runner.OnTestPassed = info => log(info.Output);
-                runner.OnTestFinished = _ => log(".");
-                runner.OnTestSkipped = _ => log("*");
+                runner.OnDiscoveryComplete  = info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
+                runner.OnExecutionComplete  = info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
+                runner.OnTestFailed         = info => { result = 1; log(info.ExceptionMessage); log(info.ExceptionStackTrace); };
+                runner.OnTestOutput         = info => log(info.Output);
+                runner.OnTestPassed         = info => log(info.Output);
+                runner.OnTestFinished       = _ => log(".");
+                runner.OnTestSkipped        = _ => log("*");
 
                 log("Discovering tests in assembly <" + testAssembly + ">");
 

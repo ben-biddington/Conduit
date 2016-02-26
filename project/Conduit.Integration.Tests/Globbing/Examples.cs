@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Threading;
+using Conduit.Adapters.Build;
 using Conduit.Integration.Tests.Support;
 using Xunit;
 
@@ -39,18 +38,6 @@ namespace Conduit.Integration.Tests.Globbing
             FileMachine.Touch("bin", "Debug", "example.dll");
 
             Assert.Null(Dir.Newest("xxx-does-not-exist-xxx.dll"));
-        }
-    }
-
-    public class Dir
-    {
-        public static FileInfo Newest(string filenameWithExtension)
-        {
-            var newest = Directory.GetFiles(Environment.CurrentDirectory, $"*{filenameWithExtension}", SearchOption.AllDirectories).Select(it => new FileInfo(it)).ToList();
-
-            return false == newest.Any() 
-                ? null 
-                : newest.OrderBy(it => it.LastWriteTimeUtc).LastOrDefault();
         }
     }
 }
