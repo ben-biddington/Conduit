@@ -31,10 +31,7 @@ namespace Conduit.Adapters.Build
         public Action<string> Passed            { get; private set; }
         public Action<string> Log               { get; private set; }
 
-        public TestReport() : this(noop, Noop<TestRun>(), noop, noop, noop, noop, Noop<TestResult>(), noop)
-        {
-            
-        }
+        public TestReport() : this(noop, Noop<TestRun>(), noop, noop, noop, noop, Noop<TestResult>(), noop) { }
 
         public TestReport(
             Action<string>      output, 
