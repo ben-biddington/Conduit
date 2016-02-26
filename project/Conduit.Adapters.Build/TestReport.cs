@@ -24,7 +24,7 @@ namespace Conduit.Adapters.Build
 
         public Action<string> Failed            { get; private set; }
         public Action<string> Skipped           { get; private set; }
-        public Action<TestResult> RunFinished   { get; set; }
+        public Action<TestResult> RunFinished   { get; private set; }
         public Action<string> Finished          { get; private set; }
         public Action<string> Output            { get; private set; }
         public Action<TestRun> RunStarted       { get; set; }
