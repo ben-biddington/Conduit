@@ -48,10 +48,9 @@ namespace Conduit.Integration.Tests.Globbing
         {
             var newest = Directory.GetFiles(Environment.CurrentDirectory, $"*{filenameWithExtension}", SearchOption.AllDirectories).Select(it => new FileInfo(it)).ToList();
 
-            if (false == newest.Any())
-                return null;
-
-            return newest.OrderBy(it => it.LastWriteTimeUtc).LastOrDefault();
+            return false == newest.Any() 
+                ? null 
+                : newest.OrderBy(it => it.LastWriteTimeUtc).LastOrDefault();
         }
     }
 }
