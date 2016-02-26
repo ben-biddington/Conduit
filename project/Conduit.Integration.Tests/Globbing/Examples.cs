@@ -22,6 +22,24 @@ namespace Conduit.Integration.Tests.Globbing
 
             Assert.Equal(expected.FullName, actual.FullName);
         }
+
+        [Fact]
+        public void single_match_is_okay_too()
+        {
+            var expected = FileMachine.Touch("bin", "Debug", "example.dll");
+
+            var actual = Dir.Newest("example.dll");
+
+            Assert.Equal(expected.FullName, actual.FullName);
+        }
+
+        [Fact]
+        public void no_matches_returns_null()
+        {
+            FileMachine.Touch("bin", "Debug", "example.dll");
+
+            Assert.Null(Dir.Newest("xxx-does-not-exist-xxx.dll"));
+        }
     }
 
     public class Dir
