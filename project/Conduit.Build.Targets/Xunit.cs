@@ -21,7 +21,7 @@ namespace Conduit.Build.Targets
 
             log($"Running in working directory <{Environment.CurrentDirectory}>");
 
-            return Adapters.Build.Xunit.Run(TestReport.Normal(log), UseGlob ? Assembly.NewestMatching(log, TestAssemblyGlob) : TestAssembly);
+            return Adapters.Build.Xunit.Run(TestReport.Documentation(log), UseGlob ? Assembly.NewestMatching(log, TestAssemblyGlob) : TestAssembly);
         }
     }
 }

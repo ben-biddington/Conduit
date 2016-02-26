@@ -17,4 +17,16 @@ namespace Conduit.Adapters.Build
             Duration = duration;
         }
     }
+
+    public class TestName 
+    {
+        public string Collection { get; }
+        public string Name { get; }
+
+        public TestName(string collection, string name)
+        {
+            Collection = collection;
+            Name = name;
+        }
+    }
 }

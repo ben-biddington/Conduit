@@ -60,12 +60,12 @@ namespace Conduit.Adapters.Build
         {
             runner.OnDiscoveryComplete  += info => report.RunStarted(new TestRun(testAssembly, info.TestCasesToRun));
             runner.OnTestOutput         += info => report.Output(info.Output);
-            runner.OnTestPassed         += info => report.Passed(info.Output);
+            runner.OnTestPassed         += info => report.Passed(new TestName(info.TestCollectionDisplayName, info.TestDisplayName));
             runner.OnTestFailed         += info =>
             {
-                report.Failed(new TestFailure(info.ExceptionMessage, info.ExceptionStackTrace));
+                report.Failed(new TestFailure(info.ExceptionMessage, info.ExceptionStackTrace, new TestName(info.TestCollectionDisplayName, info.TestDisplayName)));
             };
-            runner.OnTestSkipped        += info => report.Skipped(info.SkipReason);
+            runner.OnTestSkipped        += info => report.Skipped(info.SkipReason, new TestName(info.TestCollectionDisplayName, info.TestDisplayName));
             runner.OnTestFinished       += info => report.Finished();
             runner.OnExecutionComplete  += info =>
             {
