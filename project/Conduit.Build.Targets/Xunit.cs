@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Conduit.Adapters.Build;
 using Microsoft.Build.Utilities;
 
 namespace Conduit.Build.Targets
@@ -19,11 +21,11 @@ namespace Conduit.Build.Targets
         /// </summary>
         public override bool Execute()
         {
-            Cli.Say(BuildEngine, "Running test assembly <{0}>", TestAssembly);
+            Action<string> log = msg => Cli.Say(BuildEngine, msg);
 
-            Action<string> say = msg => Cli.Say(BuildEngine, msg);
+            log($"Running test assembly <{(Smart ? Dir.Newest(Path.GetFileName(TestAssembly)).FullName : TestAssembly)}>");
 
-            return Adapters.Build.Xunit.Run(say, TestAssembly);
+            return Adapters.Build.Xunit.Run(log, TestAssembly);
         }
     }
 }
