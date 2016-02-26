@@ -12,4 +12,4 @@ build:
   parallel: true
 
 after_build:
-  msbuild build.xml /t:TestAll
+  msbuild build.xml /t:TestAll /p:reporter=appveyor
