@@ -22,7 +22,7 @@ namespace Conduit.Adapters.Build
             return Run(report, testAssembly, testClassName, new XunitOptions(true));
         }
 
-        private static readonly Func<string,AssemblyRunner> _on = testAssembly => AssemblyRunner.WithAppDomain(testAssembly);
+        //private static readonly Func<string,AssemblyRunner> _on = testAssembly => AssemblyRunner.WithAppDomain(testAssembly);
         private static readonly Func<string,AssemblyRunner> _off = testAssembly => AssemblyRunner.WithoutAppDomain(testAssembly);
 
         public static bool Run(TestReport report, string testAssembly, string testClassName, XunitOptions options)
@@ -37,7 +37,7 @@ namespace Conduit.Adapters.Build
 
                 runner.Start(testClassName, parallel: false);
 
-                runner.OnTestFailed = _ => result = 1;
+                runner.OnTestFailed += _ => result = 1;
 
                 finished.WaitOne();
                 finished.Dispose();
@@ -58,17 +58,17 @@ namespace Conduit.Adapters.Build
 
         private static void Listen(TestReport report, string testAssembly, AssemblyRunner runner, ManualResetEvent finished)
         {
-            runner.OnDiscoveryComplete  = info => report.RunStarted(new TestRun(testAssembly, info.TestCasesToRun));
-            runner.OnTestOutput         = info => report.Output(info.Output);
-            runner.OnTestPassed         = info => report.Passed(info.Output);
-            runner.OnTestFailed         = info =>
+            runner.OnDiscoveryComplete  += info => report.RunStarted(new TestRun(testAssembly, info.TestCasesToRun));
+            runner.OnTestOutput         += info => report.Output(info.Output);
+            runner.OnTestPassed         += info => report.Passed(info.Output);
+            runner.OnTestFailed         += info =>
             {
                 // Why is this not triggered?
                 report.Failed(new TestFailure(info.ExceptionMessage, info.ExceptionStackTrace));
             };
-            runner.OnTestSkipped        = info => report.Skipped(info.SkipReason);
-            runner.OnTestFinished       = info => report.Finished();
-            runner.OnExecutionComplete  = info =>
+            runner.OnTestSkipped        += info => report.Skipped(info.SkipReason);
+            runner.OnTestFinished       += info => report.Finished();
+            runner.OnExecutionComplete  += info =>
             {
                 finished.Set();
 
