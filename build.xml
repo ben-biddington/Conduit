@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages/MSBuildTasks.1.4.0.128/tools/MSBuild.Community.Tasks.Targets" />
   
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Glob" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.runner.msbuild.2.1.0-beta4-build3109/build/portable-net45+netcore45+wp8+wpa81/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
-  <UsingTask TaskName="ZipTask" AssemblyFile="packages/MSBuildTasks.1.4.0.128/tools/MSBuild.Community.Tasks.dll" />
+  <UsingTask TaskName="Zip" AssemblyFile="packages/MSBuild.Extension.Pack.1.8.0/tools/net40/MSBuild.ExtensionPack.dll" />
   
   <Target Name="Build">
     <MsBuild Projects="$(MSBuildProjectDirectory)\Conduit.sln" Targets="rebuild"/>
@@ -83,9 +82,9 @@
   
   <Target Name="Artifacts">
     <CreateItem Include="project\Conduit.Integration.Tests\bin\Debug\*" >
-      <Output ItemName="ZipFiles" TaskParameter="Include"/>
+      <Output ItemName="FilesToZip" TaskParameter="Include"/>
     </CreateItem>
-    <Zip ZipFileName="Sample.zip" WorkingDirectory="." Files="@(ZipFiles)" />
+    <Zip TaskAction="Create" CompressFiles="@(FilesToZip)" ZipFileName="Example.zip"/>
   </Target>
   
   <Target Name="BuildStatus">
