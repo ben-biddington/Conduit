@@ -27,7 +27,7 @@ namespace Conduit.Adapters.Build
         public static TestReport Documentation(Action<string> log) => Normal(log).With(it =>
         {
             it.Passed       = info          => log($"[PASSED] {info.Name}");
-            it.Failed       = info          => log($"[FAILED] {info.TestName} ({info.Message})");
+            it.Failed       = info          => log($"[FAILED] {info.TestName.Name} ({info.Message})");
             it.Skipped      = (reason,name) => log($"[SKIPPED, {reason}] {name.Name}");
         });
 
