@@ -5,7 +5,7 @@
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Glob" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
-  <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.MSBuild.2.0.0.0/tools/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
+  <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.runner.msbuild.2.1.0-beta4-build3109/build/portable-net45+netcore45+wp8+wpa81/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
 
   <Target Name="Build">
     <MsBuild Projects="$(MSBuildProjectDirectory)\Conduit.sln" Targets="rebuild"/>
@@ -28,6 +28,10 @@
     <Copy SourceFiles="packages/xunit.abstractions.2.0.0/lib/net35/xunit.abstractions.dll" DestinationFolder="C:/Program Files (x86)/MSBuild/14.0/Bin" />
   </Target>
 
+  <PropertyGroup>
+    <Reporter></Reporter>
+  </PropertyGroup>
+  
   <Target Name="TestUnit">
     <ItemGroup>
       <!-- [https://msdn.microsoft.com/en-us/library/ms164283.aspx]
@@ -44,7 +48,7 @@
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
 
-    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false"/>
+    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)"/>
   </Target>
 
   <Target Name="TestIntegration">
