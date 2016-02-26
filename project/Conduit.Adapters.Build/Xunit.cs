@@ -6,9 +6,9 @@ namespace Conduit.Adapters.Build
 {
     public static class Xunit
     {
-        public static bool Run(Action<string> log, string testAssembly, string testClassName = null)
+        public static bool Run(TestReport report, string testAssembly, string testClassName = null)
         {
-            log("Discovering tests in assembly <" + testAssembly + ">");
+            report.Log("Discovering tests in assembly <" + testAssembly + ">");
 
             var result = 0;
 
@@ -16,20 +16,20 @@ namespace Conduit.Adapters.Build
 
             using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
             {
-                runner.OnDiscoveryComplete  = info => log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
-                runner.OnExecutionComplete  = info => { finished.Set(); log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
-                runner.OnTestFailed         = info => { result = 1; log(info.ExceptionMessage); log(info.ExceptionStackTrace); };
-                runner.OnTestOutput         = info => log(info.Output);
-                runner.OnTestPassed         = info => log(info.Output);
-                runner.OnTestFinished       = _ => log(".");
-                runner.OnTestSkipped        = _ => log("*");
+                runner.OnDiscoveryComplete  = info => report.Log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
+                runner.OnTestOutput         = info => report.Output(info.Output);
+                runner.OnTestPassed         = info => report.Passed(info.Output);
+                runner.OnTestFailed         = info => { result = 1; report.Log(info.ExceptionMessage); report.Log(info.ExceptionStackTrace); };
+                runner.OnTestSkipped        = info => report.Skipped(info.SkipReason);
+                runner.OnTestFinished       = info => report.Finished(info.Output);
+                runner.OnExecutionComplete  = info => { finished.Set(); report.Log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
 
                 runner.Start(testClassName, parallel: false);
 
                 finished.WaitOne();
                 finished.Dispose();
 
-                log("Tests finished with status <" + result + ">");
+                report.Log("Tests finished with status <" + result + ">");
 
                 Wait.Until(() => runner.Status.Equals(AssemblyRunnerStatus.Idle));
 
