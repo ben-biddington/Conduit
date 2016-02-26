@@ -41,6 +41,7 @@
     <Compile Include="List.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="Artifacts.cs" />
+    <Compile Include="Glob.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
