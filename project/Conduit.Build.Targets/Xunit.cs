@@ -8,27 +8,9 @@ namespace Conduit.Build.Targets
 {
     public class Xunit : Task
     {
-        private string _testAssembly;
-
         public string TestAssemblyGlob { get; set; }
 
-        public string TestAssembly
-        {
-            get { return UseGlob ? Find() : _testAssembly; }
-            set { _testAssembly = value; }
-        }
-
-        private string Find()
-        {
-            Log.LogMessage($"TestGlob: {TestAssemblyGlob}");
-
-            var fileInfo = Dir.Newest(new Glob(TestAssemblyGlob));
-
-            if (null == fileInfo)
-                throw new Exception($"Unable to find any assemblies matching pattern <{TestAssemblyGlob}>");
-
-            return fileInfo.FullName;
-        }
+        public string TestAssembly { get; set; }
 
         private bool UseGlob => false == string.IsNullOrEmpty(TestAssemblyGlob);
 
@@ -40,9 +22,8 @@ namespace Conduit.Build.Targets
             Action<string> log = msg => Cli.Say(BuildEngine, msg);
 
             log($"Running in working directory <{Environment.CurrentDirectory}>");
-            log($"Running test assembly <{TestAssembly}>");
 
-            return Adapters.Build.Xunit.Run(log, TestAssembly);
+            return Adapters.Build.Xunit.Run(log, UseGlob ? Assembly.NewestMatching(log, TestAssemblyGlob) : TestAssembly);
         }
     }
 }
