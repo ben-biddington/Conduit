@@ -8,6 +8,8 @@ namespace Conduit.Adapters.Build
     {
         public static bool Run(Action<string> log, string testAssembly, string testClassName = null)
         {
+            log("Discovering tests in assembly <" + testAssembly + ">");
+
             var result = 0;
 
             var finished = new ManualResetEvent(false);
@@ -21,8 +23,6 @@ namespace Conduit.Adapters.Build
                 runner.OnTestPassed         = info => log(info.Output);
                 runner.OnTestFinished       = _ => log(".");
                 runner.OnTestSkipped        = _ => log("*");
-
-                log("Discovering tests in assembly <" + testAssembly + ">");
 
                 runner.Start(testClassName, parallel: false);
 

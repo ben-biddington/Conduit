@@ -58,12 +58,12 @@
     LOG: All probing URLs attempted and failed.
     -->
     <CallTarget Targets="HACK-CopyXunitAssemblies" />
-    <Xunit TestAssembly="project/Conduit.Unit.Tests/bin/Debug/Conduit.Unit.Tests.dll" />
+    <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Unit.Tests.dll" />
   </Target>
 
   <Target Name="TestIntegration">
     <CallTarget Targets="HACK-CopyXunitAssemblies" />
-    <Xunit TestAssembly="project/Conduit.Integration.Tests/bin/Debug/Conduit.Integration.Tests.dll" />
+    <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Integration.Tests.dll" />
   </Target>
 
   <Target Name="TestAll">
