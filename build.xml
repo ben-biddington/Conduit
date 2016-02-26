@@ -6,7 +6,8 @@
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Glob" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.runner.msbuild.2.1.0-beta4-build3109/build/portable-net45+netcore45+wp8+wpa81/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
-
+  <UsingTask TaskName="Zip" AssemblyFile="packages/MSBuildTasks.1.4.0.128/tools/MSBuild.Community.Tasks.dll" />
+  
   <Target Name="Build">
     <MsBuild Projects="$(MSBuildProjectDirectory)\Conduit.sln" Targets="rebuild"/>
   </Target>
