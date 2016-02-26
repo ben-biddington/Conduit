@@ -80,12 +80,14 @@
     <Reference Include="Microsoft.Build.Utilities.v3.5"/>
   </ItemGroup>
   
-  <Target Name="Artifacts">
+  <Target Name="Artifacts" Label="Collect artufacts example">
     <CreateItem Include="project\Conduit.Integration.Tests\bin\Debug\*;build.xml">
       <Output ItemName="FilesToZip" TaskParameter="Include"/>
     </CreateItem>
     <Zip TaskAction="Create" CompressFiles="@(FilesToZip)" ZipFileName="Example.zip"/>
   </Target>
+
+  <!-- @todo: check that you can unzip the artifact and run the build.xml directly -->
   
   <Target Name="BuildStatus">
     <Exec Command="curl https://ci.appveyor.com/api/projects/ben-biddington/Conduit -H 'Authorization: Bearer `cat .token`' | python -m json.tool" />
