@@ -1,12 +1,14 @@
 ﻿using System;
-using Xunit;
-using System.IO;
 using System.Collections.Generic;
-using Conduit.Integration.Tests.Support;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Threading;
+using Conduit.Integration.Tests.Support;
 using Minimatch;
+using Xunit;
 
-namespace Conduit.Integration.Tests
+namespace Conduit.Integration.Tests.Globbing
 {
 	public class Examples : RunsInCleanRoom
 	{
@@ -33,13 +35,34 @@ namespace Conduit.Integration.Tests
 			Assert.Equal (2, result.Count);
 		}
 
-		// TEST: consider resolving multiple matches by returning the last modified
+	    [Fact]
+	    public void find_the_newest_file_by_name()
+	    {
+            FileMachine.Touch("bin", "Debug", "example.dll");
 
+            Thread.Sleep(TimeSpan.FromMilliseconds(500));
+
+            var expected = FileMachine.Touch("bin", "Release", "example.dll");
+
+	        var actual = Dir.Newest("example.dll");
+
+	        Assert.Equal(expected.FullName, actual.FullName);
+        }
 	}
 
 	public class Dir
 	{
-		public static List<string> Glob(string pattern)
+        public static FileInfo Newest(string filenameWithExtension)
+        {
+            var newest = Directory.GetFiles(Environment.CurrentDirectory, $"*{filenameWithExtension}", SearchOption.AllDirectories).Select(it => new FileInfo(it)).ToList();
+
+            if (false == newest.Any())
+                return null;
+
+            return newest.OrderBy(it => it.LastWriteTimeUtc).LastOrDefault();
+        }
+
+	    public static List<string> Glob(string pattern)
 		{
 			return Glob (".", pattern);
 		}
@@ -48,7 +71,7 @@ namespace Conduit.Integration.Tests
 		{
 			var all = Directory.GetFiles (dir, "*", SearchOption.AllDirectories);
 
-			return Minimatch.Minimatcher.Filter(all, pattern, new Options { AllowWindowsPaths = true }).ToList();
+			return Minimatcher.Filter(all, pattern, new Options { AllowWindowsPaths = true }).ToList();
 		}
 	}
 }
