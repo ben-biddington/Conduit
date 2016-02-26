@@ -60,52 +60,15 @@
   </Target>
 
   <Target Name="CustomTestUnit" Label="This one uses custome xunit runner">
-    <!-- http://stackoverflow.com/questions/690432/how-to-solve-custom-msbuild-task-requires-assembly-outside-of-appbase -->
-    <!-- 
-    Forced to do this at least temporarily because otherwise MsBuild fails to load <xunit.runner.utility.desktop.dll>: 
-
-    *** Assembly Binder Log Entry  (22/02/2016 @ 3:45:20 p.m.) ***
-
-    The operation failed.
-    Bind result: hr = 0x80070002. The system cannot find the file specified.
-
-    Assembly manager loaded from:  C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll
-    Running under executable  c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe
-    A detailed error log follows. 
-
-    === Pre-bind state information ===
-    LOG: DisplayName = xunit.runner.utility.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c
-     (Fully-specified)
-    LOG: Appbase = file:///c:/Program Files (x86)/MSBuild/14.0/Bin/
-    LOG: Initial PrivatePath = NULL
-    LOG: Dynamic Base = NULL
-    LOG: Cache Base = NULL
-    LOG: AppName = MSBuild.exe
-    Calling assembly : (Unknown).
-    ===
-    LOG: This bind starts in default load context.
-    LOG: Using application configuration file: c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe.Config
-    LOG: Using host configuration file: 
-    LOG: Using machine configuration file from C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config.
-    LOG: GAC Lookup was unsuccessful.
-    LOG: Attempting download of new URL file:///c:/Program Files (x86)/MSBuild/14.0/Bin/xunit.runner.utility.desktop.DLL.
-    LOG: Attempting download of new URL file:///c:/Program Files (x86)/MSBuild/14.0/Bin/xunit.runner.utility.desktop/xunit.runner.utility.desktop.DLL.
-    LOG: Attempting download of new URL file:///c:/Program Files (x86)/MSBuild/14.0/Bin/xunit.runner.utility.desktop.EXE.
-    LOG: Attempting download of new URL file:///c:/Program Files (x86)/MSBuild/14.0/Bin/xunit.runner.utility.desktop/xunit.runner.utility.desktop.EXE.
-    LOG: All probing URLs attempted and failed.
-    -->
     <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll">
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
     
     <Message Text="Found this assembly file file $(Path)" />
-
-    <CallTarget Targets="HACK-CopyXunitAssemblies" />
     <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Unit.Tests.dll" />
   </Target>
 
   <Target Name="CustomTestIntegration" Label="This one uses custome xunit runner">
-    <CallTarget Targets="HACK-CopyXunitAssemblies" />
     <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Integration.Tests.dll" />
   </Target>
 
