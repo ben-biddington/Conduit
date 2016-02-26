@@ -23,11 +23,6 @@
     <List />
   </Target>
   
-  <Target Name="HACK-CopyXunitAssemblies" Condition="Exists('C:/Program Files (x86)/MSBuild/14.0/Bin')">
-    <Copy SourceFiles="packages/xunit.runner.utility.2.1.0/lib/net35/xunit.runner.utility.desktop.dll" DestinationFolder="C:/Program Files (x86)/MSBuild/14.0/Bin" />
-    <Copy SourceFiles="packages/xunit.abstractions.2.0.0/lib/net35/xunit.abstractions.dll" DestinationFolder="C:/Program Files (x86)/MSBuild/14.0/Bin" />
-  </Target>
-
   <PropertyGroup>
     <Reporter>verbose</Reporter>
   </PropertyGroup>
