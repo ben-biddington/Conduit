@@ -12,7 +12,7 @@ namespace Conduit.Adapters.Build
 
             var finished = new ManualResetEvent(false);
 
-            using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly))
+            using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly)) // @todo: let me choose appdomain or not
             {
                 Listen(report, testAssembly, runner, finished);
 
