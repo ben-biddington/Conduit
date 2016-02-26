@@ -56,9 +56,6 @@
     </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="Minimatch">
-      <HintPath>..\..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
@@ -100,7 +97,5 @@
     <None Include="packages.config" />
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Globbing\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
