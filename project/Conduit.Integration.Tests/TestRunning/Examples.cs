@@ -32,10 +32,10 @@ namespace Conduit.Integration.Tests
 
             var expected = "Failing on purpose";
 
-            Assert.False(actualFailed.Message.StartsWith(expected), $"Expected <{actualFailed.Message}> to start with <{expected}>");
+            Assert.True(actualFailed.Message.StartsWith(expected), $"Expected <{actualFailed.Message}> to start with <{expected}>");
         }
 
-        // TEST: Mae sure failures have the test name
+        // TEST: Make sure failures have the test name
     }
 }
 

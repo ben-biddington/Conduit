@@ -14,8 +14,8 @@ namespace Conduit.Adapters.Build
         {
             it.Log          = log;
             it.Passed       = _ => Console.Write("."); // @todo: this needs to be formatted indented like the rest of the text
-            it.Failed   = _ => Console.Write("F");
-            it.Skipped  = (_,__) => Console.Write("*");
+            it.Failed       = _ => Console.Write("F");
+            it.Skipped      = (_,__) => Console.Write("*");
             it.RunStarted   = info => log($"Running <{info.TestCaseCount}> tests from assembly <{info.AssemblyName}>");
             it.RunFinished  = info =>
             {
@@ -25,12 +25,11 @@ namespace Conduit.Adapters.Build
         });
         
         public static TestReport Documentation(Action<string> log) => Normal(log).With(it =>
-            {
-                it.Log          = log;
-                it.Passed       = info => Console.WriteLine("[PASSED] {0}", info.Name);
-                //it.Failed       = info => Console.WriteLine("[FAILED] {0}"    , info.Name);
-                it.Skipped      = (reason,name) => Console.WriteLine("[SKIPPED] {0} {1}" , name.Name, reason);
-            });
+        {
+            it.Passed       = info          => log($"[PASSED] {info.Name}");
+            it.Failed       = info          => log($"[FAILED] {info.TestName} ({info.Message})");
+            it.Skipped      = (reason,name) => log($"[SKIPPED, {reason}] {name.Name}");
+        });
 
         private static Action<T> Noop<T>()
         {
