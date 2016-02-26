@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
+    <Compile Include="Globbing\About_the_test_report.cs" />
     <Compile Include="Support\RunsInCleanRoom.cs" />
     <Compile Include="Support\ArchiveAssertions.cs" />
     <Compile Include="Archiving\Can_add_globs_of_files.cs" />

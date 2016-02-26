@@ -8,21 +8,19 @@ namespace Conduit.Adapters.Build
     {
         public static bool Run(TestReport report, string testAssembly, string testClassName = null)
         {
-            report.Log("Discovering tests in assembly <" + testAssembly + ">");
-
             var result = 0;
 
             var finished = new ManualResetEvent(false);
 
             using (var runner = AssemblyRunner.WithAppDomain(testAssembly))
             {
-                runner.OnDiscoveryComplete  = info => report.Log("Running <" + info.TestCasesToRun + "> of <" + info.TestCasesDiscovered + "> tests found");
+                runner.OnDiscoveryComplete  = info => report.RunStarted(new TestRun(testAssembly, info.TestCasesToRun));
                 runner.OnTestOutput         = info => report.Output(info.Output);
                 runner.OnTestPassed         = info => report.Passed(info.Output);
                 runner.OnTestFailed         = info => { result = 1; report.Log(info.ExceptionMessage); report.Log(info.ExceptionStackTrace); };
                 runner.OnTestSkipped        = info => report.Skipped(info.SkipReason);
                 runner.OnTestFinished       = info => report.Finished(info.Output);
-                runner.OnExecutionComplete  = info => { finished.Set(); report.Log("Passed: " + (info.TotalTests - (info.TestsFailed + info.TestsSkipped))); };
+                runner.OnExecutionComplete  = info => { finished.Set(); report.RunFinished(new TestResult(info.TotalTests-info.TestsFailed, info.TestsFailed, info.TestsSkipped, TimeSpan.FromSeconds(Convert.ToDouble(info.ExecutionTime)))); };
 
                 runner.Start(testClassName, parallel: false);
 
