@@ -3,15 +3,13 @@ using System;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Execution;
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.IO;
-using System.Text;
 
 namespace Conduit.Build.Targets
 {
-	public class List : Task
+    public class List : Task
 	{
 		public bool IncludeImported { get; set; }
 
