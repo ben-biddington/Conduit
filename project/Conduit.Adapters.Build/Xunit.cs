@@ -63,7 +63,6 @@ namespace Conduit.Adapters.Build
             runner.OnTestPassed         += info => report.Passed(info.Output);
             runner.OnTestFailed         += info =>
             {
-                // Why is this not triggered?
                 report.Failed(new TestFailure(info.ExceptionMessage, info.ExceptionStackTrace));
             };
             runner.OnTestSkipped        += info => report.Skipped(info.SkipReason);
