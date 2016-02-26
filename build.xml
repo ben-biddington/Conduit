@@ -59,6 +59,8 @@
     <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)"/>
   </Target>
 
+  <!-- These are targets that use our custom xunit runner -->
+  
   <Target Name="CustomTestUnit" Label="This one uses custome xunit runner">
     <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll">
       <Output TaskParameter="Path" PropertyName="Path" />
@@ -72,6 +74,8 @@
     <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Integration.Tests.dll" />
   </Target>
 
+  <!-- /These are targets that use our custom xunit runner -->
+  
   <Target Name="TestAll">
     <CallTarget Targets="TestUnit;TestIntegration"/>
   </Target>
