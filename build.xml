@@ -5,6 +5,7 @@
   <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Glob" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
+  <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.MSBuild.2.0.0.0/tools/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
 
   <Target Name="Build">
     <MsBuild Projects="$(MSBuildProjectDirectory)\Conduit.sln" Targets="rebuild"/>
@@ -27,13 +28,23 @@
     <Copy SourceFiles="packages/xunit.abstractions.2.0.0/lib/net35/xunit.abstractions.dll" DestinationFolder="C:/Program Files (x86)/MSBuild/14.0/Bin" />
   </Target>
 
-  <Target Name="Find" Label="Find the newest file matching a pattern" Outputs="Path">
+  <Target Name="TestUnit">
     <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll">
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
+    
+    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false"/>
   </Target>
-  
-  <Target Name="TestUnit" Label="Run unit tests">
+
+  <Target Name="TestIntegration">
+    <Glob Pattern=".\**\bin\**\Conduit.Integration.Tests.dll">
+      <Output TaskParameter="Path" PropertyName="Path" />
+    </Glob>
+    
+    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" ParallelizeAssemblies="false" ParallelizeTestCollections="false" />
+  </Target>
+
+  <Target Name="CustomTestUnit" Label="This one uses custome xunit runner">
     <!-- http://stackoverflow.com/questions/690432/how-to-solve-custom-msbuild-task-requires-assembly-outside-of-appbase -->
     <!-- 
     Forced to do this at least temporarily because otherwise MsBuild fails to load <xunit.runner.utility.desktop.dll>: 
@@ -68,11 +79,17 @@
     LOG: Attempting download of new URL file:///c:/Program Files (x86)/MSBuild/14.0/Bin/xunit.runner.utility.desktop/xunit.runner.utility.desktop.EXE.
     LOG: All probing URLs attempted and failed.
     -->
+    <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll">
+      <Output TaskParameter="Path" PropertyName="Path" />
+    </Glob>
+    
+    <Message Text="Found this assembly file file $(Path)" />
+
     <CallTarget Targets="HACK-CopyXunitAssemblies" />
     <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Unit.Tests.dll" />
   </Target>
 
-  <Target Name="TestIntegration">
+  <Target Name="CustomTestIntegration" Label="This one uses custome xunit runner">
     <CallTarget Targets="HACK-CopyXunitAssemblies" />
     <Xunit TestAssemblyGlob=".\**\bin\**\Conduit.Integration.Tests.dll" />
   </Target>
