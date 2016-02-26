@@ -16,6 +16,16 @@ namespace Conduit.Integration.Tests
                 null, 
                 XunitOptions.NoAppDomain));
         }
+
+        [Fact]
+        public void this_one_shows_one_failure_and_one_skipped()
+        {
+            Assert.False(Conduit.Adapters.Build.Xunit.Run(
+                TestReport.Silent, 
+                Path.Combine("res", "Example.Unit.Tests.Mixed.dll"), 
+                null, 
+                XunitOptions.NoAppDomain));
+        }
     }
 }
 

@@ -107,6 +107,9 @@
     <Content Include="res\Example.Unit.Tests.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="res\Example.Unit.Tests.Mixed.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\xunit.execution.desktop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
