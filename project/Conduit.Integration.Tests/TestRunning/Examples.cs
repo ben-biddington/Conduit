@@ -10,7 +10,11 @@ namespace Conduit.Integration.Tests
         [Fact]
         public void this_one_passes()
         {
-            Assert.False(Conduit.Adapters.Build.Xunit.Run(TestReport.Silent, Path.Combine("res", "Example.Unit.Tests.dll")));
+            Assert.True(Conduit.Adapters.Build.Xunit.Run(
+                TestReport.Silent, 
+                Path.Combine("res", "Example.Unit.Tests.dll"), 
+                null, 
+                XunitOptions.NoAppDomain));
         }
     }
 }

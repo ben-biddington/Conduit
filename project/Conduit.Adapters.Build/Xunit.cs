@@ -4,15 +4,34 @@ using System.Threading;
 
 namespace Conduit.Adapters.Build
 {
+    public class XunitOptions
+    {
+        public static readonly XunitOptions NoAppDomain = new XunitOptions(false); 
+        public bool RunInSeparateAppDomain { get; private set; }
+
+        public XunitOptions(bool runInSeparateAppDomain = true)
+        {
+            RunInSeparateAppDomain = runInSeparateAppDomain;
+        }
+    }
+
     public static class Xunit
     {
         public static bool Run(TestReport report, string testAssembly, string testClassName = null)
+        {
+            return Run(report, testAssembly, testClassName, new XunitOptions(true));
+        }
+
+        private static readonly Func<string,AssemblyRunner> _on = testAssembly => AssemblyRunner.WithAppDomain(testAssembly);
+        private static readonly Func<string,AssemblyRunner> _off = testAssembly => AssemblyRunner.WithoutAppDomain(testAssembly);
+
+        public static bool Run(TestReport report, string testAssembly, string testClassName, XunitOptions options)
         {
             var result = 0;
 
             var finished = new ManualResetEvent(false);
 
-            using (var runner = AssemblyRunner.WithoutAppDomain(testAssembly)) // @todo: let me choose appdomain or not
+            using (var runner = Choose(options)(testAssembly))
             {
                 Listen(report, testAssembly, runner, finished);
 
@@ -27,6 +46,14 @@ namespace Conduit.Adapters.Build
 
                 return result == 0;
             }
+        }
+
+        private static Func<string,AssemblyRunner> Choose(XunitOptions opts) 
+        {
+            if (opts.RunInSeparateAppDomain)
+                return _off;
+
+            return _off;
         }
 
         private static void Listen(TestReport report, string testAssembly, AssemblyRunner runner, ManualResetEvent finished)
