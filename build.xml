@@ -81,7 +81,7 @@
   </ItemGroup>
   
   <Target Name="Artifacts">
-    <CreateItem Include="project\Conduit.Integration.Tests\bin\Debug\*" >
+    <CreateItem Include="project\Conduit.Integration.Tests\bin\Debug\*;build.xml">
       <Output ItemName="FilesToZip" TaskParameter="Include"/>
     </CreateItem>
     <Zip TaskAction="Create" CompressFiles="@(FilesToZip)" ZipFileName="Example.zip"/>
