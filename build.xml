@@ -26,6 +26,12 @@
     <Copy SourceFiles="packages/xunit.runner.utility.2.1.0/lib/net35/xunit.runner.utility.desktop.dll" DestinationFolder="C:/Program Files (x86)/MSBuild/14.0/Bin" />
     <Copy SourceFiles="packages/xunit.abstractions.2.0.0/lib/net35/xunit.abstractions.dll" DestinationFolder="C:/Program Files (x86)/MSBuild/14.0/Bin" />
   </Target>
+
+  <Target Name="Find" Label="Find the newest file matching a pattern" Outputs="Path">
+    <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll">
+      <Output TaskParameter="Path" PropertyName="Path" />
+    </Glob>
+  </Target>
   
   <Target Name="TestUnit" Label="Run unit tests">
     <!-- http://stackoverflow.com/questions/690432/how-to-solve-custom-msbuild-task-requires-assembly-outside-of-appbase -->
