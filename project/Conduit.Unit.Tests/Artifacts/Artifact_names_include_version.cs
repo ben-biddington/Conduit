@@ -1,8 +1,7 @@
-using System;
 using Conduit.UseCases.Semver.Semver;
 using Xunit;
-	
-namespace Conduit.Unit.Tests
+
+namespace Conduit.Unit.Tests.Artifacts
 {
 	// TEST: artifact names look like `Assembly.Name-1.337.0-master`
 
@@ -15,13 +14,13 @@ namespace Conduit.Unit.Tests
 
 			var name = new ArtifactName(version, SourceControlBranch.Master);
 
-			Assert.False(name.ToString().Contains("1.0.0"));
+			Assert.True(name.ToString().Contains("1.0.0"));
 		}
 	}
 
 	public class Artifact_names_include_source_control_branch_name
 	{
-		[Fact(Skip = "XXX")]
+		[Fact]
 		public void for_example() 
 		{
 			var branchName = new SourceControlBranch ("next");
