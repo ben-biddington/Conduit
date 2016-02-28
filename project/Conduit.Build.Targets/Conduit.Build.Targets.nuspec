@@ -1,0 +1,16 @@
+<package>
+  <metadata>
+    <id>Conduit.Build.Targets</id>
+    <version>$version$</version>
+    <authors>Ben Biddington</authors>
+    <description>Extended MSBuild targets</description>
+    <language>en-GB</language>
+    <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
+    <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
+  </metadata>
+  <files>
+    <file src="bin/$configuration$/Conduit.Build.Targets.dll" target="lib/net45" />
+    <file src="bin/$configuration$/Conduit.Adapters.Build.dll" target="lib/net45" />
+    <file src="bin/$configuration$/Conduit.dll" target="lib/net45" />
+  </files>
+</package>
