@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
+    <Compile Include="Archiving\Files_are_added_with_paths_relative_to_working_directory.cs" />
     <Compile Include="Globbing\About_the_test_report.cs" />
     <Compile Include="Support\RunsInCleanRoom.cs" />
     <Compile Include="Support\ArchiveAssertions.cs" />
@@ -99,9 +100,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="res\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="res\xunit.execution.desktop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
