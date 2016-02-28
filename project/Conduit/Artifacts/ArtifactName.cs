@@ -1,21 +1,26 @@
+using System.Text.RegularExpressions;
 using Conduit.UseCases.Semver.Semver;
 
 namespace Conduit.Artifacts
 {
     public class ArtifactName
     {
+        private readonly string _name;
         private readonly SemVersion _version;
         private readonly SourceControlBranch _branch;
 
-        public ArtifactName(SemVersion version, SourceControlBranch branch)
+        public ArtifactName(string name, SemVersion version, SourceControlBranch branch)
         {
+            _name = name;
             _version = version;
             _branch = branch;
         }
 
         public override string ToString()
         {
-            return string.Join(string.Empty, _version.ToString(), _branch.Name);
+            return string.Join("-", _name, Sanitise(_branch.Name), $"v{_version}");
         }
+
+        private string Sanitise(string value) => Regex.Replace(value, @"[\W]", "_");
     }
 }

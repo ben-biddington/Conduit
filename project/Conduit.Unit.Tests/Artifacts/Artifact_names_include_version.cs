@@ -1,3 +1,4 @@
+using Conduit.Artifacts;
 using Conduit.UseCases.Semver.Semver;
 using Xunit;
 
