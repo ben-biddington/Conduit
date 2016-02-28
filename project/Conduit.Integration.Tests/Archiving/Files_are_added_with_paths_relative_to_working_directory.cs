@@ -21,7 +21,7 @@ namespace Conduit.Integration.Tests.Archiving
 
             foreach (var path in archive.Contents())
             {
-                Assert.True(path.Contains(pwd), $"Expected <{path}> to NOT contain the working directory <{pwd}>");
+                Assert.False(path.Contains(pwd), $"Expected <{path}> to NOT contain the working directory <{pwd}>");
             }
         }
     }

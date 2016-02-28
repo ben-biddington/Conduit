@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Artifacts\ArtifactName.cs" />
+    <Compile Include="Artifacts\SourceControlBranch.cs" />
     <Compile Include="IO\Files.cs" />
     <Compile Include="Lang\ObjectExtensions.cs" />
     <Compile Include="UseCases\Archiving\MissingFileError.cs" />
