@@ -7,7 +7,7 @@
     <language>en-GB</language>
     <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
     <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
-    <releaseNotes>Initial tasks and experiments</releaseNotes>
+    <releaseNotes>Add support for calculating artifact names</releaseNotes>
   </metadata>
   <files>
     <file src="bin/$configuration$/Conduit.Build.Targets.dll" target="lib/net45" />

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  
-  <UsingTask TaskName="Xunit" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
-  <UsingTask TaskName="List" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
+
+  <PropertyGroup>
+    <BinPath>packages/Conduit.Build.Targets.0.0.1/lib/net45</BinPath>
+  </PropertyGroup>
+
+  <UsingTask TaskName="Xunit" AssemblyFile="$(BinPath)/Conduit.Build.Targets.dll" />
+  <UsingTask TaskName="List" AssemblyFile="$(BinPath)/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Glob" AssemblyFile="project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll" />
   <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.runner.msbuild.2.1.0-beta4-build3109/build/portable-net45+netcore45+wp8+wpa81/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
   <UsingTask TaskName="Zip" AssemblyFile="packages/MSBuild.Extension.Pack.1.8.0/tools/net40/MSBuild.ExtensionPack.dll" />
@@ -21,8 +25,8 @@
     <List />
   </Target>
   
-  <Target Name="NugetTest">
-    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.nuspec -IncludeReferencedProjects -version 0.0.1 -properties configuration=Debug;"/>
+  <Target Name="NugetPack" Label="Create Conduit Build.Targets nuget package">
+    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.nuspec -build -verbosity detailed -IncludeReferencedProjects -version 0.0.1 -properties configuration=Debug"/>
   </Target>
 
   <PropertyGroup>
