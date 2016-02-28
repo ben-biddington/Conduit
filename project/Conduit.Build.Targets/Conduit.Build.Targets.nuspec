@@ -7,6 +7,7 @@
     <language>en-GB</language>
     <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
     <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
+    <releaseNotes>Initial tasks and experiments</releaseNotes>
   </metadata>
   <files>
     <file src="bin/$configuration$/Conduit.Build.Targets.dll" target="lib/net45" />

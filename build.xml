@@ -22,7 +22,7 @@
   </Target>
   
   <Target Name="NugetTest">
-    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.nuspec -version 0.0.1 -properties configuration=Debug;"/>
+    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.nuspec -IncludeReferencedProjects -version 0.0.1 -properties configuration=Debug;"/>
   </Target>
 
   <PropertyGroup>
