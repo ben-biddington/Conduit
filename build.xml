@@ -12,10 +12,6 @@
     <MsBuild Projects="$(MSBuildProjectDirectory)\Conduit.sln" Targets="rebuild"/>
   </Target>
   
-  <ItemGroup>
-    <TestAssemblies Include="**\*Unit.Tests.dll" />
-  </ItemGroup>
-    
   <Target Name="Usage">
     <CallTarget Targets="ListTargets"/>
   </Target>
@@ -76,10 +72,6 @@
     <CallTarget Targets="TestUnit;TestIntegration"/>
   </Target>
 
-  <ItemGroup>
-    <Reference Include="Microsoft.Build.Utilities.v3.5"/>
-  </ItemGroup>
-  
   <Target Name="Artifacts" Label="Collect artufacts example">
     <CreateItem Include="project\Conduit.Integration.Tests\bin\Debug\*;build.xml">
       <Output ItemName="FilesToZip" TaskParameter="Include"/>
