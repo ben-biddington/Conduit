@@ -1,12 +1,5 @@
-﻿using System.Linq;
-using System;
-using Microsoft.Build.Evaluation;
-using Microsoft.Build.Utilities;
-using Microsoft.Build.Execution;
+﻿using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
-using System.Collections.Generic;
-using System.Xml;
-using System.IO;
 using Conduit.Adapters.Build;
 
 namespace Conduit.Build.Targets

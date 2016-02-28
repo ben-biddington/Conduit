@@ -265,7 +265,7 @@ namespace Conduit.UseCases.Semver
 				if (!String.IsNullOrEmpty(Prerelease))
 					version += "-" + Prerelease;
 				if (!String.IsNullOrEmpty(Build))
-					version += "+" + Build;
+					version += "." + Build;
 				return version;
 			}
 
