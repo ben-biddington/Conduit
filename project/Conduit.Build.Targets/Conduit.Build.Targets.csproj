@@ -43,6 +43,7 @@
     <Compile Include="Artifacts.cs" />
     <Compile Include="Glob.cs" />
     <File Include="Conduit.Build.Targets.nuspec" />
+    <Compile Include="Bump.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

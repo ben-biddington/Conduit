@@ -32,10 +32,6 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,10 +42,6 @@
     <Reference Include="xunit.abstractions">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.runner.reporters.desktop, Version=2.1.0.3179, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.runner.reporters.2.1.0\lib\net45\xunit.runner.reporters.desktop.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="xunit.runner.utility.desktop">
       <HintPath>..\..\packages\xunit.runner.utility.2.1.0\lib\net35\xunit.runner.utility.desktop.dll</HintPath>
     </Reference>
@@ -58,6 +50,12 @@
     </Reference>
     <Reference Include="NuGet.Core">
       <HintPath>..\..\packages\NuGet.Core.2.10.1\lib\net40-Client\NuGet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0">
+      <HintPath>..\..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.reporters.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\packages\xunit.runner.reporters.2.1.0\lib\net45\xunit.runner.reporters.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +67,7 @@
     <Compile Include="TestResult.cs" />
     <Compile Include="TestRun.cs" />
     <Compile Include="Xunit.cs" />
+    <Compile Include="Bump.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -93,7 +92,7 @@
       <Merger Condition="('$(OS)' == 'Windows_NT')">"$(SolutionDir)\packages\ilmerge.2.14.1208\tools\ILMerge.exe"</Merger>
       <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 "$(SolutionDir)\packages\ILRepack.2.0.10\tools\ILRepack.exe" /union</Merger>
     </PropertyGroup>
-    <Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
-    <Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
+    <Message Text="MERGING: @(MergeAssemblies-&gt;'%(Filename)') into $(OutputAssembly)" Importance="High" />
+    <Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies-&gt;'&quot;%(FullPath)&quot;', ' ')" />
   </Target>
 </Project>
