@@ -8,15 +8,13 @@
         <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
         <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
         <releaseNotes>Add dependency on Minimatch</releaseNotes>
+        <dependencies>
+            <dependency id="Minimatch" version="1.1" />
+        </dependencies>
     </metadata>
     <files>
         <file src="bin/$configuration$/Conduit.Build.Targets.dll" target="lib/net45" />
         <file src="bin/$configuration$/Conduit.Adapters.Build.dll" target="lib/net45" />
         <file src="bin/$configuration$/Conduit.dll" target="lib/net45" />
     </files>
-    <dependencies>
-        <group>
-            <dependency id="Minimatch" version="1.1" />
-        </group>
-    </dependencies>
 </package>
