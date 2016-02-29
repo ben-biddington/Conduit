@@ -7,7 +7,7 @@
         <language>en-GB</language>
         <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
         <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
-        <releaseNotes>Add support for calculating artifact names</releaseNotes>
+        <releaseNotes>Add dependency on Minimatch</releaseNotes>
     </metadata>
     <files>
         <file src="bin/$configuration$/Conduit.Build.Targets.dll" target="lib/net45" />
