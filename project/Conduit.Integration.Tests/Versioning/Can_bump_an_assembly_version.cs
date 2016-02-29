@@ -30,7 +30,7 @@ namespace Conduit.Integration.Tests.Versioning
 
             AssemblyVersion.BumpMajor("AssemblyInfo.cs");
 
-            Assert.Equal(@"
+            Assert.True(TextFile.LinesEqual("AssemblyInfo.cs", @"
                 // The following GUID is for the ID of the typelib if this project is exposed to COM
                 [assembly: Guid(""278c86e3-1ac7-4a3f-a0c6-f1e072422836"")]
 
@@ -45,8 +45,7 @@ namespace Conduit.Integration.Tests.Versioning
                 // by using the '*' as shown below:
                 // [assembly: AssemblyVersion(""1.0.*"")]
                 [assembly: AssemblyVersion(""1.0.0.*"")]
-                [assembly: AssemblyFileVersion(""1.0.0.*"")]", 
-                File.ReadAllText("AssemblyInfo.cs"));
+                [assembly: AssemblyFileVersion(""1.0.0.*"")]"));
         }
 
         [Fact]
