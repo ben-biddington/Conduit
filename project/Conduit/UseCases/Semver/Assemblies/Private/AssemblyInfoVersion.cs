@@ -20,9 +20,9 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
             var pattern = new Regex(Matching.Pattern(prefix));
 
             foreach (var line in Lines(filename)) {
-                var match = pattern.Match (line);
+                var match = pattern.Match(line);
 
-                lines.Add (match.Success 
+                lines.Add (AssemblyInfoLine.IsInstruction(line) && match.Success 
                     ? string.Format ("{0}{1}(\"{2}{3}", match.Groups ["preamble"].Value, match.Groups ["prefix"].Value, newVersion, match.Groups ["suffix"].Value) 
                     : line);
             }
@@ -59,7 +59,7 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 
         private static IEnumerable<string> Lines(string filename)
         {
-            foreach (var line in File.ReadAllLines(filename).Where(AssemblyInfoLine.IsInstruction)) {
+            foreach (var line in File.ReadAllLines(filename)) {
                 yield return line;
             }
         }
