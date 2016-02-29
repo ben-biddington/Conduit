@@ -23,6 +23,17 @@ namespace Conduit.Integration.Tests.Globbing
         }
 
         [Fact]
+        public void find_all_files_with_the_same_name()
+        {
+            FileMachine.Touch("bin", "Debug"    , "example.dll");
+            FileMachine.Touch("bin", "Release"  , "example.dll");
+
+            var actual = Dir.All(new Filename("example.dll"));
+
+            Assert.Equal(2, actual.Count);
+        }
+
+        [Fact]
         public void can_supply_wildcard_glob_pattern()
         {
             FileMachine.Touch("src", "bin", "Debug", "example.dll");
