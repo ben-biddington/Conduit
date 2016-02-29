@@ -13,26 +13,26 @@ namespace Conduit.UseCases.Semver.Assemblies.Private.Version
     {
         internal static SemVersion File(string filename, string prefix)
         {
-            var pattern = new Regex (Matching.Pattern (prefix), RegexOptions.Compiled);
+            var pattern = new Regex(Matching.Pattern(prefix), RegexOptions.Compiled | RegexOptions.ExplicitCapture);
 
             foreach (var line in Lines(filename)) {
-                var match = pattern.Match (line);
+                var match = pattern.Match(line);
 
                 if (match.Success)
-                    return SemVersionFrom (match);
+                    return SemVersionFrom(filename, Matching.Pattern(prefix), match);
             }
 
             return new SemVersion (0);
         }
 
-        private static SemVersion SemVersionFrom(Match match)
+        private static SemVersion SemVersionFrom(string filename, string pattern, Match match)
         {
             var version = match.Groups ["versionstring"].Value;
 
             try {
                 return SemVersion.Parse (version);
             } catch (Exception) {
-                throw new Exception ("Failed to parse this text to version <" + version + ">");
+                throw new Exception($"Failed to parse this text to version <{version}>. Pattern: <{pattern}>, File: <{filename}>");
             }
         }
 

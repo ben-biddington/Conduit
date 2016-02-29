@@ -14,7 +14,7 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 
 		internal static string Pattern(string prefix) {
 			return string.Format(
-				@"(?<preamble>.+)(?<prefix>{0})\(""(?<versionstring>([^.]+).([^.]+).([^.]+))(?<suffix>.+)",
+				@"(?<preamble>.+)(?<prefix>{0})\(""(?<versionstring>([^.]+).([^.]+).([^.\""]+))(?<suffix>.+)",
 				prefix);
 		}
 	}	

@@ -13,11 +13,11 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
     {
         internal static void BumpMajor(string filename, string prefix)
         {
-            var newVersion = Bump.Major (Version.For.File (filename, prefix));
+            var newVersion = Bump.Major(Version.For.File(filename, prefix));
 
             var lines = new List<string> ();
 
-            var pattern = new Regex (Matching.Pattern (prefix));
+            var pattern = new Regex(Matching.Pattern(prefix));
 
             foreach (var line in Lines(filename)) {
                 var match = pattern.Match (line);
@@ -32,7 +32,7 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 
         internal static void BumpMinor(string filename, string prefix)
         {
-            var newVersion = Bump.Minor(Version.For.File (filename, prefix));
+            var newVersion = Bump.Minor(Version.For.File(filename, prefix));
 
             var lines = new List<string> ();
 
