@@ -13,13 +13,15 @@ namespace Conduit.UseCases.Semver.Assemblies
         {
             foreach(var filename in filenames) 
             {
-                Conduit.UseCases.Semver.Assemblies.Private.AssemblyInfoVersion.BumpMinor(filename, "AssemblyVersion");    
+                Conduit.UseCases.Semver.Assemblies.Private.AssemblyInfoVersion.BumpMinor(filename, "AssemblyVersion");
+                Conduit.UseCases.Semver.Assemblies.Private.AssemblyInfoVersion.BumpMinor(filename, "AssemblyFileVersion");
             }
         }
 
         public static void BumpMajor(string filename)
         {
             Conduit.UseCases.Semver.Assemblies.Private.AssemblyInfoVersion.BumpMajor(filename, "AssemblyVersion");
+            Conduit.UseCases.Semver.Assemblies.Private.AssemblyInfoVersion.BumpMajor(filename, "AssemblyFileVersion");
         }
     }
 

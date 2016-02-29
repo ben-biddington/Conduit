@@ -45,8 +45,23 @@ namespace Conduit.Integration.Tests.Versioning
                 // by using the '*' as shown below:
                 // [assembly: AssemblyVersion(""1.0.*"")]
                 [assembly: AssemblyVersion(""1.0.0.*"")]
-                [assembly: AssemblyFileVersion(""0.0.0.*"")]", 
+                [assembly: AssemblyFileVersion(""1.0.0.*"")]", 
                 File.ReadAllText("AssemblyInfo.cs"));
+        }
+
+        [Fact]
+        public void it_changes_assembly_file_version_too() {
+            FileMachine.Make("AssemblyInfo.cs", @"
+                [assembly: AssemblyVersion(""0.0.0.*"")]
+                [assembly: AssemblyFileVersion(""0.0.0.*"")]");
+
+            AssemblyVersion.BumpMajor("AssemblyInfo.cs");
+
+            Assert.True(TextFile.Contains ("AssemblyInfo.cs", @"AssemblyVersion(""1.0.0.*"")"), 
+                @"Expected this text to contain <""AssemblyVersion(""1.0.0.*""))"">: " + File.ReadAllText ("AssemblyInfo.cs"));
+
+            Assert.True(TextFile.Contains ("AssemblyInfo.cs", @"AssemblyFileVersion(""1.0.0.*"")"), 
+                @"Expected this text to contain <""AssemblyFileVersion(""1.0.0.*""))"">: " + File.ReadAllText ("AssemblyInfo.cs"));
         }
 
         [Fact]
