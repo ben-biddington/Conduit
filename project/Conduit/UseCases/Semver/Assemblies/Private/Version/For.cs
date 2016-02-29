@@ -18,9 +18,8 @@ namespace Conduit.UseCases.Semver.Assemblies.Private.Version
             foreach (var line in Lines(filename)) {
                 var match = pattern.Match (line);
 
-                if (match.Success) {
+                if (match.Success)
                     return SemVersionFrom (match);
-                }
             }
 
             return new SemVersion (0);
