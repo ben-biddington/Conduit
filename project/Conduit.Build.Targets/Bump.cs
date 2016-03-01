@@ -1,15 +1,11 @@
-﻿using System.IO;
-using System;
+﻿using System;
 using Microsoft.Build.Utilities;
-using System.Linq;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Evaluation;
 
 namespace Conduit.Build.Targets
 {
     public class Bump : Task
     {
-        public string Kind { get; private set; }
+        public string Kind { get; }
 
         public Bump()
         {
@@ -18,11 +14,17 @@ namespace Conduit.Build.Targets
 
         public override bool Execute()
         {
-            if (Kind.Equals ("Minor", System.StringComparison.CurrentCultureIgnoreCase)) {
-                Conduit.Adapters.Build.Bump.Minor();
-            } else {
+            if (Kind.Equals ("Minor", StringComparison.CurrentCultureIgnoreCase)) {
+                Adapters.Build.Bump.Minor();
+            }
+            else if (Kind.Equals("Patch", StringComparison.CurrentCultureIgnoreCase))
+            {
+                Adapters.Build.Bump.Patch();
+            }
+            else {
                 throw new Exception($"Unsupported bump kind <{Kind}>");
             }
+
             return true;
         }
     }

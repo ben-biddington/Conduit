@@ -49,6 +49,26 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
             Spit(filename, string.Join (Environment.NewLine, lines));
         }
 
+        public static void BumpPatch(string filename, string prefix)
+        {
+            var newVersion = Bump.Minor(Version.For.File(filename, prefix));
+
+            var lines = new List<string>();
+
+            var pattern = new Regex(Matching.Pattern(prefix));
+
+            foreach (var line in Lines(filename))
+            {
+                var match = pattern.Match(line);
+
+                lines.Add(AssemblyInfoLine.IsInstruction(line) && match.Success
+                    ? string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion, match.Groups["suffix"].Value)
+                    : line);
+            }
+
+            Spit(filename, string.Join(Environment.NewLine, lines));
+        }
+
         private static void Spit(string filename, string content)
         {
             using (var s = File.Open (filename, FileMode.Truncate))

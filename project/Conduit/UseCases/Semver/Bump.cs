@@ -13,5 +13,10 @@ namespace Conduit.UseCases.Semver
         {
             return new SemVersion(version.Major, version.Minor + 1);
         }
+
+        public static SemVersion Patch(SemVersion version)
+        {
+            return new SemVersion(version.Major, version.Minor, version.Patch + 1);
+        }
     }
 }

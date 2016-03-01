@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemanticVersioning\Can_increment_major.cs" />
     <Compile Include="Artifacts\Artifact_names_include_version.cs" />
+    <Compile Include="SemanticVersioning\Can_increment_patch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

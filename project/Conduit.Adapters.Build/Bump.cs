@@ -12,6 +12,13 @@ namespace Conduit.Adapters.Build
 
             AssemblyVersion.BumpMinor(allAssemblyInfo.Select(it => it.FullName).ToArray());
         }
+
+        public static void Patch()
+        {
+            var allAssemblyInfo = Dir.All(new Filename("AssemblyInfo.cs"));
+
+            AssemblyVersion.BumpPatch(allAssemblyInfo.Select(it => it.FullName).ToArray());
+        }
     }
 }
 

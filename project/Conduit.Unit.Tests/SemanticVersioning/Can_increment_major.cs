@@ -23,7 +23,7 @@ namespace Conduit.Unit.Tests.SemanticVersioning
 
             Bump.Major(versionOne);
 
-			Assert.True(versionOne.Major.Equals(1));
+            Assert.True(versionOne.Major.Equals(1));
         }
     }
 }
