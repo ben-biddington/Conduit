@@ -13,7 +13,7 @@ namespace Conduit.Build.Targets
 
         public override bool Execute()
         {
-            Path = Dir.Newest(new Conduit.Adapters.Build.Glob(Pattern)).FullName;
+            Path = Dir.Newest(new Adapters.Build.Glob(Pattern)).FullName;
             return true;
         }
     }

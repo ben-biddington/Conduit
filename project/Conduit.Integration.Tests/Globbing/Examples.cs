@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using Conduit.Adapters.Build;
 using Conduit.Integration.Tests.Support;
@@ -20,6 +21,18 @@ namespace Conduit.Integration.Tests.Globbing
             var actual = Dir.Newest(new Filename("example.dll"));
 
             Assert.Equal(expected.FullName, actual.FullName);
+        }
+
+        [Fact]
+        public void can_negate_matches_like_this()
+        {
+            var expected = FileMachine.Touch("src", "bin", "Debug", "example.dll");
+            FileMachine.Touch("src", "obj", "Debug", "example.dll");
+
+            var actual = Dir.Newest(new Glob(@".\src\!(obj)\**\example.dll"));
+
+            Assert.True(actual.FullName.Equals(expected.FullName), 
+                $"Expected it to have ignore the path containing negated <obj>. Expected <{expected}>, got <{actual}>");
         }
 
         [Fact]

@@ -1,11 +1,6 @@
-using Conduit.Integration.Tests.Support;
-using Conduit.UseCases.Semver.Semver;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
 using System;
-using Conduit.UseCases.Semver.Assemblies;
+using System.Linq;
+using System.IO;
 
 namespace Conduit.Integration.Tests.Support
 {
@@ -13,21 +8,18 @@ namespace Conduit.Integration.Tests.Support
     {
         internal static bool Contains(string filename, string expected)
         {
-            foreach (var line in File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it))) {
-                if (line.Contains (expected))
-                    return true;
-            }
-
-            return false;
+            return File.ReadAllLines(filename).Where(it => false == string.IsNullOrEmpty(it)).Any(line => line.Contains(expected));
         }
 
         internal static bool LinesEqual(string filename, string expected)
         {
-            var expectedLines = expected.Split(Environment.NewLine.ToCharArray()).ToList();
+            var charArray = (expected.Contains("\r\n") ? "\r\n" : "\n").ToCharArray();
 
-            var actual = File.ReadAllLines(filename).ToList();
+            var expectedLines = expected.Split(charArray, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            return Enumerable.SequenceEqual<string>(expectedLines, actual);
+            var actual = File.ReadAllLines(filename).ToList().Where(it => false == string.IsNullOrEmpty(it));
+
+            return expectedLines.SequenceEqual(actual);
         }
     }
 }
