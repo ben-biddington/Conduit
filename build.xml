@@ -2,6 +2,29 @@
 <Project DefaultTargets="Usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 
+  <Choose>
+  	<When Condition="Exists('Conduit.Build.Targets.dll')">
+  		<PropertyGroup>
+  			<ConduitBuildTargets>Conduit.Build.Targets.dll</ConduitBuildTargets>
+  		</PropertyGroup>
+  	</When>
+  	<When Condition="Exists('$(ConduitBuildTargetsSrcPath)/bin/Debug/Conduit.Build.Targets.dll')">
+  		<PropertyGroup>
+  			<ConduitBuildTargets>$(ConduitBuildTargetsSrcPath)/bin/Debug/Conduit.Build.Targets.dll</ConduitBuildTargets>
+  		</PropertyGroup>
+  	</When>
+  	<When Condition="Exists('$(ConduitBuildTargetsSrcPath)/bin/Release/Conduit.Build.Targets.dll')">
+  		<PropertyGroup>
+  			<ConduitBuildTargets>$(ConduitBuildTargetsSrcPath)/bin/Release/Conduit.Build.Targets.dll</ConduitBuildTargets>
+  		</PropertyGroup>
+  	</When>
+  	<Otherwise>
+  		<PropertyGroup>
+  			<ConduitBuildTargets>UNKNOWN</ConduitBuildTargets>
+  		</PropertyGroup>
+  	</Otherwise>
+  </Choose>
+
   <PropertyGroup>
     <BinPath>$(MSBuildProjectDirectory)/project/Conduit.Build.Targets/bin/Debug</BinPath>
     <ConduitBuildTargets>$(MSBuildProjectDirectory)/project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll</ConduitBuildTargets>
