@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Usage" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Usage" InitialTargets="NugetRestore" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
+  <PropertyGroup>
+  	<ConduitBuildTargetsSrcPath>$(MSBuildProjectDirectory)/project/Conduit.Build.Targets</ConduitBuildTargetsSrcPath>
+  </PropertyGroup>
 
   <Choose>
   	<When Condition="Exists('Conduit.Build.Targets.dll')">
@@ -27,17 +31,21 @@
 
   <PropertyGroup>
     <BinPath>$(MSBuildProjectDirectory)/project/Conduit.Build.Targets/bin/Debug</BinPath>
-    <ConduitBuildTargets>$(MSBuildProjectDirectory)/project/Conduit.Build.Targets/bin/Debug/Conduit.Build.Targets.dll</ConduitBuildTargets>
   </PropertyGroup>
 
   <UsingTask TaskName="Xunit" AssemblyFile="$(ConduitBuildTargets)" />
   <UsingTask TaskName="List" AssemblyFile="$(ConduitBuildTargets)" />
-  <UsingTask TaskName="Glob" AssemblyFile="ConduitBuildTargets" />
-  <UsingTask TaskName="Bump" AssemblyFile="ConduitBuildTargets" />
+  <UsingTask TaskName="Glob" AssemblyFile="$(ConduitBuildTargets)" />
+  <UsingTask TaskName="Bump" AssemblyFile="$(ConduitBuildTargets)" />
   <UsingTask TaskName="Xunit.Runner.MSBuild.xunit" AssemblyFile="packages/xunit.runner.msbuild.2.1.0-beta4-build3109/build/portable-net45+netcore45+wp8+wpa81/xunit.runner.msbuild.dll"/> <!-- https://xunit.github.io/docs/running-tests-in-msbuild.html -->
   <UsingTask TaskName="Zip" AssemblyFile="packages/MSBuild.Extension.Pack.1.8.0/tools/net40/MSBuild.ExtensionPack.dll" />
   <UsingTask TaskName="Nuget" AssemblyFile="packages/MSBuild.Extension.Pack.1.8.0/tools/net40/MSBuild.ExtensionPack.dll" />
-  
+
+  <Target Name="NugetRestore">
+    <Exec Command="nuget restore Conduit.sln -packagesdirectory packages" />
+    <Exec Command="nuget restore packages.config -packagesdirectory packages" />
+  </Target>
+
   <Target Name="Build">
     <MsBuild Projects="$(MSBuildProjectDirectory)\Conduit.sln" Targets="rebuild"/>
   </Target>
