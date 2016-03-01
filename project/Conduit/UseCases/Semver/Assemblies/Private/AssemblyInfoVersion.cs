@@ -51,7 +51,7 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 
         public static void BumpPatch(string filename, string prefix)
         {
-            var newVersion = Bump.Minor(Version.For.File(filename, prefix));
+            var newVersion = Bump.Patch(Version.For.File(filename, prefix));
 
             var lines = new List<string>();
 

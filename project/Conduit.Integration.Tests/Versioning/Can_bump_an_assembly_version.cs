@@ -86,5 +86,17 @@ namespace Conduit.Integration.Tests.Versioning
             Assert.True (TextFile.Contains("AssemblyInfo.cs", @"AssemblyVersion(""1.0.0"")"), 
                 @"Expected this text to contain <""AssemblyVersion(""1.0.0""))"">: " + File.ReadAllText ("AssemblyInfo.cs"));
         }
+
+        [Fact]
+        public void can_patch()
+        {
+            FileMachine.Make("AssemblyInfo.cs", @"
+                [assembly: AssemblyVersion(""0.0.0.*"")]");
+
+            AssemblyVersion.BumpPatch("AssemblyInfo.cs");
+
+            Assert.True(TextFile.LinesEqual("AssemblyInfo.cs", @"
+                [assembly: AssemblyVersion(""0.0.1.*"")]"));
+        }
     }
 }

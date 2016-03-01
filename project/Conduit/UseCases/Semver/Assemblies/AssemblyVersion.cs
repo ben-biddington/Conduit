@@ -24,7 +24,7 @@ namespace Conduit.UseCases.Semver.Assemblies
             Private.AssemblyInfoVersion.BumpMajor(filename, "AssemblyFileVersion");
         }
 
-        public static void BumpPatch(string[] filenames)
+        public static void BumpPatch(params string[] filenames)
         {
             foreach (var filename in filenames)
             {
