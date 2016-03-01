@@ -6,6 +6,7 @@ namespace Conduit.Build.Targets
 {
     public class Glob : Task
     {
+        [Required]
         public string Pattern { get; set; }
        
         [Output]
