@@ -1,7 +1,7 @@
 ﻿using Conduit.Adapters.Build;
 using Xunit;
 
-namespace Conduit.Integration.Tests.Globbing
+namespace Conduit.Integration.Tests
 {
     public class About_the_test_report
     {

@@ -5,7 +5,7 @@ namespace Conduit.Build.Targets
 {
     public class Bump : Task
     {
-        public string Kind { get; }
+        public string Kind { get; set; }
 
         public Bump()
         {
