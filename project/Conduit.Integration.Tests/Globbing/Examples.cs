@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using Conduit.Adapters.Build;
 using Conduit.Integration.Tests.Support;

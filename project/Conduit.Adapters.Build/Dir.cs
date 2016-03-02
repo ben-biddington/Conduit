@@ -27,18 +27,30 @@ namespace Conduit.Adapters.Build
             return Newest(new Glob($@".\**\{filename.Value}"));
         }
 
-        public static FileInfo Newest(Glob glob)
+        public static FileInfo Newest(params Glob[] glob)
         {
-            var all = Directory.GetFiles(".", "*", SearchOption.AllDirectories);
-
-            var newest = Minimatcher.
-                Filter(all, glob.Value, new Options {AllowWindowsPaths = true}).
-                Select(it => new FileInfo(it)).
-                ToList();
+            var newest = AllMatching(glob);
 
             return false == newest.Any()
                 ? null
                 : newest.OrderBy(it => it.LastWriteTimeUtc).LastOrDefault();
+        }
+
+        private static List<FileInfo> AllMatching(params Glob[] globs)
+        {
+            var all = Directory.GetFiles(".", "*", SearchOption.AllDirectories);
+
+            var result = new List<FileInfo>();
+
+            foreach (var glob in globs)
+            {
+                result.AddRange(Minimatcher.
+                    Filter(all, glob.Value, new Options { AllowWindowsPaths = true }).
+                    Select(it => new FileInfo(it)).
+                ToList());
+            }
+
+            return result;
         }
     }
 

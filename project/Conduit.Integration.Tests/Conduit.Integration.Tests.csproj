@@ -32,6 +32,7 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +62,8 @@
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
     <Compile Include="Archiving\Files_are_added_with_paths_relative_to_working_directory.cs" />
     <Compile Include="About_the_test_report.cs" />
+    <Compile Include="Globbing\About_the_msbuild_target.cs" />
+    <Compile Include="Globbing\You_may_supply_a_list_of_globs.cs" />
     <Compile Include="Support\RunsInCleanRoom.cs" />
     <Compile Include="Support\ArchiveAssertions.cs" />
     <Compile Include="Archiving\Can_add_globs_of_files.cs" />
@@ -86,6 +89,10 @@
   -->
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Conduit.Build.Targets\Conduit.Build.Targets.csproj">
+      <Project>{e21c0d9b-d0d2-4cb4-94b0-b6ad8be5da0c}</Project>
+      <Name>Conduit.Build.Targets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Conduit\Conduit.csproj">
       <Project>{39006605-D504-407C-B9AA-45E26F101A32}</Project>
       <Name>Conduit</Name>

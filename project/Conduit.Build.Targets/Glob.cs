@@ -1,4 +1,5 @@
-﻿using Microsoft.Build.Utilities;
+﻿using System.Linq;
+using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
 using Conduit.Adapters.Build;
 
@@ -14,7 +15,7 @@ namespace Conduit.Build.Targets
 
         public override bool Execute()
         {
-            Path = Dir.Newest(new Adapters.Build.Glob(Pattern[0])).FullName;
+            Path = Dir.Newest(Pattern.Select(it => new Adapters.Build.Glob(it)).ToArray()).FullName;
 
             return true;
         }

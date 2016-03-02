@@ -14,9 +14,9 @@ namespace Conduit.Integration.Tests.Support
             return filename;
         }
 
-        public static void Touch(string filename)
+        public static FileInfo Touch(string filename)
         {
-            Make(filename, string.Empty);
+            return Make(filename, string.Empty);
         }
 
         public static FileInfo Make(string filename, string content)
