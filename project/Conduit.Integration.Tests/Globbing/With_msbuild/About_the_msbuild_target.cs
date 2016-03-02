@@ -22,7 +22,7 @@ namespace Conduit.Integration.Tests.Globbing.With_msbuild
         }
 
         [Fact]
-        public void no_match_produce_null_path()
+        public void no_match_produces_null_path()
         {
             FileMachine.Touch("obj", "Debug", "example.dll");
 
