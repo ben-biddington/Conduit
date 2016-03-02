@@ -57,9 +57,7 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
 
         private static IEnumerable<string> Lines(string filename)
         {
-            foreach (var line in File.ReadAllLines(filename)) {
-                yield return line;
-            }
+            return File.ReadAllLines(filename);
         }
     }
 }
