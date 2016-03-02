@@ -1,11 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using Conduit.UseCases.Semver;
 using Conduit.UseCases.Semver.Semver;
 using System.Collections.Generic;
-using Conduit.UseCases.Semver.Assemblies.Private;
 
 namespace Conduit.UseCases.Semver.Assemblies.Private
 {
@@ -15,44 +12,25 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
         {
             var newVersion = Bump.Major(Version.For.File(filename, prefix));
 
-            var lines = new List<string> ();
-
-            var pattern = new Regex(Matching.Pattern(prefix));
-
-            foreach (var line in Lines(filename)) {
-                var match = pattern.Match(line);
-
-                lines.Add (AssemblyInfoLine.IsInstruction(line) && match.Success 
-                    ? string.Format ("{0}{1}(\"{2}{3}", match.Groups ["preamble"].Value, match.Groups ["prefix"].Value, newVersion, match.Groups ["suffix"].Value) 
-                    : line);
-            }
-
-            Spit(filename, string.Join (Environment.NewLine, lines));
+            Write(filename, prefix, newVersion);
         }
 
         internal static void BumpMinor(string filename, string prefix)
         {
             var newVersion = Bump.Minor(Version.For.File(filename, prefix));
 
-            var lines = new List<string> ();
-
-            var pattern = new Regex (Matching.Pattern (prefix));
-
-            foreach (var line in Lines(filename)) {
-                var match = pattern.Match (line);
-
-                lines.Add (AssemblyInfoLine.IsInstruction(line) && match.Success 
-                    ? string.Format ("{0}{1}(\"{2}{3}", match.Groups ["preamble"].Value, match.Groups ["prefix"].Value, newVersion, match.Groups ["suffix"].Value) 
-                    : line);
-            }
-
-            Spit(filename, string.Join (Environment.NewLine, lines));
+            Write(filename, prefix, newVersion);
         }
 
         public static void BumpPatch(string filename, string prefix)
         {
             var newVersion = Bump.Patch(Version.For.File(filename, prefix));
 
+            Write(filename, prefix, newVersion);
+        }
+
+        private static void Write(string filename, string prefix, SemVersion newVersion)
+        {
             var lines = new List<string>();
 
             var pattern = new Regex(Matching.Pattern(prefix));
@@ -62,7 +40,8 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
                 var match = pattern.Match(line);
 
                 lines.Add(AssemblyInfoLine.IsInstruction(line) && match.Success
-                    ? string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion, match.Groups["suffix"].Value)
+                    ? string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion,
+                        match.Groups["suffix"].Value)
                     : line);
             }
 
