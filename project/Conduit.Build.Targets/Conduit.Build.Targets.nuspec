@@ -7,7 +7,7 @@
         <language>en-GB</language>
         <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
         <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
-        <releaseNotes>Allow multiple glob patterns in Conduit.Build.Targets.Glob</releaseNotes>
+        <releaseNotes>Better handle returning no matches</releaseNotes>
         <dependencies>
             <dependency id="Minimatch" version="[1.1,2.0)" />
         </dependencies>

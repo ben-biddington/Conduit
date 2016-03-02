@@ -20,5 +20,29 @@ namespace Conduit.Integration.Tests.Globbing.With_msbuild
 
             Assert.Equal(expected.FullName, target.Path);
         }
+
+        [Fact]
+        public void no_match_produce_null_path()
+        {
+            FileMachine.Touch("obj", "Debug", "example.dll");
+
+            var target = new Glob { Pattern = new[] { @".\xxx-does-not-exist-xxx.dll" } };
+
+            target.Execute();
+
+            Assert.Null(target.Path);
+        }
+
+        [Fact]
+        public void no_pattern_produces_null_path()
+        {
+            FileMachine.Touch("obj", "Debug", "example.dll");
+
+            var target = new Glob { Pattern = null };
+
+            target.Execute();
+
+            Assert.Null(target.Path);
+        }
     }
 }

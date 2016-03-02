@@ -15,7 +15,7 @@ namespace Conduit.Build.Targets
 
         public override bool Execute()
         {
-            Path = Dir.Newest(Pattern.Select(it => new Adapters.Build.Glob(it)).ToArray()).FullName;
+            Path = Dir.Newest((Pattern ?? new string[0]).Select(it => new Adapters.Build.Glob(it)).ToArray())?.FullName;
 
             return true;
         }
