@@ -72,6 +72,7 @@
 
   <PropertyGroup>
     <Reporter>verbose</Reporter>
+  	<ClassName />
   </PropertyGroup>
   
   <Target Name="TestUnit">
@@ -90,7 +91,7 @@
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
 
-    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)"/>
+    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)" /><!-- try cli runner for running single test -->
   </Target>
 
   <Target Name="TestIntegration">
@@ -98,7 +99,7 @@
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
 
-    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)"/>
+    <Xunit.Runner.MSBuild.xunit Assemblies="$(Path)" ShadowCopy="false" Reporter="$(Reporter)" />
   </Target>
 
   <!-- These are targets that use our custom xunit runner -->

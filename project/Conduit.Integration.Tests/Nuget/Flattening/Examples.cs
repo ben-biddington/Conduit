@@ -25,12 +25,6 @@ namespace Conduit.Integration.Tests
         [Fact]
         public void the_basics() 
         {
-            FileMachine.Make("packages.config", @"
-                <?xml version=""1.0"" encoding=""utf-8""?>
-                <packages>
-                    <package id=""MSBuild.Extension.Pack"" version=""1.8.0"" />
-                </packages>");
-
             string packageID = "EntityFramework";
 
             var repo = NuGet.PackageRepositoryFactory.Default.CreateRepository ("https://packages.nuget.org/api/v2");
@@ -38,6 +32,21 @@ namespace Conduit.Integration.Tests
             var packages = repo.FindPackagesById(packageID).ToList();
 
             Assert.True (packages.Count > 0);
+        }
+
+        [Fact]
+        public void install_it() 
+        {
+            var repo = NuGet.PackageRepositoryFactory.Default.CreateRepository("https://packages.nuget.org/api/v2");
+
+            var targetDir = new DirectoryInfo($"packages-{System.Guid.NewGuid()}");
+            targetDir.Create();
+
+            var packageManager = new PackageManager(repo, targetDir.FullName);
+
+            packageManager.InstallPackage("Conduit.Build.Targets", SemanticVersion.Parse ("0.0.8"));
+
+            Assert.True(targetDir.Exists);
         }
     }
 
