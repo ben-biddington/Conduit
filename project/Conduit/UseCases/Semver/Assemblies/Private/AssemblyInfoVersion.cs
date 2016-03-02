@@ -40,8 +40,7 @@ namespace Conduit.UseCases.Semver.Assemblies.Private
                 var match = pattern.Match(line);
 
                 lines.Add(AssemblyInfoLine.IsInstruction(line) && match.Success
-                    ? string.Format("{0}{1}(\"{2}{3}", match.Groups["preamble"].Value, match.Groups["prefix"].Value, newVersion,
-                        match.Groups["suffix"].Value)
+                    ? $"{match.Groups["preamble"].Value}{match.Groups["prefix"].Value}(\"{newVersion}{match.Groups["suffix"].Value}"
                     : line);
             }
 
