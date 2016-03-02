@@ -14,7 +14,7 @@ namespace Conduit.Integration.Tests.Globbing.With_msbuild
 
             var expected = FileMachine.Touch("example.dll");
 
-            var target = new Glob { Pattern = new [] { @".\xxx\example.dll;", @".\example.dll" } };
+            var target = new Glob { Pattern = new [] { @".\example.dll", @".\xxx\example.dll;" } };
 
             target.Execute();
 
