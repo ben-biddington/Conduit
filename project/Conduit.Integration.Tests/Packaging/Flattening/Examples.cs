@@ -12,9 +12,15 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         [Fact]
         public void the_basics() 
         {
-            var packages = Nuget.Find(new Uri("https://packages.nuget.org/api/v2"), "EntityFramework").ToList();
+            var packages = Nuget.Find(Settings.PublicNuget, "EntityFramework").ToList();
 
             Assert.True(packages.Count > 0);
+        }
+
+        [Fact]
+        public void non_existent_package_returns_nothing() 
+        {
+            Assert.True(Nuget.Find(Settings.PublicNuget, "XxxDoesNotExistXxx").Count().Equals(0));
         }
 
         [Fact]
@@ -22,7 +28,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         {
             var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
 
-            Nuget.Install(new Uri("https://packages.nuget.org/api/v2"), targetDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
+            Nuget.Install(Settings.PublicNuget, targetDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
 
             Assert.True(targetDir.Exists);
         }

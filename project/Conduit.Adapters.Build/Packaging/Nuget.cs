@@ -51,9 +51,9 @@ namespace Conduit.Adapters.Build.Packaging
             }
         }
 
-        public static IEnumerable<NugetPackage> Find(Uri uri, string id)
+        public static List<NugetPackage> Find(Uri uri, string id)
         {
-            return PackageRepository(uri).FindPackagesById(id).Select(it => new NugetPackage(it.Id));
+            return PackageRepository(uri).FindPackagesById(id).Select(it => new NugetPackage(it.Id)).ToList();
         }
 
         public static void Install(Uri uri, DirectoryInfo directory, params NugetPackage[] packages)
