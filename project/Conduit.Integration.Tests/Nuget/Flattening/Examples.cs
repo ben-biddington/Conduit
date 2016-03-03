@@ -45,21 +45,5 @@ namespace Conduit.Integration.Tests.Nuget.Flattening
             Assert.True(targetDir.Exists);
         }
     }
-
-    internal static class Nugget {
-        internal static FileInfo[] Flatten(DirectoryInfo packageDirectory, FrameworkVersion version, DirectoryInfo targetDirectory) 
-        {
-            return targetDirectory.GetFiles();
-        }
-    }
-
-    public class FrameworkVersion {
-        public static readonly FrameworkVersion Net45 = new FrameworkVersion("net45") ;
-        public string Name { get; private set;}
-        public FrameworkVersion(string name)
-        {
-            Name = name;
-        }
-    }
 }
 
