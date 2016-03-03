@@ -8,9 +8,9 @@ namespace Conduit.Adapters.Build.Packaging
 {
     public static class Nuget
     {
-        public static List<FileInfo> Flatten(Uri uri, DirectoryInfo packageDirectory, string id, FrameworkVersion version, DirectoryInfo targetDirectory)
+        public static List<FileInfo> Flatten(Uri uri, DirectoryInfo packageDirectory, NugetPackage p, DirectoryInfo targetDirectory)
         {
-            var package = new PackageManager(PackageRepository(uri), packageDirectory.FullName).LocalRepository.FindPackage(id);
+            var package = new PackageManager(PackageRepository(uri), packageDirectory.FullName).LocalRepository.FindPackage(p.Id);
 
             if (null == package)
                 return new List<FileInfo>(0);
@@ -20,7 +20,7 @@ namespace Conduit.Adapters.Build.Packaging
             var packagePath = Path.Combine(packageDirectory.FullName, string.Join(".", package.Id, package.Version));
 
             var matchingFiles = packageFiles.
-                Where(it => it.TargetFramework.Version.ToString().Equals(version.Version, StringComparison.InvariantCultureIgnoreCase)).
+                Where(it => it.TargetFramework.Version.ToString().Equals(p.Version.Version, StringComparison.InvariantCultureIgnoreCase)).
                 Select(it => new FileInfo(Path.Combine(packagePath, it.Path))).ToList();
 
             Ensure(targetDirectory);
@@ -43,9 +43,16 @@ namespace Conduit.Adapters.Build.Packaging
             return PackageRepository(uri).FindPackagesById(id).Select(it => new NugetPackage(it.Id));
         }
 
+        public static void Install(Uri uri, string id, DirectoryInfo directory)
+        {
+            Install(uri, id, null, directory);
+        }
+
         public static void Install(Uri uri, string id, string version, DirectoryInfo directory)
         {
-            new PackageManager(PackageRepository(uri), directory.FullName).InstallPackage(id, SemanticVersion.Parse(version));
+            var semanticVersion = version != null ? SemanticVersion.Parse(version) : null;
+
+            new PackageManager(PackageRepository(uri), directory.FullName).InstallPackage(id, semanticVersion);
         }
 
         private static IPackageRepository PackageRepository(Uri uri)
@@ -57,10 +64,16 @@ namespace Conduit.Adapters.Build.Packaging
     public class NugetPackage
     {
         public string Id { get; private set; }
+        public FrameworkVersion Version { get; private set; }
 
-        public NugetPackage(string id)
+        public NugetPackage(string id) : this(id, null)
+        {
+        }
+
+        public NugetPackage(string id, FrameworkVersion version)
         {
             Id = id;
+            Version = version;
         }
     }
 }
