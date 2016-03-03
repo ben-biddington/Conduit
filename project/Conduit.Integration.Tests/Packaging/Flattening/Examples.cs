@@ -22,7 +22,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         {
             var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
 
-            Nuget.Install(new Uri("https://packages.nuget.org/api/v2"), "Conduit.Build.Targets", "0.0.8", targetDir);
+            Nuget.Install(new Uri("https://packages.nuget.org/api/v2"), targetDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
 
             Assert.True(targetDir.Exists);
         }

@@ -3,6 +3,7 @@ using System.IO;
 using Conduit.Adapters.Build.Packaging;
 using Conduit.Integration.Tests.Support;
 using Xunit;
+using System.Linq;
 
 namespace Conduit.Integration.Tests.Packaging.Flattening
 {
@@ -13,7 +14,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         {
             var packagesDir = new DirectoryInfo("packages");
 
-            Nuget.Install(Settings.PublicNuget, "Conduit.Build.Targets", "0.0.8", packagesDir);
+            Nuget.Install(Settings.PublicNuget, packagesDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
 
             var targetDirectory = new DirectoryInfo("bin");
 
@@ -21,7 +22,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                 Settings.PublicNuget, 
                 packagesDir, 
                 targetDirectory, 
-                new NugetPackage("Conduit.Build.Targets", FrameworkVersion.Net45));
+                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
 
             Assert.Equal(3, result.Count);
 
@@ -31,30 +32,33 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                 "Conduit.dll");
         }
 
-        //[Fact]
-        //public void and_multiples()
-        //{
-        //    var packagesDir = new DirectoryInfo("packages");
+        [Fact]
+        public void and_multiples()
+        {
+            var packagesDir = new DirectoryInfo("packages");
 
-        //    Nuget.Install(Settings.PublicNuget, "Conduit.Build.Targets" , "0.0.8", packagesDir);
-        //    Nuget.Install(Settings.PublicNuget, "EntityFramework"       , "1.0.0", packagesDir);
+            var packages = new[]
+            {
+                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45),
+                new NugetPackage("EntityFramework"      , new PackageVersion("6.0.0"), FrameworkVersion.Net45),
+            };
 
-        //    var targetDirectory = new DirectoryInfo("bin");
+            Nuget.Install(Settings.PublicNuget, packagesDir, packages);
 
-        //    var result = Nuget.Flatten(
-        //        Settings.PublicNuget,
-        //        packagesDir,
-        //        "Conduit.Build.Targets",
-        //        FrameworkVersion.Net45,
-        //        targetDirectory);
+            var targetDirectory = new DirectoryInfo("bin");
 
-        //    Assert.Equal(3, result.Count);
+            var result = Nuget.Flatten(
+                Settings.PublicNuget,
+                packagesDir,
+                targetDirectory);
 
-        //    targetDirectory.MustContain(
-        //        "Conduit.Adapters.Build.dll",
-        //        "Conduit.Build.Targets.dll",
-        //        "Conduit.dll");
-        //}
+            Assert.Equal(3, result.Count);
+
+            targetDirectory.MustContain(
+                "Conduit.Adapters.Build.dll",
+                "Conduit.Build.Targets.dll",
+                "Conduit.dll");
+        }
 
         // TEST: it creates target dir is required
         // TEST: it returns nothing if framework version is incompatible
