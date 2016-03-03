@@ -8,9 +8,29 @@ namespace Conduit.Adapters.Build.Packaging
 {
     public static class Nuget
     {
-        public static FileInfo[] Flatten(DirectoryInfo packageDirectory, FrameworkVersion version, DirectoryInfo targetDirectory)
+        public static List<FileInfo> Flatten(Uri uri, DirectoryInfo packageDirectory, string id, FrameworkVersion version, DirectoryInfo targetDirectory)
         {
-            return targetDirectory.GetFiles();
+            var package = new PackageManager(PackageRepository(uri), packageDirectory.FullName).LocalRepository.FindPackage(id);
+
+            if (null == package)
+                return new List<FileInfo>(0);
+
+            Ensure(targetDirectory);
+
+            var packageFiles = package.GetFiles().ToList();
+
+            var matchingFiles = packageFiles.
+                Where(it => it.TargetFramework.Version.ToString().Equals(version.Version, StringComparison.InvariantCultureIgnoreCase));
+
+            return matchingFiles.Select(it => new FileInfo(it.Path)).ToList();
+        }
+
+        private static void Ensure(DirectoryInfo targetDirectory)
+        {
+            if (false == targetDirectory.Exists)
+            {
+                targetDirectory.Create();
+            }
         }
 
         public static IEnumerable<NugetPackage> Find(Uri uri, string id)

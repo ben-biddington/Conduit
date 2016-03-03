@@ -9,16 +9,6 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
 {
     public class Examples : RunsInCleanRoom
     {
-        /*
-
-        The idea here is to allow selection of a bunch of assemblies from a set of nuget packages so that you can put them all in one directory.
-
-        This means all dependencies can be satisfied.
-
-        IDEs call this "copy local"
-
-        */
-
         [Fact]
         public void the_basics() 
         {
