@@ -78,6 +78,8 @@
     <Compile Include="About_the_test_report.cs" />
     <Compile Include="Globbing\With_msbuild\About_the_msbuild_target.cs" />
     <Compile Include="Globbing\You_may_supply_a_list_of_globs.cs" />
+    <Compile Include="Support\AcceptanceTest.cs" />
+    <Compile Include="Packaging\Flattening\Can_flatten_a_packages_config_to_another_dir.cs" />
     <Compile Include="Packaging\Flattening\Can_flatten_a_package_to_a_single_directory.cs" />
     <Compile Include="Packaging\Flattening\Can_read_a_packages_config_file.cs" />
     <Compile Include="Support\DirectoryInfoAssertions.cs" />

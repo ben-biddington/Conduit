@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nuget\Flatten.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xunit.cs" />
     <Compile Include="Cli.cs" />
