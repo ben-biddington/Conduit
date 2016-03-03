@@ -28,11 +28,11 @@ namespace Conduit.Build.Targets.Nuget
         /// <summary>
         /// Where nuget server is, defaults to `https://packages.nuget.org/api/v2`
         /// </summary>
-        public Uri NugetUrl { get; set; }
+        public string NugetUrl { get; set; }
 
         public Flatten()
         {
-            NugetUrl = new Uri("https://packages.nuget.org/api/v2");
+            NugetUrl = "https://packages.nuget.org/api/v2";
         }
 
         public override bool Execute()
@@ -42,7 +42,7 @@ namespace Conduit.Build.Targets.Nuget
             var packages = Adapters.Build.Packaging.PackagesConfig.Read(packagesConfig);
 
             Adapters.Build.Packaging.Nuget.Flatten(
-                NugetUrl,
+                new Uri(NugetUrl), 
                 new DirectoryInfo(PackagesDirectory), 
                 new DirectoryInfo(TargetDirectory),
                 packages.ToArray());
