@@ -94,7 +94,7 @@
     <Compile Include="Archiving\Examples.cs" />
     <Compile Include="How_to_read_project_files.cs" />
     <Compile Include="Globbing\Examples.cs" />
-    <Compile Include="Nuget\Flattening\Examples.cs" />
+    <Compile Include="Packaging\Flattening\Examples.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\xunit.core.2.1.0\build\portable-net45+win8+wp8+wpa81\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.1.0\build\portable-net45+win8+wp8+wpa81\xunit.core.props')" />

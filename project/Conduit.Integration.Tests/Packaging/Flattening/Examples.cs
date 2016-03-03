@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Conduit.Adapters.Build.Packaging;
 using Conduit.Integration.Tests.Support;
 using Xunit;
 
-namespace Conduit.Integration.Tests.Nuget.Flattening
+namespace Conduit.Integration.Tests.Packaging.Flattening
 {
     public class Examples : RunsInCleanRoom
     {
@@ -21,7 +22,7 @@ namespace Conduit.Integration.Tests.Nuget.Flattening
         [Fact]
         public void the_basics() 
         {
-            var packages = Adapters.Build.Packaging.Nuget.Find(new Uri("https://packages.nuget.org/api/v2"), "EntityFramework").ToList();
+            var packages = Nuget.Find(new Uri("https://packages.nuget.org/api/v2"), "EntityFramework").ToList();
 
             Assert.True(packages.Count > 0);
         }
@@ -31,7 +32,7 @@ namespace Conduit.Integration.Tests.Nuget.Flattening
         {
             var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
 
-            Adapters.Build.Packaging.Nuget.Install(new Uri("https://packages.nuget.org/api/v2"), "Conduit.Build.Targets", "0.0.8", targetDir);
+            Nuget.Install(new Uri("https://packages.nuget.org/api/v2"), "Conduit.Build.Targets", "0.0.8", targetDir);
 
             Assert.True(targetDir.Exists);
         }
