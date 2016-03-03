@@ -11,7 +11,7 @@ namespace Conduit.Integration.Tests.Support
 
         public CleanRoom(string tempDir)
         {
-            _tempDir = Path.GetFullPath(Guid.NewGuid().ToString("D"));
+            _tempDir = Path.GetFullPath(Path.Combine(tempDir, Path.GetRandomFileName()));
         }
 
         public void Enter()
