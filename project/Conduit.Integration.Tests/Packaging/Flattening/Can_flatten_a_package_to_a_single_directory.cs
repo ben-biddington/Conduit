@@ -34,6 +34,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         }
 
         // TEST: Should really be able to supply text rather than file
+        // TEST: Check that it returns all the right values
     }
 
     public class Can_flatten_a_package_to_a_single_directory : RunsInCleanRoom
@@ -97,5 +98,6 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         // TEST: it creates target dir if required
         // TEST: it returns nothing if framework version is incompatible
         // TEST: it what when no packages are supplied?
+        // TEST: what about packages like xunit.msbuild that does not have lib/net45? Take the first
     }
-}
+}   
