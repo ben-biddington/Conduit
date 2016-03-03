@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using Conduit.Adapters.Build;
-using Conduit.Integration.Tests.Support;
-using Xunit;
-using NuGet;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Linq;
+using Conduit.Integration.Tests.Support;
+using NuGet;
+using Xunit;
 
-namespace Conduit.Integration.Tests
+namespace Conduit.Integration.Tests.Nuget.Flattening
 {
     public class Examples : RunsInCleanRoom
     {
@@ -27,7 +23,7 @@ namespace Conduit.Integration.Tests
         {
             string packageID = "EntityFramework";
 
-            var repo = NuGet.PackageRepositoryFactory.Default.CreateRepository ("https://packages.nuget.org/api/v2");
+            var repo = PackageRepositoryFactory.Default.CreateRepository ("https://packages.nuget.org/api/v2");
 
             var packages = repo.FindPackagesById(packageID).ToList();
 
@@ -37,7 +33,7 @@ namespace Conduit.Integration.Tests
         [Fact]
         public void install_it() 
         {
-            var repo = NuGet.PackageRepositoryFactory.Default.CreateRepository("https://packages.nuget.org/api/v2");
+            var repo = PackageRepositoryFactory.Default.CreateRepository("https://packages.nuget.org/api/v2");
 
             var targetDir = new DirectoryInfo($"packages-{System.Guid.NewGuid()}");
             targetDir.Create();
