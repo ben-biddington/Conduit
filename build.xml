@@ -67,7 +67,7 @@
   </Target>
 
   <Target Name="NugetPack" Label="Create Conduit Build.Targets nuget package">
-    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.nuspec -build -verbosity detailed -IncludeReferencedProjects -version $(Version) -properties configuration=Debug"/>
+    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.csproj -build -verbosity detailed -IncludeReferencedProjects -version $(Version) -properties configuration=Debug"/>
   </Target>
 
   <PropertyGroup>
