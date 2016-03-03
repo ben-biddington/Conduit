@@ -15,14 +15,19 @@ namespace Conduit.Adapters.Build.Packaging
             if (null == package)
                 return new List<FileInfo>(0);
 
-            Ensure(targetDirectory);
-
             var packageFiles = package.GetFiles().ToList();
 
-            var matchingFiles = packageFiles.
-                Where(it => it.TargetFramework.Version.ToString().Equals(version.Version, StringComparison.InvariantCultureIgnoreCase));
+            var packagePath = Path.Combine(packageDirectory.FullName, string.Join(".", package.Id, package.Version));
 
-            return matchingFiles.Select(it => new FileInfo(it.Path)).ToList();
+            var matchingFiles = packageFiles.
+                Where(it => it.TargetFramework.Version.ToString().Equals(version.Version, StringComparison.InvariantCultureIgnoreCase)).
+                Select(it => new FileInfo(Path.Combine(packagePath, it.Path))).ToList();
+
+            Ensure(targetDirectory);
+
+            matchingFiles.ForEach(it => it.CopyTo(Path.Combine(targetDirectory.FullName, it.Name)));
+
+            return matchingFiles;
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)

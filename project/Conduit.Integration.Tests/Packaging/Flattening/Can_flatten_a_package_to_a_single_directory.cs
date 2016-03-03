@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Conduit.Adapters.Build.Packaging;
 using Conduit.Integration.Tests.Support;
 using Xunit;
@@ -26,7 +28,10 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
 
             Assert.Equal(3, result.Count);
 
-            targetDirectory.MustContain("Conduit.Build.Targets.dll");
+            targetDirectory.MustContain(
+                "Conduit.Adapters.Build.dll", 
+                "Conduit.Build.Targets.dll", 
+                "Conduit.dll");
         }
 
         // TEST: it creates target dir is required
@@ -39,8 +44,19 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         {
             var files = self.GetFiles();
 
+            var actualNames = files.Select(it => it.Name).ToList();
+
             Assert.True(files.Length == expectedFiles.Length,
-                $"Expected the dir <{self.FullName}> to contain <{expectedFiles.Length}> files, but it contains <{files.Length}>.");
+                $"Expected the dir <{self.FullName}> to contain <{expectedFiles.Length}> files, but it contains <{files.Length}>:{Environment.NewLine}{string.Join(Environment.NewLine, actualNames)}");
+
+            Assert.True(actualNames.SequenceEqual(expectedFiles), 
+                $@"Expected these files:
+                
+                  {string.Join(Environment.NewLine, expectedFiles)}
+                    
+                  Got:
+                  
+                {string.Join(Environment.NewLine, actualNames)}");
         }
     }
 
