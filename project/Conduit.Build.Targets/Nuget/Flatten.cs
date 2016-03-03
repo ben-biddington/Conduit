@@ -28,7 +28,6 @@ namespace Conduit.Build.Targets.Nuget
         /// <summary>
         /// Where nuget server is, defaults to `https://packages.nuget.org/api/v2`
         /// </summary>
-        [Required]
         public Uri NugetUrl { get; set; }
 
         public Flatten()
