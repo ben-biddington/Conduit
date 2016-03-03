@@ -16,7 +16,7 @@ namespace Conduit.Integration.Tests.Support
             Assert.True(files.Length == expectedFiles.Length,
                 $"Expected the dir <{self.FullName}> to contain <{expectedFiles.Length}> files, but it contains <{files.Length}>:{Environment.NewLine}{string.Join(Environment.NewLine, actualNames)}");
 
-            Assert.True(actualNames.SequenceEqual(expectedFiles), 
+            Assert.True(actualNames.Intersect(expectedFiles).Count().Equals(expectedFiles.Length), 
                 $@"Expected these files:
                 
                   {string.Join(Environment.NewLine, expectedFiles)}
