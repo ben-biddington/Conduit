@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Conduit.Integration.Tests.Support;
-using NuGet;
 using Xunit;
 
 namespace Conduit.Integration.Tests.Nuget.Flattening
@@ -21,26 +21,17 @@ namespace Conduit.Integration.Tests.Nuget.Flattening
         [Fact]
         public void the_basics() 
         {
-            string packageID = "EntityFramework";
+            var packages = Adapters.Build.Packaging.Nuget.Find(new Uri("https://packages.nuget.org/api/v2"), "EntityFramework").ToList();
 
-            var repo = PackageRepositoryFactory.Default.CreateRepository ("https://packages.nuget.org/api/v2");
-
-            var packages = repo.FindPackagesById(packageID).ToList();
-
-            Assert.True (packages.Count > 0);
+            Assert.True(packages.Count > 0);
         }
 
         [Fact]
-        public void install_it() 
+        public void install_it()
         {
-            var repo = PackageRepositoryFactory.Default.CreateRepository("https://packages.nuget.org/api/v2");
+            var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
 
-            var targetDir = new DirectoryInfo($"packages-{System.Guid.NewGuid()}");
-            targetDir.Create();
-
-            var packageManager = new PackageManager(repo, targetDir.FullName);
-
-            packageManager.InstallPackage("Conduit.Build.Targets", SemanticVersion.Parse ("0.0.8"));
+            Adapters.Build.Packaging.Nuget.Install(new Uri("https://packages.nuget.org/api/v2"), "Conduit.Build.Targets", "0.0.8", targetDir);
 
             Assert.True(targetDir.Exists);
         }

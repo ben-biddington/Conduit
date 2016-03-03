@@ -78,9 +78,6 @@
     <Reference Include="NuGet">
       <HintPath>..\..\packages\NuGet.ContentModel.3.3.0\lib\net45\NuGet.ContentModel.dll</HintPath>
     </Reference>
-    <Reference Include="NuGet.Core">
-      <HintPath>..\..\packages\NuGet.Core.2.10.1\lib\net40-Client\NuGet.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
@@ -149,8 +146,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Nuget\" />
-    <Folder Include="Nuget\Flattening\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
