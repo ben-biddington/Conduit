@@ -39,12 +39,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.runner.utility.desktop">
-      <HintPath>..\..\packages\xunit.runner.utility.2.1.0\lib\net35\xunit.runner.utility.desktop.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.XmlTransform">
       <HintPath>..\..\packages\Microsoft.Web.Xdt.2.1.0\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
@@ -54,9 +48,6 @@
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0">
       <HintPath>..\..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.runner.reporters.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\xunit.runner.reporters.2.1.0\lib\net45\xunit.runner.reporters.desktop.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IO\Assembly.cs" />
@@ -64,11 +55,6 @@
     <Compile Include="Packaging\FrameworkVersion.cs" />
     <Compile Include="Packaging\Nuget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestRunning\TestFailure.cs" />
-    <Compile Include="TestRunning\TestReport.cs" />
-    <Compile Include="TestRunning\TestResult.cs" />
-    <Compile Include="TestRunning\TestRun.cs" />
-    <Compile Include="TestRunning\Xunit\Xunit.cs" />
     <Compile Include="Versioning\Bump.cs" />
   </ItemGroup>
   <ItemGroup>

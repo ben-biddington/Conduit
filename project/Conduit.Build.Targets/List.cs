@@ -6,7 +6,6 @@ using Microsoft.Build.Execution;
 using System.Collections.Generic;
 using System.Xml;
 using System.IO;
-using Conduit.Adapters.Build;
 
 namespace Conduit.Build.Targets
 {

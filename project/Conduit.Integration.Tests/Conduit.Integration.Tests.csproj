@@ -75,7 +75,6 @@
   <ItemGroup>
     <Compile Include="Archiving\Can_make_archive_from_entire_directory.cs" />
     <Compile Include="Archiving\Files_are_added_with_paths_relative_to_working_directory.cs" />
-    <Compile Include="About_the_test_report.cs" />
     <Compile Include="Globbing\With_msbuild\About_the_msbuild_target.cs" />
     <Compile Include="Globbing\You_may_supply_a_list_of_globs.cs" />
     <Compile Include="Support\AcceptanceTest.cs" />
