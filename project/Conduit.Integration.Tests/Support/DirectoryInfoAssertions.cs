@@ -9,7 +9,7 @@ namespace Conduit.Integration.Tests.Support
     {
         internal static void MustContain(this DirectoryInfo self, params string[] expectedFiles)
         {
-            Assert.True(self.Exists, $"Expected the directory <{self.FullName}> to exist");
+            Assert.True(Directory.Exists(self.FullName), $"Expected the directory <{self.FullName}> to exist");
 
             var files = self.GetFiles();
 
