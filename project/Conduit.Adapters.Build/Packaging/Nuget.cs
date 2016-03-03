@@ -8,7 +8,7 @@ namespace Conduit.Adapters.Build.Packaging
 {
     public static class Nuget
     {
-        public static List<FileInfo> Flatten(Uri uri, DirectoryInfo packageDirectory, NugetPackage p, DirectoryInfo targetDirectory)
+        public static List<FileInfo> Flatten(Uri uri, DirectoryInfo packageDirectory, DirectoryInfo targetDirectory, NugetPackage p)
         {
             var package = new PackageManager(PackageRepository(uri), packageDirectory.FullName).LocalRepository.FindPackage(p.Id);
 
