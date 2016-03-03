@@ -50,17 +50,23 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
             var result = Nuget.Flatten(
                 Settings.PublicNuget,
                 packagesDir,
-                targetDirectory);
+                targetDirectory, 
+                packages);
 
-            Assert.Equal(3, result.Count);
+            Assert.Equal(7, result.Count);
 
             targetDirectory.MustContain(
                 "Conduit.Adapters.Build.dll",
                 "Conduit.Build.Targets.dll",
-                "Conduit.dll");
+                "Conduit.dll",
+                "EntityFramework.SqlServer.dll",
+                "EntityFramework.SqlServer.xml",
+                "EntityFramework.dll",
+                "EntityFramework.xml");
         }
 
         // TEST: it creates target dir is required
         // TEST: it returns nothing if framework version is incompatible
+        // TEST: it what when no packages are supplied?
     }
 }

@@ -32,10 +32,8 @@ namespace Conduit.Adapters.Build.Packaging
             var packagePath = Path.Combine(packageDirectory.FullName, string.Join(".", package.Id, package.Version));
 
             var matchingFiles = packageFiles.
-                Where(
-                    it =>
-                        it.TargetFramework.Version.ToString()
-                            .Equals(p.FrameworkVersion.Version, StringComparison.InvariantCultureIgnoreCase)).
+                Where (it => it != null && it.TargetFramework != null).
+                Where(it => it.TargetFramework.Version.ToString().Equals(p.FrameworkVersion.Version, StringComparison.InvariantCultureIgnoreCase)).
                 Select(it => new FileInfo(Path.Combine(packagePath, it.Path))).ToList();
 
             Ensure(targetDirectory);
