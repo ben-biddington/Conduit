@@ -12,9 +12,4 @@
             <dependency id="Minimatch" version="[1.1,2.0)" />
         </dependencies>
     </metadata>
-    <files>
-        <file src="bin/$configuration$/Conduit.Build.Targets.dll" target="lib/net45" />
-        <file src="bin/$configuration$/Conduit.Adapters.Build.dll" target="lib/net45" />
-        <file src="bin/$configuration$/Conduit.dll" target="lib/net45" />
-    </files>
 </package>
