@@ -13,7 +13,7 @@ namespace Conduit.Integration.Tests.Support
 
         public void Dispose()
         {
-            //_cleanRoom.Exit();
+            _cleanRoom.Exit();
         }
     }
 }
