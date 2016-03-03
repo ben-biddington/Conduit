@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using Conduit.Adapters.Build.IO;
 using Conduit.UseCases.Semver.Assemblies;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Adapters.Build.Versioning
 {
     public static class Bump
     {

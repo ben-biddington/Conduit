@@ -1,5 +1,6 @@
 ﻿using System;
-using Conduit.Adapters.Build;
+using Conduit.Adapters.Build.IO;
+using Conduit.Adapters.Build.TestRunning;
 using Microsoft.Build.Utilities;
 
 namespace Conduit.Build.Targets
@@ -21,7 +22,7 @@ namespace Conduit.Build.Targets
 
             log($"Running in working directory <{Environment.CurrentDirectory}>");
 
-            return Adapters.Build.Xunit.Run(TestReport.Documentation(log), UseGlob ? Assembly.NewestMatching(log, TestAssemblyGlob) : TestAssembly);
+            return Adapters.Build.TestRunning.Xunit.Xunit.Run(TestReport.Documentation(log), UseGlob ? Assembly.NewestMatching(log, TestAssemblyGlob) : TestAssembly);
         }
     }
 }

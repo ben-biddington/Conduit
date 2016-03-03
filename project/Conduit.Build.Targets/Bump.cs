@@ -15,11 +15,11 @@ namespace Conduit.Build.Targets
         public override bool Execute()
         {
             if (Kind.Equals ("Minor", StringComparison.CurrentCultureIgnoreCase)) {
-                Adapters.Build.Bump.Minor();
+                Adapters.Build.Versioning.Bump.Minor();
             }
             else if (Kind.Equals("Patch", StringComparison.CurrentCultureIgnoreCase))
             {
-                Adapters.Build.Bump.Patch();
+                Adapters.Build.Versioning.Bump.Patch();
             }
             else {
                 throw new Exception($"Unsupported bump kind <{Kind}>");

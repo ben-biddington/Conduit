@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Minimatch;
-using System.Collections.Generic;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Adapters.Build.IO
 {
     public class Dir
     {

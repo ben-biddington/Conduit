@@ -1,4 +1,5 @@
 ﻿using Conduit.Adapters.Build;
+using Conduit.Adapters.Build.TestRunning;
 using Xunit;
 
 namespace Conduit.Integration.Tests

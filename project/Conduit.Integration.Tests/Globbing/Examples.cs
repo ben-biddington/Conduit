@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Conduit.Adapters.Build;
+using Conduit.Adapters.Build.IO;
 using Conduit.Integration.Tests.Support;
 using Xunit;
 

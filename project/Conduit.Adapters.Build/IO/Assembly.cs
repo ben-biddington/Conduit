@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Adapters.Build.IO
 {
     public static class Assembly
     {

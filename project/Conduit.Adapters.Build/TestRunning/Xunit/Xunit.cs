@@ -1,8 +1,8 @@
 ﻿using System;
-using Xunit.Runners;
 using System.Threading;
+using Xunit.Runners;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Adapters.Build.TestRunning.Xunit
 {
     public class XunitOptions
     {

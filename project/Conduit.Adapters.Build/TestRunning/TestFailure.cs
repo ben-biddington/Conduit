@@ -1,4 +1,4 @@
-﻿namespace Conduit.Adapters.Build
+﻿namespace Conduit.Adapters.Build.TestRunning
 {
     public class TestFailure
     {

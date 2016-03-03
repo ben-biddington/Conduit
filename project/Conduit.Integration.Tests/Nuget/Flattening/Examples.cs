@@ -49,7 +49,6 @@ namespace Conduit.Integration.Tests.Nuget.Flattening
     internal static class Nugget {
         internal static FileInfo[] Flatten(DirectoryInfo packageDirectory, FrameworkVersion version, DirectoryInfo targetDirectory) 
         {
-
             return targetDirectory.GetFiles();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Conduit.Lang;
 
-namespace Conduit.Adapters.Build
+namespace Conduit.Adapters.Build.TestRunning
 {
     // @todo: this may need to be an object because it needs to remember the things it is told, that way we can report failures at the end
     public class TestReport
