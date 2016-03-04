@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using Conduit.Adapters.Build.Packaging;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
 
@@ -30,16 +32,24 @@ namespace Conduit.Build.Targets.Nuget
         /// </summary>
         public string NugetUrl { get; set; }
 
+        /// <summary>
+        /// The framework version to select, e.g., "net40" or "net45". Defaults to "net45".
+        /// </summary>
+        public string FrameworkVersion { get; set; }
+
         public Flatten()
         {
             NugetUrl = "https://packages.nuget.org/api/v2";
+            FrameworkVersion = FrameworkVersionName.Net45.Value;
         }
 
         public override bool Execute()
         {
             var packagesConfig = new FileInfo(PackagesConfigFile);
 
-            var packages = Adapters.Build.Packaging.PackagesConfig.Read(packagesConfig);
+            var packages = PackagesConfig.
+                Read(packagesConfig).
+                Select(it => it.With(new FrameworkVersion(new FrameworkVersionName(FrameworkVersion))));
 
             Adapters.Build.Packaging.Nuget.Flatten(
                 new Uri(NugetUrl), 

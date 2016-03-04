@@ -2,13 +2,24 @@
 {
     public class FrameworkVersion
     {
-        public static readonly FrameworkVersion Net45 = new FrameworkVersion("net45", "4.5");
+        public static readonly FrameworkVersion Net45 = new FrameworkVersion(FrameworkVersionName.Net45, "4.5");
         public string Name { get; private set; }
         public string Version { get; private set; }
 
-        public FrameworkVersion(string name, string version)
+        public FrameworkVersion(string version)
         {
-            Name = name;
+            Name = $"net{(version ?? string.Empty).Replace(".", string.Empty)}";
+            Version = version;
+        }
+
+        // @todo: consider collapsing to take just version, but be able to calculate its own name
+        public FrameworkVersion(FrameworkVersionName name) : this(name, string.Empty)
+        {
+        }
+
+        public FrameworkVersion(FrameworkVersionName name, string version)
+        {
+            Name = name.Value;
             Version = version;
         }
     }

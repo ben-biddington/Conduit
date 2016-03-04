@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Conduit.Lang;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging
@@ -32,15 +33,25 @@ namespace Conduit.Adapters.Build.Packaging
             var packagePath = Path.Combine(packageDirectory.FullName, string.Join(".", package.Id, package.Version));
 
             var matchingFiles = packageFiles.
-                Where (it => it != null && it.TargetFramework != null).
-                Where(it => it.TargetFramework.Version.ToString().Equals(p.FrameworkVersion.Version, StringComparison.InvariantCultureIgnoreCase)).
-                Select(it => new FileInfo(Path.Combine(packagePath, it.Path))).ToList();
+                Where   (it => it?.TargetFramework != null).
+                Where   (it => SameFrameworkVersion(p, it)).
+                Select  (it => new FileInfo(Path.Combine(packagePath, it.Path))).ToList();
 
             Ensure(targetDirectory);
 
             matchingFiles.ForEach(it => it.CopyTo(Path.Combine(targetDirectory.FullName, it.Name)));
 
             return matchingFiles;
+        }
+
+        private static bool SameFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
+        {
+            // @todo: duplicated at <FrameworkVersion.ctor>
+            var value = string.Join("", thirdParty.TargetFramework.Version.ToString().Split('.'));
+
+            var actual = new FrameworkVersionName($"net{value}");
+
+            return actual.Value.Equals(package.FrameworkVersion.Name, StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)
@@ -87,6 +98,11 @@ namespace Conduit.Adapters.Build.Packaging
             Id = id;
             Version = version;
             FrameworkVersion = frameworkVersion;
+        }
+
+        public NugetPackage With(FrameworkVersion frameworkVersion)
+        {
+            return ((NugetPackage) MemberwiseClone()).Tap(it => it.FrameworkVersion = frameworkVersion);
         }
     }
 

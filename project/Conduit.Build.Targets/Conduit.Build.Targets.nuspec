@@ -7,7 +7,7 @@
         <language>en-GB</language>
         <projectUrl>https://github.com/ben-biddington/Conduit</projectUrl>
         <licenseUrl>https://github.com/ben-biddington/Conduit</licenseUrl>
-        <releaseNotes>Fix issues with the Flatten and NugetUrl</releaseNotes>
+        <releaseNotes>Allow flattening to a framework version like 'net45' for example</releaseNotes>
         <dependencies>
             <dependency id="Minimatch" version="[1.1,2.0)" />
         </dependencies>
