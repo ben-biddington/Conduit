@@ -50,7 +50,7 @@ namespace Conduit.Adapters.Build.Packaging
             var value = thirdParty.TargetFramework.FullName;
 
             return package.FrameworkVersion.Matches(thirdParty.TargetFramework.FullName) 
-                || thirdParty.TargetFramework.Version.ToString().Equals(package.FrameworkVersion.Version.ToString(CultureInfo.InvariantCulture));
+                || double.Parse(thirdParty.TargetFramework.Version.ToString()) <= package.FrameworkVersion.Version;
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)

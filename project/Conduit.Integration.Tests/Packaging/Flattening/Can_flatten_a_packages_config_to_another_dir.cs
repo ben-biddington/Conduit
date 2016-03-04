@@ -12,8 +12,9 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
             Given_this_is_present_and_installed(
                 @"<?xml version=""1.0"" encoding=""utf-8""?>
                 <packages>
-                    <package id=""Conduit.Build.Targets"" version=""0.0.8"" targetFramework=""net45"" />
-                    <package id=""xunit.runner.msbuild"" version=""2.1.0"" targetFramework=""net45"" />
+                    <package id=""Conduit.Build.Targets""   version=""0.0.8"" targetFramework=""net45"" />
+                    <package id=""xunit.runner.msbuild""    version=""2.1.0"" targetFramework=""net45"" />
+                    <package id=""MSBuild.Extension.Pack""  version=""1.8.0"" targetFramework=""net45"" />
                 </packages>");
 
             var targetDirectory = new DirectoryInfo("bin");
