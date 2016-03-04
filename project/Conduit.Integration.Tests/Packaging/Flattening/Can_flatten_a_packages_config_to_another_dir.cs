@@ -31,8 +31,11 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                "xunit.runner.msbuild.props",
                "xunit.runner.reporters.desktop.dll",
                "xunit.runner.utility.desktop.dll",
-               "xUnit1.xslt");
+               "xUnit1.xslt", 
+               "_");
         }
+
+        // TEST: What do we do about the case where packages contain the same fiels under say lib/ and build/? That is the case in the test above
 
         // TEST: we are requiring the packages to have been installed already (?)
         // @todo: consider looking up the package (once of course) and having it know the files to expect

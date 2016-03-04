@@ -39,7 +39,7 @@ namespace Conduit.Adapters.Build.Packaging
 
             Ensure(targetDirectory);
 
-            matchingFiles.ForEach(it => it.CopyTo(Path.Combine(targetDirectory.FullName, it.Name)));
+            matchingFiles.ForEach(it => it.CopyTo(Path.Combine(targetDirectory.FullName, it.Name), true));
 
             return matchingFiles;
         }
