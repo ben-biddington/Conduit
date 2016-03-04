@@ -51,7 +51,7 @@ namespace Conduit.Adapters.Build.Packaging
 
             var actual = new FrameworkVersionName($"net{value}");
 
-            return actual.Value.Equals(package.FrameworkVersion.Name, StringComparison.InvariantCultureIgnoreCase);
+            return package.FrameworkVersion.Matches(actual);
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)

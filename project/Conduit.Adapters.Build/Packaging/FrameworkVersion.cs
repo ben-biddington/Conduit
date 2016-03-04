@@ -22,5 +22,10 @@
             Name = name.Value;
             Version = version;
         }
+
+        public bool Matches(FrameworkVersionName actual)
+        {
+            return actual.Value.Contains(Name);
+        }
     }
 }
