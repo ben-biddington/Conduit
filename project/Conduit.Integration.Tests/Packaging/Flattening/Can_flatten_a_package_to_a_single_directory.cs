@@ -51,8 +51,6 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                 targetDirectory, 
                 packages);
 
-            Assert.Equal(7, result.Count);
-
             targetDirectory.MustContain(
                 "Conduit.Adapters.Build.dll",
                 "Conduit.Build.Targets.dll",

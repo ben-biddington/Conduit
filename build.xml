@@ -77,18 +77,7 @@
   </PropertyGroup>
   
   <Target Name="TestUnit">
-    <ItemGroup>
-      <!-- [https://msdn.microsoft.com/en-us/library/ms164283.aspx]
-           Might be able to do this all with file selecting, but it then means duplicating all that logic in every file -->
-      <TestAssemblies Include="**\bin\**\Conduit.Unit.Tests.dll" /> <!-- This returns every match -->
-    </ItemGroup>
-
-    <!--
-        This finds exactly one match because it selects the last modified.
-        I wonder if this could accept a list of files and just return the last modified one, which would remove the globbing
-        responsibility
-    -->
-    <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll"><!-- This returns the last modified match -->
+    <Glob Pattern=".\**\bin\**\Conduit.Unit.Tests.dll">
       <Output TaskParameter="Path" PropertyName="Path" />
     </Glob>
 
@@ -106,7 +95,6 @@
   <Target Name="TestAll">
     <CallTarget Targets="TestUnit;TestIntegration"/>
   </Target>
-
   <Target Name="Artifacts" Label="Collect artufacts example">
     <CreateItem Include="project\Conduit.Integration.Tests\bin\Debug\*;build.xml">
       <Output ItemName="FilesToZip" TaskParameter="Include"/>

@@ -33,7 +33,34 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                "xunit.runner.reporters.desktop.dll",
                "xunit.runner.utility.desktop.dll",
                "xUnit1.xslt", 
-               "_");
+               "_",
+               "Interop.COMAdmin.dll",
+               "Interop.IWshRuntimeLibrary.dll",
+               "Ionic.Zip.dll",
+               "MSBuild.Extension.Pack.targets",
+               "MSBuild.ExtensionPack.BizTalk.dll",
+               "MSBuild.ExtensionPack.Crm.dll",
+               "MSBuild.ExtensionPack.Git.dll",
+               "MSBuild.ExtensionPack.Iis7.dll",
+               "MSBuild.ExtensionPack.Loggers.dll",
+               "MSBuild.ExtensionPack.Sql2005.dll",
+               "MSBuild.ExtensionPack.Sql2008.dll",
+               "MSBuild.ExtensionPack.Sql2012.dll",
+               "MSBuild.ExtensionPack.Sql2014.dll",
+               "MSBuild.ExtensionPack.StyleCop.dll",
+               "MSBuild.ExtensionPack.Sync.dll",
+               "MSBuild.ExtensionPack.TaskFactory.Dlr.dll",
+               "MSBuild.ExtensionPack.TaskFactory.PowerShell.dll",
+               "MSBuild.ExtensionPack.Tfs.dll",
+               "MSBuild.ExtensionPack.Tfs2010.dll",
+               "MSBuild.ExtensionPack.Tfs2012.dll",
+               "MSBuild.ExtensionPack.Tfs2013.dll",
+               "MSBuild.ExtensionPack.VersionNumber.targets",
+               "MSBuild.ExtensionPack.WindowsVirtualPC.dll",
+               "MSBuild.ExtensionPack.dll",
+               "MSBuild.ExtensionPack.dll.config",
+               "MSBuild.ExtensionPack.pdb"
+            );
         }
 
         // TEST: What do we do about the case where packages contain the same fiels under say lib/ and build/? That is the case in the test above
