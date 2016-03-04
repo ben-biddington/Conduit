@@ -13,6 +13,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                 @"<?xml version=""1.0"" encoding=""utf-8""?>
                 <packages>
                     <package id=""Conduit.Build.Targets"" version=""0.0.8"" targetFramework=""net45"" />
+                    <package id=""xunit.runner.msbuild"" version=""2.1.0"" targetFramework=""net45"" />
                 </packages>");
 
             var targetDirectory = new DirectoryInfo("bin");
@@ -22,7 +23,15 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
             targetDirectory.MustContain(
                "Conduit.Adapters.Build.dll",
                "Conduit.Build.Targets.dll",
-               "Conduit.dll");
+               "Conduit.dll",
+               "HTML.xslt",
+               "NUnitXml.xslt",
+               "xunit.abstractions.dll",
+               "xunit.runner.msbuild.dll",
+               "xunit.runner.msbuild.props",
+               "xunit.runner.reporters.desktop.dll",
+               "xunit.runner.utility.desktop.dll",
+               "xUnit1.xslt");
         }
 
         // TEST: we are requiring the packages to have been installed already (?)

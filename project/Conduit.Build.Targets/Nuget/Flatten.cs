@@ -33,14 +33,14 @@ namespace Conduit.Build.Targets.Nuget
         public string NugetUrl { get; set; }
 
         /// <summary>
-        /// The framework version to select, e.g., "net40" or "net45". Defaults to "net45".
+        /// The framework version to select, e.g., "4.0" or "4.5". Defaults to "4.5".
         /// </summary>
-        public string FrameworkVersion { get; set; }
+        public double FrameworkVersion { get; set; }
 
         public Flatten()
         {
             NugetUrl = "https://packages.nuget.org/api/v2";
-            FrameworkVersion = FrameworkVersionName.Net45.Value;
+            FrameworkVersion = Adapters.Build.Packaging.FrameworkVersion.Net45.Version;
         }
 
         public override bool Execute()
@@ -49,7 +49,7 @@ namespace Conduit.Build.Targets.Nuget
 
             var packages = PackagesConfig.
                 Read(packagesConfig).
-                Select(it => it.With(new FrameworkVersion(new FrameworkVersionName(FrameworkVersion))));
+                Select(it => it.With(new FrameworkVersion(FrameworkVersion)));
 
             Adapters.Build.Packaging.Nuget.Flatten(
                 new Uri(NugetUrl), 

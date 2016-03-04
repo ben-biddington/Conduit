@@ -55,6 +55,9 @@
     <Compile Include="Packaging\FrameworkVersion.cs" />
     <Compile Include="Packaging\FrameworkVersionName.cs" />
     <Compile Include="Packaging\Nuget.cs" />
+    <Compile Include="Packaging\NugetPackage.cs" />
+    <Compile Include="Packaging\PackagesConfig.cs" />
+    <Compile Include="Packaging\PackageVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Versioning\Bump.cs" />
   </ItemGroup>

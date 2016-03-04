@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using Conduit.Lang;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging
@@ -47,11 +47,10 @@ namespace Conduit.Adapters.Build.Packaging
         private static bool SameFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
         {
             // @todo: duplicated at <FrameworkVersion.ctor>
-            var value = string.Join("", thirdParty.TargetFramework.Version.ToString().Split('.'));
+            var value = thirdParty.TargetFramework.FullName;
 
-            var actual = new FrameworkVersionName($"net{value}");
-
-            return package.FrameworkVersion.Matches(actual);
+            return package.FrameworkVersion.Matches(thirdParty.TargetFramework.FullName) 
+                || thirdParty.TargetFramework.Version.ToString().Equals(package.FrameworkVersion.Version.ToString(CultureInfo.InvariantCulture));
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)
@@ -80,48 +79,6 @@ namespace Conduit.Adapters.Build.Packaging
         private static IPackageRepository PackageRepository(Uri uri)
         {
             return PackageRepositoryFactory.Default.CreateRepository(uri.AbsoluteUri);
-        }
-    }
-
-    public class NugetPackage
-    {
-        public string Id { get; }
-        public PackageVersion Version { get; }
-        public FrameworkVersion FrameworkVersion { get; private set; }
-
-        public NugetPackage(string id) : this(id, null, null)
-        {
-        }
-
-        public NugetPackage(string id, PackageVersion version, FrameworkVersion frameworkVersion)
-        {
-            Id = id;
-            Version = version;
-            FrameworkVersion = frameworkVersion;
-        }
-
-        public NugetPackage With(FrameworkVersion frameworkVersion)
-        {
-            return ((NugetPackage) MemberwiseClone()).Tap(it => it.FrameworkVersion = frameworkVersion);
-        }
-    }
-
-    public class PackageVersion
-    {
-        public string Value { get; private set; }
-
-        public PackageVersion(string value)
-        {
-            Value = value;
-        }
-    }
-
-    public static class PackagesConfig
-    {
-        public static List<NugetPackage> Read(FileInfo file)
-        {
-            return new PackageReferenceFile(file.FullName).GetPackageReferences().Select(it => 
-                new NugetPackage(it.Id, new PackageVersion(it.Version.ToString()), FrameworkVersion.Net45)).ToList();
         }
     }
 }
