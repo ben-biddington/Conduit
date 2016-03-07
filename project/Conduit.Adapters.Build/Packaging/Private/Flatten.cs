@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Conduit.Lang;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging.Private
@@ -34,9 +35,7 @@ namespace Conduit.Adapters.Build.Packaging.Private
 
             Ensure(targetDirectory);
 
-            matchingFiles.ForEach(it => it.CopyTo(Path.Combine(targetDirectory.FullName, it.Name), true));
-
-            return matchingFiles;
+            return matchingFiles.Tap(it => it.ForEach(f => f.CopyTo(Path.Combine(targetDirectory.FullName, f.Name), true)));
         }
 
         private static List<IPackageFile> Files(Uri uri, DirectoryInfo packageDirectory, string id)

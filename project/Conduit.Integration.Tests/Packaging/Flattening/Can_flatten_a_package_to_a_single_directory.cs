@@ -45,7 +45,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
 
             var targetDirectory = new DirectoryInfo("bin");
 
-            var result = Nuget.Flatten(
+            Nuget.Flatten(
                 Settings.PublicNuget,
                 packagesDir,
                 targetDirectory, 
