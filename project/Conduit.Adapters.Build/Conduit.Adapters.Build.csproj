@@ -58,6 +58,7 @@
     <Compile Include="Packaging\NugetPackage.cs" />
     <Compile Include="Packaging\PackagesConfig.cs" />
     <Compile Include="Packaging\PackageVersion.cs" />
+    <Compile Include="Packaging\Private\Flatten.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Versioning\Bump.cs" />
   </ItemGroup>
@@ -71,9 +72,7 @@
       <Name>Conduit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Packaging\UseCases\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- https://peteris.rocks/blog/merging-net-assemblies-with-msbuild/ -->
   <Target Name="AfterBuild" Condition="true">
