@@ -71,6 +71,9 @@
       <Name>Conduit</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Packaging\UseCases\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- https://peteris.rocks/blog/merging-net-assemblies-with-msbuild/ -->
   <Target Name="AfterBuild" Condition="true">

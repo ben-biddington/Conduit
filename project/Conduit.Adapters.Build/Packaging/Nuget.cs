@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 using NuGet;
 
@@ -35,7 +34,7 @@ namespace Conduit.Adapters.Build.Packaging
 
             var matchingFiles = packageFiles.
                 Where   (it => it?.TargetFramework != null).
-                Where   (it => SameFrameworkVersion(p, it)).
+                Where   (it => MatchingFrameworkVersion(p, it)).
                 Select  (it => new FileInfo(Path.Combine(packagePath, it.Path))).ToList();
 
             Ensure(targetDirectory);
@@ -45,26 +44,7 @@ namespace Conduit.Adapters.Build.Packaging
             return matchingFiles;
         }
 
-        private static FrameworkName[] From(IPackage thirdPartyVersions)
-        {
-            return thirdPartyVersions.GetSupportedFrameworks().Select(thirdParty =>
-            {
-                if (thirdParty.Version > new Version())
-                    return thirdParty;
-
-                var match = Regex.Match(thirdParty.Profile, @"net(?<version>[\d]+)");
-
-                if (match.Success)
-                {
-                    return new FrameworkName(thirdParty.Identifier, new Version(string.Join(".", match.Groups["version"].Value.ToCharArray())), thirdParty.Profile);
-                }
-
-                throw new Exception($"Unable to determine supported framework from {thirdParty}");
-
-            }).ToArray();
-        }
-
-        private static bool SameFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
+        private static bool MatchingFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
         {
             var targetFramework = thirdParty.TargetFramework;
 
