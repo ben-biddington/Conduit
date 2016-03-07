@@ -1,7 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
+using System.Text.RegularExpressions;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging
@@ -17,22 +18,26 @@ namespace Conduit.Adapters.Build.Packaging
 
         private static NugetPackage Map(IPackage thirdParty)
         {
-            return new NugetPackage(thirdParty.Id, new PackageVersion(thirdParty.Version.ToString()), FrameworkVersion.Net45);
+            return new NugetPackage(thirdParty.Id, new PackageVersion(thirdParty.Version.ToString()), From(thirdParty));
         }
 
-        public static List<NugetPackage> Find(Uri uri, string id)
+        private static FrameworkName[] From(IPackage thirdPartyVersions)
         {
-            return PackageRepository(uri).FindPackagesById(id).Select(it => new NugetPackage(it.Id)).ToList();
-        }
-
-        public static void Install(Uri uri, DirectoryInfo directory, params NugetPackage[] packages)
-        {
-            foreach (var package in packages)
+            return thirdPartyVersions.GetSupportedFrameworks().Select(thirdParty =>
             {
-                var semanticVersion = package.Version != null ? SemanticVersion.Parse(package.Version.Value) : null;
+                if (thirdParty.Version > new Version())
+                    return thirdParty;
 
-                new PackageManager(PackageRepository(uri), directory.FullName).InstallPackage(package.Id, semanticVersion);
-            }
+                var match = Regex.Match(thirdParty.Profile, @"net(?<version>[\d]+)");
+
+                if (match.Success)
+                {
+                    return new FrameworkName(thirdParty.Identifier, new Version(string.Join(".", match.Groups["version"].Value.ToCharArray())), thirdParty.Profile);
+                }
+
+                throw new Exception($"Unable to determine supported framework from {thirdParty}");
+
+            }).ToArray();
         }
 
         private static IPackageRepository PackageRepository(Uri uri)

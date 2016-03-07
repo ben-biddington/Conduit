@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
+using System.Text.RegularExpressions;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging
@@ -43,13 +45,40 @@ namespace Conduit.Adapters.Build.Packaging
             return matchingFiles;
         }
 
+        private static FrameworkName[] From(IPackage thirdPartyVersions)
+        {
+            return thirdPartyVersions.GetSupportedFrameworks().Select(thirdParty =>
+            {
+                if (thirdParty.Version > new Version())
+                    return thirdParty;
+
+                var match = Regex.Match(thirdParty.Profile, @"net(?<version>[\d]+)");
+
+                if (match.Success)
+                {
+                    return new FrameworkName(thirdParty.Identifier, new Version(string.Join(".", match.Groups["version"].Value.ToCharArray())), thirdParty.Profile);
+                }
+
+                throw new Exception($"Unable to determine supported framework from {thirdParty}");
+
+            }).ToArray();
+        }
+
         private static bool SameFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
         {
-            // @todo: duplicated at <FrameworkVersion.ctor>
-            var value = thirdParty.TargetFramework.FullName;
+            var targetFramework = thirdParty.TargetFramework;
 
-            return package.FrameworkVersion.Matches(thirdParty.TargetFramework.FullName) 
-                || double.Parse(thirdParty.TargetFramework.Version.ToString()) <= package.FrameworkVersion.Version;
+            if (targetFramework.Version > new Version())
+                return package.Matches(targetFramework.Version);
+
+            var match = Regex.Match(thirdParty.TargetFramework.Profile, @"net(?<version>[\d]+)");
+
+            if (match.Success)
+            {
+                return package.Matches(new Version(string.Join(".", match.Groups["version"].Value.ToCharArray())));
+            }
+
+            throw new Exception($"Unable to determine the version described by {thirdParty}");
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)

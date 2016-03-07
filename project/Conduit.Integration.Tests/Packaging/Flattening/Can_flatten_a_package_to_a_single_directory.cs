@@ -12,7 +12,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
         {
             var packagesDir = new DirectoryInfo("packages");
 
-            Nuget.Install(Settings.PublicNuget, packagesDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
+            Nuget.Install(Settings.PublicNuget, packagesDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45));
 
             var targetDirectory = new DirectoryInfo("bin");
 
@@ -20,7 +20,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                 Settings.PublicNuget, 
                 packagesDir, 
                 targetDirectory, 
-                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45));
+                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45));
 
             Assert.Equal(3, result.Count);
 
@@ -37,8 +37,8 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
 
             var packages = new[]
             {
-                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkVersion.Net45),
-                new NugetPackage("EntityFramework"      , new PackageVersion("6.0.0"), FrameworkVersion.Net45),
+                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45),
+                new NugetPackage("EntityFramework"      , new PackageVersion("6.0.0"), FrameworkNames.Net45),
             };
 
             Nuget.Install(Settings.PublicNuget, packagesDir, packages);

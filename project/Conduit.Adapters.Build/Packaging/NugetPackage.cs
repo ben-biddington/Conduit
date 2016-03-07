@@ -1,4 +1,7 @@
-﻿using Conduit.Lang;
+﻿using System;
+using System.Linq;
+using System.Runtime.Versioning;
+using Conduit.Lang;
 
 namespace Conduit.Adapters.Build.Packaging
 {
@@ -6,22 +9,27 @@ namespace Conduit.Adapters.Build.Packaging
     {
         public string Id { get; }
         public PackageVersion Version { get; }
-        public FrameworkVersion FrameworkVersion { get; private set; }
+        public FrameworkName[] FrameworkNames { get; private set; }
 
         public NugetPackage(string id) : this(id, null, null)
         {
         }
 
-        public NugetPackage(string id, PackageVersion version, FrameworkVersion frameworkVersion)
+        public NugetPackage(string id, PackageVersion version, params FrameworkName[] frameworkNameses)
         {
             Id = id;
             Version = version;
-            FrameworkVersion = frameworkVersion;
+            FrameworkNames = frameworkNameses;
         }
 
-        public NugetPackage With(FrameworkVersion frameworkVersion)
+        public NugetPackage With(FrameworkName frameworkName)
         {
-            return ((NugetPackage) MemberwiseClone()).Tap(it => it.FrameworkVersion = frameworkVersion);
+            return ((NugetPackage) MemberwiseClone()).Tap(it => it.FrameworkNames = new[] { frameworkName });
+        }
+
+        public bool Matches(Version version)
+        {
+            return FrameworkNames.Any(it => it.Version >= version);
         }
     }
 }

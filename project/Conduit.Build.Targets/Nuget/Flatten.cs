@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using Conduit.Adapters.Build.Packaging;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
@@ -40,7 +42,7 @@ namespace Conduit.Build.Targets.Nuget
         public Flatten()
         {
             NugetUrl = "https://packages.nuget.org/api/v2";
-            FrameworkVersion = Adapters.Build.Packaging.FrameworkVersion.Net45.Version;
+            FrameworkVersion = 4.5;
         }
 
         public override bool Execute()
@@ -49,7 +51,10 @@ namespace Conduit.Build.Targets.Nuget
 
             var packages = PackagesConfig.
                 Read(packagesConfig).
-                Select(it => it.With(new FrameworkVersion(FrameworkVersion)));
+                Select(it => it.With(
+                    new FrameworkName(
+                        $"net{FrameworkVersion.ToString(CultureInfo.InvariantCulture).Replace(".", string.Empty)}", 
+                        new Version(FrameworkVersion.ToString(CultureInfo.InvariantCulture)), string.Empty)));
 
             Adapters.Build.Packaging.Nuget.Flatten(
                 new Uri(NugetUrl), 

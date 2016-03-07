@@ -52,8 +52,7 @@
   <ItemGroup>
     <Compile Include="IO\Assembly.cs" />
     <Compile Include="IO\Dir.cs" />
-    <Compile Include="Packaging\FrameworkVersion.cs" />
-    <Compile Include="Packaging\FrameworkVersionName.cs" />
+    <Compile Include="Packaging\FrameworkNames.cs" />
     <Compile Include="Packaging\LocalPackages.cs" />
     <Compile Include="Packaging\Nuget.cs" />
     <Compile Include="Packaging\NugetPackage.cs" />

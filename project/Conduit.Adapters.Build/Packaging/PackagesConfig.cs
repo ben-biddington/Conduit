@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging
@@ -10,7 +11,7 @@ namespace Conduit.Adapters.Build.Packaging
         public static List<NugetPackage> Read(FileInfo file)
         {
             return new PackageReferenceFile(file.FullName).GetPackageReferences().Select(it => 
-                new NugetPackage(it.Id, new PackageVersion(it.Version.ToString()), FrameworkVersion.Net45)).ToList();
+                new NugetPackage(it.Id, new PackageVersion(it.Version.ToString()), FrameworkNames.Net45)).ToList();
         }
     }
 }
