@@ -47,17 +47,18 @@ namespace Conduit.Adapters.Build.Packaging.Private
 
         private static bool MatchingFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
         {
-            var targetFramework = thirdParty.TargetFramework;
+            return package.Matches(
+                thirdParty.TargetFramework.Version > new Version() 
+                ? thirdParty.TargetFramework.Version 
+                : Parse(thirdParty));
+        }
 
-            if (targetFramework.Version > new Version())
-                return package.Matches(targetFramework.Version);
-
+        private static Version Parse(IPackageFile thirdParty)
+        {
             var match = Regex.Match(thirdParty.TargetFramework.Profile, @"net(?<version>[\d]+)");
 
             if (match.Success)
-            {
-                return package.Matches(new Version(string.Join(".", match.Groups["version"].Value.ToCharArray())));
-            }
+                return new Version(string.Join(".", match.Groups["version"].Value.ToCharArray()));
 
             throw new Exception($"Unable to determine the version described by {thirdParty}");
         }
