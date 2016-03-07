@@ -23,14 +23,9 @@ namespace Conduit.Adapters.Build.Packaging.Private
 
         private static List<FileInfo> FlattenSingle(Uri uri, DirectoryInfo packageDirectory, DirectoryInfo targetDirectory, NugetPackage p)
         {
-            var package = new PackageManager(PackageRepository(uri), packageDirectory.FullName).LocalRepository.FindPackage(p.Id);
+            var packageFiles = Files(uri, packageDirectory, p.Id);
 
-            if (null == package)
-                return new List<FileInfo>(0);
-
-            var packageFiles = package.GetFiles().ToList();
-
-            var packagePath = Path.Combine(packageDirectory.FullName, string.Join(".", package.Id, package.Version));
+            var packagePath = Path.Combine(packageDirectory.FullName, string.Join(".", p.Id, p.Version));
 
             var matchingFiles = packageFiles.
                 Where(it => it?.TargetFramework != null).
@@ -42,6 +37,13 @@ namespace Conduit.Adapters.Build.Packaging.Private
             matchingFiles.ForEach(it => it.CopyTo(Path.Combine(targetDirectory.FullName, it.Name), true));
 
             return matchingFiles;
+        }
+
+        private static List<IPackageFile> Files(Uri uri, DirectoryInfo packageDirectory, string id)
+        {
+            var package = new PackageManager(PackageRepository(uri), packageDirectory.FullName).LocalRepository.FindPackage(id);
+
+            return package?.GetFiles().ToList() ?? new List<IPackageFile>(0);
         }
 
         private static bool MatchingFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
