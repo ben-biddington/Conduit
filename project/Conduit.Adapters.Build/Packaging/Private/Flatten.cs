@@ -37,7 +37,15 @@ namespace Conduit.Adapters.Build.Packaging.Private
 
             Ensure(targetDirectory);
 
-            return matchingFiles.Tap(it => it.ForEach(f => f.CopyTo(Path.Combine(targetDirectory.FullName, f.Name), true)));
+            return matchingFiles.Tap(it => it.ForEach(f => CopyTo(targetDirectory, f)));
+        }
+
+        private static void CopyTo(DirectoryInfo targetDirectory, FileInfo file)
+        {
+            if (file.Exists)
+            {
+                file.CopyTo(Path.Combine(targetDirectory.FullName, file.Name), true);
+            }
         }
 
         private static List<IPackageFile> Files(Uri uri, DirectoryInfo packageDirectory, string id)
