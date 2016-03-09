@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Versioning;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging

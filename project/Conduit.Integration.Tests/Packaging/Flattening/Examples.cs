@@ -23,44 +23,6 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
             Assert.True(Nuget.Find(Settings.PublicNuget, "XxxDoesNotExistXxx").Count().Equals(0));
         }
 
-        [Fact]
-        public void install_it()
-        {
-            var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
-
-            Nuget.Install(Settings.PublicNuget, targetDir, new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45));
-
-            Assert.True(targetDir.Exists);
-        }
-
-        [Fact]
-        public void install_it_with_deps()
-        {
-            var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
-
-            Nuget.Install(
-                Settings.PublicNuget, targetDir, 
-                new Nuget.InstallOptions(true), 
-                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45));
-
-            Assert.True (Directory.Exists(Path.Combine(targetDir.FullName, "Conduit.Build.Targets.0.0.8")));
-            Assert.True (Directory.Exists(Path.Combine(targetDir.FullName, "Minimatch.1.1.0.0"))); 
-        }
-
-        [Fact]
-        public void or_without()
-        {
-            var targetDir = new DirectoryInfo($"packages-{Guid.NewGuid()}");
-
-            Nuget.Install(
-                Settings.PublicNuget, targetDir, 
-                new Nuget.InstallOptions(false), 
-                new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45));
-
-            Assert.True (Directory.Exists(Path.Combine(targetDir.FullName, "Conduit.Build.Targets.0.0.8")));
-            Assert.False (Directory.Exists(Path.Combine(targetDir.FullName, "Minimatch.1.1.0.0"))); 
-        }
-
         // @todo: given nuget.exe does not install dependencies and the project.json method is unreliable, can we do it ourselves?
     }
 }
