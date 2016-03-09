@@ -10,6 +10,8 @@ namespace Conduit.Adapters.Build.Packaging.Private
 {
     internal static class Flatten
     {
+        private static Version ZERO = new Version();
+
         internal static List<FileInfo> Apply(Uri uri, DirectoryInfo packageDirectory, DirectoryInfo targetDirectory, params NugetPackage[] packages)
         {
             var result = new List<FileInfo>();
@@ -48,7 +50,7 @@ namespace Conduit.Adapters.Build.Packaging.Private
         private static bool MatchingFrameworkVersion(NugetPackage package, IPackageFile thirdParty)
         {
             return package.Matches(
-                thirdParty.TargetFramework.Version > new Version() 
+                thirdParty.TargetFramework.Version > ZERO
                 ? thirdParty.TargetFramework.Version 
                 : Parse(thirdParty));
         }
@@ -60,7 +62,7 @@ namespace Conduit.Adapters.Build.Packaging.Private
             if (match.Success)
                 return new Version(string.Join(".", match.Groups["version"].Value.ToCharArray()));
 
-            throw new Exception($"Unable to determine the version described by {thirdParty}");
+            return ZERO;
         }
 
         private static void Ensure(DirectoryInfo targetDirectory)
