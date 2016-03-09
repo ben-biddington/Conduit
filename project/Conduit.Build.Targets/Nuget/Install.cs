@@ -20,7 +20,7 @@ namespace Conduit.Build.Targets.Nuget
         public string NugetUrl { get; set; }
 
         /// <summary>
-        /// When true, installs packages along with their depdencies
+        /// When true, installs packages along with their dependencies. Defaults to false.
         /// </summary>
         public bool IncludeDependencies { get; set; }
 
