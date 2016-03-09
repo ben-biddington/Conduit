@@ -68,7 +68,7 @@
 
   <Target Name="NugetPack" Label="Create Conduit Build.Targets nuget package">
       <Delete Files="$(MSBuildProjectDirectory)\*.nupkg"   />
-    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.csproj -build -verbosity detailed -IncludeReferencedProjects -properties configuration=Debug"/>
+    <Exec Command="nuget pack project/Conduit.Build.Targets/Conduit.Build.Targets.csproj -build -verbosity detailed -IncludeReferencedProjects -properties configuration=Release"/>
   </Target>
 
   <PropertyGroup>
