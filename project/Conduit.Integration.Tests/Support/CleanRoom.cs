@@ -8,6 +8,12 @@ namespace Conduit.Integration.Tests.Support
         private readonly string _tempDir;
         private string _pwd;
         private string _previousDir;
+        private bool _noDeleteOnExit;
+
+        public void NoDelete() 
+        {
+            _noDeleteOnExit = true;
+        } 
 
         public CleanRoom(string tempDir)
         {
@@ -28,7 +34,10 @@ namespace Conduit.Integration.Tests.Support
 
             try
             {
-                Directory.Delete(_tempDir, true);
+                if (false == _noDeleteOnExit)
+                {
+                    Directory.Delete(_tempDir, true);
+                }
             }
             catch (Exception)
             { }

@@ -5,6 +5,11 @@ namespace Conduit.Integration.Tests.Support
     {
         private readonly CleanRoom _cleanRoom;
 
+        protected void NoDelete()
+        {
+            _cleanRoom.NoDelete ();
+        }
+
         public RunsInCleanRoom()
         {
             _cleanRoom = new CleanRoom(".tmp");

@@ -20,17 +20,32 @@ namespace Conduit.Adapters.Build.Packaging
 
         public static void Install(Uri uri, DirectoryInfo directory, params NugetPackage[] packages)
         {
+            Install (uri, directory, new InstallOptions (), packages);
+        }
+
+        public static void Install(Uri uri, DirectoryInfo directory, InstallOptions opts, params NugetPackage[] packages)
+        {
             foreach (var package in packages)
             {
                 var semanticVersion = package.Version != null ? SemanticVersion.Parse(package.Version.Value) : null;
 
-                new PackageManager(PackageRepository(uri), directory.FullName).InstallPackage(package.Id, semanticVersion);
+                new PackageManager(PackageRepository(uri), directory.FullName).InstallPackage(package.Id, semanticVersion, false == opts.IncludeDependencies, false);
             }
         }
 
         private static IPackageRepository PackageRepository(Uri uri)
         {
             return PackageRepositoryFactory.Default.CreateRepository(uri.AbsoluteUri);
+        }
+
+        public class InstallOptions
+        {
+            public bool IncludeDependencies { get; private set; }
+
+            public InstallOptions(bool dependencies = false) 
+            {
+                IncludeDependencies = dependencies;
+            }
         }
     }
 }
