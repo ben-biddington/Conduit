@@ -91,6 +91,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
             );
         }
 
+        // TEST: Make sure to thread in some status notifications so you can tell when you don't get thr results you expect
         // TEST: What do we do about the case where packages contain the same fiels under say lib/ and build/? That is the case in the test above
 
         // TEST: we are requiring the packages to have been installed already (?)

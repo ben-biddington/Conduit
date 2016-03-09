@@ -32,6 +32,8 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
 
             Assert.True(targetDir.Exists);
         }
+
+        // @todo: given nuget.exe does not install dependencies and the project.json method is unreliable, can we do it ourselves?
     }
 }
 
