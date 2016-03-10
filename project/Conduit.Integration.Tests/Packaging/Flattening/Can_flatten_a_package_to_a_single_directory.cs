@@ -61,29 +61,6 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
                 "EntityFramework.xml");
         }
 
-        [Fact]
-        public void xxx()
-        {
-            var packagesDir = new DirectoryInfo("packages");
-
-            var nugetPackage = new NugetPackage("LibGit2Sharp", new PackageVersion("0.21.0.176"), FrameworkNames.Net45);
-
-            Nuget.Install(Settings.PublicNuget, packagesDir, nugetPackage);
-
-            var targetDirectory = new DirectoryInfo("bin");
-
-            Nuget.Flatten(
-                Settings.PublicNuget,
-                packagesDir,
-                targetDirectory,
-                nugetPackage);
-
-            targetDirectory.MustContain(
-                "Conduit.Adapters.Build.dll",
-                "Conduit.Build.Targets.dll",
-                "Conduit.dll");
-        }
-
         // TEST: it creates target dir if required
         // TEST: it returns nothing if framework version is incompatible
         // TEST: it what when no packages are supplied?
