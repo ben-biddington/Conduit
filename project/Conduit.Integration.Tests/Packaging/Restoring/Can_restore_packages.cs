@@ -23,6 +23,7 @@ namespace Conduit.Integration.Tests.Packaging.Restoring
                 NugetUrl            = Settings.PublicNuget.AbsoluteUri,
                 TargetDirectory     = targetDir.FullName,
                 PackagesConfigFile  = "packages.config",
+                Log = _ => { },
                 IncludeDependencies = true
             }.Execute();
 
@@ -45,6 +46,7 @@ namespace Conduit.Integration.Tests.Packaging.Restoring
                 NugetUrl            = Settings.PublicNuget.AbsoluteUri,
                 TargetDirectory     = targetDir.FullName,
                 PackagesConfigFile  = "packages.config",
+                Log                 = _ => { },
                 IncludeDependencies = false
             }.Execute();
 
