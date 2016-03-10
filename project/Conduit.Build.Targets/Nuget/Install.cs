@@ -30,6 +30,18 @@ namespace Conduit.Build.Targets.Nuget
         [Required]
         public string TargetDirectory { get; set; }
 
+        public Action<string> Log { get; set; }
+
+        public Install()
+        {
+            Log = m => Cli.Say(BuildEngine, m);
+        }
+
+        public Install(Action<string> log)
+        {
+            Log = log;
+        }
+
         public override bool Execute()
         {
             var packages = PackagesConfig.Read(new FileInfo(PackagesConfigFile));
@@ -37,6 +49,7 @@ namespace Conduit.Build.Targets.Nuget
             Adapters.Build.Packaging.Nuget.Install(
                 new Uri(NugetUrl),
                 new DirectoryInfo(TargetDirectory),
+                Log,
                 new Adapters.Build.Packaging.Nuget.InstallOptions(IncludeDependencies),
                 packages.ToArray());
 

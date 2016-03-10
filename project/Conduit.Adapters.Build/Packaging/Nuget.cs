@@ -20,16 +20,30 @@ namespace Conduit.Adapters.Build.Packaging
 
         public static void Install(Uri uri, DirectoryInfo directory, params NugetPackage[] packages)
         {
-            Install (uri, directory, new InstallOptions (), packages);
+            Install(uri, directory, _ => { }, new InstallOptions(), packages);
         }
 
-        public static void Install(Uri uri, DirectoryInfo directory, InstallOptions opts, params NugetPackage[] packages)
+        public static void Install(Uri uri, DirectoryInfo directory, Action<string> log, params NugetPackage[] packages)
         {
+            Install (uri, directory, log, new InstallOptions(), packages);
+        }
+
+        public static void Install(Uri uri, DirectoryInfo directory, Action<string> log, InstallOptions opts, params NugetPackage[] packages)
+        {
+            var packageManager = new PackageManager(PackageRepository(uri), directory.FullName); //@todo: parallelize
+
             foreach (var package in packages)
             {
                 var semanticVersion = package.Version != null ? SemanticVersion.Parse(package.Version.Value) : null;
 
-                new PackageManager(PackageRepository(uri), directory.FullName).InstallPackage(package.Id, semanticVersion, false == opts.IncludeDependencies, false);
+                log($"Installing package <{package.Id}, {semanticVersion.Version}> " + (opts.IncludeDependencies ? "with dependencies" : "without dependencies"));
+
+                packageManager.PackageInstalling    += (_, e) => { log($"Installing package <{e.Package.Id}, {e.Package.Version}>"); };
+                packageManager.PackageInstalled     += (_, e) => { log($"Installed package <{e.Package.Id}, {e.Package.Version}>"); };
+
+                packageManager.InstallPackage(package.Id, semanticVersion, false == opts.IncludeDependencies, false);
+
+                log($"Installed package <{package.Id}, {semanticVersion.Version}> ");
             }
         }
 

@@ -19,7 +19,7 @@ namespace Conduit.Integration.Tests.Packaging.Flattening
             var result = Nuget.Flatten(
                 Settings.PublicNuget, 
                 packagesDir, 
-                targetDirectory, 
+                targetDirectory,
                 new NugetPackage("Conduit.Build.Targets", new PackageVersion("0.0.8"), FrameworkNames.Net45));
 
             Assert.Equal(3, result.Count);
