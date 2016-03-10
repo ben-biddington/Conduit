@@ -18,7 +18,7 @@ namespace Conduit.Integration.Tests.Packaging
                     <package id=""Conduit.Build.Targets"" version=""0.0.8"" targetFramework=""net45"" />
                 </packages>");
 
-            var packages = PackagesConfig.Read(new DirectoryInfo("packages"));
+            var packages = PackagesDirectory.Read(new DirectoryInfo("packages"));
 
             var names = packages.Select(it => it.Id).ToList();
 
