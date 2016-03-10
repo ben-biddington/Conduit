@@ -84,7 +84,7 @@
     <Compile Include="Support\AcceptanceTest.cs" />
     <Compile Include="Packaging\Flattening\Can_flatten_a_packages_config_to_another_dir.cs" />
     <Compile Include="Packaging\Flattening\Can_flatten_a_package_to_a_single_directory.cs" />
-    <Compile Include="Packaging\Flattening\Can_read_a_packages_config_file.cs" />
+    <Compile Include="Packaging\Can_read_a_packages_config_file.cs" />
     <Compile Include="Support\DirectoryInfoAssertions.cs" />
     <Compile Include="Support\Settings.cs" />
     <Compile Include="Support\RunsInCleanRoom.cs" />

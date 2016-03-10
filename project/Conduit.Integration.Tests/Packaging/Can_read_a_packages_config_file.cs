@@ -4,7 +4,7 @@ using Conduit.Adapters.Build.Packaging;
 using Conduit.Integration.Tests.Support;
 using Xunit;
 
-namespace Conduit.Integration.Tests.Packaging.Flattening
+namespace Conduit.Integration.Tests.Packaging
 {
     public class Can_read_a_packages_config_file : RunsInCleanRoom
     {
