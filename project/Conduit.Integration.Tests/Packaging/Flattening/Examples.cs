@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Conduit.Adapters.Build.Packaging;
 using Conduit.Integration.Tests.Support;
 using Xunit;

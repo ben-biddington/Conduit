@@ -9,6 +9,14 @@ namespace Conduit.Integration.Tests.Support
         private FileInfo _packagesConfigFile;
         private DirectoryInfo _packagesDirectory;
 
+        protected void Given_this_is_present_and_installed_with_dependencies(string xml)
+        {
+            _packagesConfigFile = FileMachine.Make("packages.config", xml);
+            _packagesDirectory = new DirectoryInfo("packages");
+
+            Nuget.Install(Settings.PublicNuget, _packagesDirectory, new Nuget.InstallOptions(true), PackagesConfig.Read(_packagesConfigFile).ToArray());
+        }
+
         protected void Given_this_is_present_and_installed(string xml)
         {
             _packagesConfigFile = FileMachine.Make("packages.config", xml);

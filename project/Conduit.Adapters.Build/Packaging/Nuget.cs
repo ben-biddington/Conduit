@@ -20,7 +20,12 @@ namespace Conduit.Adapters.Build.Packaging
 
         public static void Install(Uri uri, DirectoryInfo directory, params NugetPackage[] packages)
         {
-            Install(uri, directory, _ => { }, new InstallOptions(), packages);
+            Install(uri, directory, new InstallOptions(), packages);
+        }
+
+        public static void Install(Uri uri, DirectoryInfo directory, InstallOptions opts, params NugetPackage[] packages)
+        {
+            Install(uri, directory, _ => { }, opts, packages);
         }
 
         public static void Install(Uri uri, DirectoryInfo directory, Action<string> log, params NugetPackage[] packages)
