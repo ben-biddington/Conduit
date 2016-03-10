@@ -22,8 +22,8 @@ namespace Conduit.Integration.Tests.Packaging
 
             var names = packages.Select(it => it.Id).ToList();
 
-            Assert.True(names.Any(it => it.Equals("Conduit.Build.Targets")), $"Expected <{"Conduit.Build.Targets"}>, got: {string.Join(Environment.NewLine, names)}");
-            Assert.True(names.Any(it => it.Equals("Minimatch")), $"Expected <{"Conduit.Build.Targets"}>, got: {string.Join(Environment.NewLine, names)}");
+            Assert.True(names.Any(it => it.Equals("Conduit.Build.Targets")) , $"Expected <{"Conduit.Build.Targets"}>, got: {string.Join(Environment.NewLine, names)}");
+            Assert.True(names.Any(it => it.Equals("Minimatch"))             , $"Expected <{"Minimatch"}>, got: {string.Join(Environment.NewLine, names)}");
         }
     }
 }
