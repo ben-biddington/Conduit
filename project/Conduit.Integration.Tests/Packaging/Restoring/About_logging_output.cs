@@ -1,28 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Conduit.Integration.Tests.Support;
 using Xunit;
 
 namespace Conduit.Integration.Tests.Packaging.Restoring
 {
-    class MockLog
-    {
-        private readonly List<string> _messages = new List<string>();
-
-        internal Action<string> Fun()
-        {
-            return m => _messages.Add(m);
-        }
-
-        public void MustHaveMessageLike(string expected)
-        {
-            Assert.True(_messages.Any(it => it.Contains(expected)), 
-                $"Expected message <{expected}>, got:{Environment.NewLine}{Environment.NewLine}{string.Join(Environment.NewLine, _messages.ToArray())}");
-        }
-    }
-
     public class About_logging_output : RunsInCleanRoom
     {
         [Fact]

@@ -40,10 +40,10 @@ namespace Conduit.Adapters.Build.Packaging
 
                 packageManager.PackageInstalling    += (_, e) => { log($"Installing package <{e.Package.Id}, {e.Package.Version}>"); };
                 packageManager.PackageInstalled     += (_, e) => { log($"Installed package <{e.Package.Id}, {e.Package.Version}>"); };
-
+                
                 packageManager.InstallPackage(package.Id, semanticVersion, false == opts.IncludeDependencies, false);
 
-                log($"Installed package <{package.Id}, {semanticVersion.Version}> ");
+                log($"Installed package <{package.Id}, {semanticVersion.Version}>");
             }
         }
 

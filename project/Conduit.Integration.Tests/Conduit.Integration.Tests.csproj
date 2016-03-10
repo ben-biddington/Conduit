@@ -79,6 +79,7 @@
     <Compile Include="Globbing\You_may_supply_a_list_of_globs.cs" />
     <Compile Include="Packaging\Restoring\About_logging_output.cs" />
     <Compile Include="Packaging\Restoring\Can_restore_packages.cs" />
+    <Compile Include="Support\MockLog.cs" />
     <Compile Include="Support\AcceptanceTest.cs" />
     <Compile Include="Packaging\Flattening\Can_flatten_a_packages_config_to_another_dir.cs" />
     <Compile Include="Packaging\Flattening\Can_flatten_a_package_to_a_single_directory.cs" />
