@@ -3,7 +3,7 @@
 Compile and run tests with:
 
 ```
-xbuild Conduit.sln && xbuild build /t:TestAll
+xbuild Conduit.sln && xbuild build.xml /t:TestAll
 ```
  Or (Windows):
 
