@@ -25,6 +25,11 @@ namespace Conduit.Build.Targets.Nuget
         public bool IncludeDependencies { get; set; }
 
         /// <summary>
+        /// When true, instructs nuget to ignore any local proxy
+        /// </summary>
+        public bool BypassProxy { get; set; }
+
+        /// <summary>
         /// Where you want to install packages to
         /// </summary>
         [Required]
@@ -50,7 +55,7 @@ namespace Conduit.Build.Targets.Nuget
                 new Uri(NugetUrl),
                 new DirectoryInfo(TargetDirectory),
                 Log,
-                new Adapters.Build.Packaging.Nuget.InstallOptions(IncludeDependencies),
+                new Adapters.Build.Packaging.Nuget.InstallOptions(IncludeDependencies, BypassProxy),
                 packages.ToArray());
 
             return true;

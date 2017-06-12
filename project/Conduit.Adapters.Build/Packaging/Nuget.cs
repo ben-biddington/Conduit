@@ -36,7 +36,7 @@ namespace Conduit.Adapters.Build.Packaging
 
         public static void Install(Uri uri, DirectoryInfo directory, Action<string> log, InstallOptions opts, params NugetPackage[] packages)
         {
-            var packageManager = new PackageManager(PackageRepository(uri), directory.FullName); //@todo: parallelize
+            var packageManager = new PackageManager(PackageRepository(uri, log), directory.FullName); //@todo: parallelize
 
             log($"Installing packages from source server <{uri}> ({packageManager.SourceRepository.Source})");
 
@@ -66,26 +66,30 @@ namespace Conduit.Adapters.Build.Packaging
 
         private static IPackageRepository PackageRepository(Uri uri)
         {
+            return PackageRepository(uri, m => { });
+        }
+
+        private static IPackageRepository PackageRepository(Uri uri, Action<string> log)
+        {
             var factory = new PackageRepositoryFactory
             {
-                HttpClientFactory = url => HttpClient(url)
+                HttpClientFactory = url => HttpClient(url, log)
             };
 
             return factory.CreateRepository(uri.AbsoluteUri);
         }
 
-        private static IHttpClient HttpClient(Uri url)
-        {
-            return new DefaultHttpClient(url, DefaultHttpClient.Options.Default);
-        }
+        private static IHttpClient HttpClient(Uri url, Action<string> log) => new DefaultHttpClient(url, DefaultHttpClient.Options.Default.With(log));
 
         public class InstallOptions
         {
             public bool IncludeDependencies { get; private set; }
+            public bool BypassProxy { get; private set; }
 
-            public InstallOptions(bool dependencies = false) 
+            public InstallOptions(bool dependencies = false, bool bypassProxy = false)
             {
                 IncludeDependencies = dependencies;
+                BypassProxy = bypassProxy;
             }
         }
     }

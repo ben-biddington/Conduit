@@ -16,10 +16,17 @@ namespace Conduit.Adapters.Build.Packaging
             public static Options Default = new Options(true);
 
             public bool BypassProxy { get; }
+            public Action<string> Log { get; private set; }
 
             public Options(bool bypassProxy)
             {
                 BypassProxy = bypassProxy;
+                Log = _ => { };
+            }
+
+            public Options With(Action<string> log)
+            {
+                return new Options(BypassProxy) { Log = m => { log($"[{typeof(DefaultHttpClient).FullName}] {m}"); } };
             }
         }
 
@@ -28,10 +35,12 @@ namespace Conduit.Adapters.Build.Packaging
 
         private static ICredentialProvider _credentialProvider;
         private Uri _uri;
+        private readonly Options _opts;
 
         public DefaultHttpClient(Uri uri, Options opts)
         {
             _uri = uri;
+            _opts = opts;
         }
 
         public string UserAgent
@@ -110,18 +119,25 @@ namespace Conduit.Adapters.Build.Packaging
                 CredentialStore.Instance,
                 DefaultCredentialProvider,
                 DisableBuffering);
+
             return requestHelper.GetResponse();
         }
 
         public void InitializeRequest(WebRequest request)
         {
-            // Setup the request properties like content type and compression
             InitializeRequestProperties(request);
 
-            // Use credentials from the cache if any for this uri
-            TrySetCredentialsAndProxy(request);
+            if (!_opts.BypassProxy)
+            {
+                _opts.Log("Bypassing proxy");
+                request.Proxy = null;
+                request.Credentials = null;
+            }
+            else
+            {
+                TrySetCredentialsAndProxy(request);
+            }
 
-            // Give clients a chance to examine/modify the request object before the request actually goes out.
             RaiseSendingRequest(request);
         }
 

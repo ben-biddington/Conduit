@@ -25,6 +25,7 @@ namespace Conduit.Integration.Tests.Packaging.Restoring
                 TargetDirectory     = targetDir.FullName,
                 PackagesConfigFile  = "packages.config",
                 IncludeDependencies = true,
+                BypassProxy         = true,
                 Log                 = log.Fun()
             }.Execute();
 
