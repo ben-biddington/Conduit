@@ -66,7 +66,17 @@ namespace Conduit.Adapters.Build.Packaging
 
         private static IPackageRepository PackageRepository(Uri uri)
         {
-            return PackageRepositoryFactory.Default.CreateRepository(uri.AbsoluteUri);
+            var factory = new PackageRepositoryFactory
+            {
+                HttpClientFactory = url => HttpClient(url)
+            };
+
+            return factory.CreateRepository(uri.AbsoluteUri);
+        }
+
+        private static IHttpClient HttpClient(Uri url)
+        {
+            return new DefaultHttpClient(url, DefaultHttpClient.Options.Default);
         }
 
         public class InstallOptions
