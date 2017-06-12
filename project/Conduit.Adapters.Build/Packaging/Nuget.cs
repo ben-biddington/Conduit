@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using NuGet;
 
 namespace Conduit.Adapters.Build.Packaging
@@ -47,8 +48,15 @@ namespace Conduit.Adapters.Build.Packaging
 
                 packageManager.PackageInstalling    += (_, e) => { log($"Installing package <{e.Package.Id}, {e.Package.Version}>"); };
                 packageManager.PackageInstalled     += (_, e) => { log($"Installed package <{e.Package.Id}, {e.Package.Version}>"); };
-                
-                packageManager.InstallPackage(package.Id, semanticVersion, false == opts.IncludeDependencies, false);
+
+                try
+                {
+                    packageManager.InstallPackage(package.Id, semanticVersion, false == opts.IncludeDependencies, false);
+                }
+                catch (WebException e)
+                {
+                    throw new Exception($"Failed to install package <{package.Id}>. The URL in question is <{e.Response?.ResponseUri}>. see inner exception for details.");
+                }
 
                 log($"Installed package <{package.Id}, {semanticVersion.Version}>");
             }
