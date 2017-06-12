@@ -26,7 +26,10 @@ namespace Conduit.Adapters.Build.Packaging
 
             public Options With(Action<string> log)
             {
-                return new Options(BypassProxy) { Log = m => { log($"[{typeof(DefaultHttpClient).FullName}] {m}"); } };
+                return new Options(BypassProxy)
+                {
+                    Log = m => { log($"[{typeof(DefaultHttpClient).FullName}] {m}"); }
+                };
             }
         }
 
@@ -127,7 +130,7 @@ namespace Conduit.Adapters.Build.Packaging
         {
             InitializeRequestProperties(request);
 
-            if (!_opts.BypassProxy)
+            if (_opts.BypassProxy)
             {
                 _opts.Log("Bypassing proxy");
                 request.Proxy = null;

@@ -35,6 +35,7 @@ namespace Conduit.Integration.Tests.Packaging.Restoring
             log.MustHaveMessageLike("Installed package <Conduit.Build.Targets, 0.0.8.0>");
 
             log.MustHaveMessageLike($"Installing packages from source server <{Settings.PublicNuget.AbsoluteUri}>");
+            log.MustHaveMessageLike("Bypassing proxy");
         }
     }
 }

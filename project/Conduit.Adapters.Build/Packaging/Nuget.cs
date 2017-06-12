@@ -79,7 +79,8 @@ namespace Conduit.Adapters.Build.Packaging
             return factory.CreateRepository(uri.AbsoluteUri);
         }
 
-        private static IHttpClient HttpClient(Uri url, Action<string> log) => new DefaultHttpClient(url, DefaultHttpClient.Options.Default.With(log));
+        private static IHttpClient HttpClient(Uri url, Action<string> log)
+            => new DefaultHttpClient(url, DefaultHttpClient.Options.Default.With(log));
 
         public class InstallOptions
         {

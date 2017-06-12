@@ -31,7 +31,7 @@ namespace Conduit.Build.Targets.Nuget
 
         /// <summary>
         /// Where you want to install packages to
-        /// </summary>
+        /// </summary> 
         [Required]
         public string TargetDirectory { get; set; }
 
