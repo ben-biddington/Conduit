@@ -44,11 +44,7 @@ namespace Conduit.Build.Targets.Nuget
 
         public override bool Execute()
         {
-            var file = new FileInfo (PackagesConfigFile);
-
-            var packages = PackagesConfig.Read(file);
-
-            Log($"Installing packages from file <{file.FullName}> with source server <{NugetUrl}>");
+            var packages = PackagesConfig.Read(new FileInfo (PackagesConfigFile));
 
             Adapters.Build.Packaging.Nuget.Install(
                 new Uri(NugetUrl),
