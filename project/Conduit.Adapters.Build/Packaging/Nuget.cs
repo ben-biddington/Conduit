@@ -55,7 +55,9 @@ namespace Conduit.Adapters.Build.Packaging
                 }
                 catch (WebException e)
                 {
-                    throw new Exception($"Failed to install package <{package.Id}>. The URL in question is <{e.Response?.ResponseUri}>. see inner exception for details.");
+                    throw new Exception(
+                        $"Failed to install package <{package.Id}>. The URL in question is <{e.Response?.ResponseUri}>. " +
+                        $"See inner exception for details.", e);
                 }
 
                 log($"Installed package <{package.Id}, {semanticVersion.Version}>");
