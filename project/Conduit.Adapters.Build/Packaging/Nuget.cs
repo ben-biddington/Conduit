@@ -37,6 +37,8 @@ namespace Conduit.Adapters.Build.Packaging
         {
             var packageManager = new PackageManager(PackageRepository(uri), directory.FullName); //@todo: parallelize
 
+            log($"Installing packages from source server <{uri}>");
+
             foreach (var package in packages)
             {
                 var semanticVersion = package.Version != null ? SemanticVersion.Parse(package.Version.Value) : null;
